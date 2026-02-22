@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftify Mc | Creator Rewards</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Schriften über GitHub */
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+
+        :root {
+            --mc-green: #4ade80;
+            --acrylic: rgba(20, 20, 25, 0.8);
+            --border-glow: rgba(74, 222, 128, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #e4e4e7;
+            margin: 0;
+            background-color: #0c0c0e;
+            background-image: 
+                linear-gradient(rgba(12, 12, 14, 0.6), rgba(12, 12, 14, 0.8)),
+                url('https://raw.githubusercontent.com/der46er/craftify/main/assets/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .game-card {
+            background: var(--acrylic);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .game-card:hover {
+            transform: scale(1.02);
+            border-color: var(--mc-green);
+            box-shadow: 0 0 40px var(--border-glow);
+        }
+
+        /* Side Menu */
+        #side-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+            background-color: #0c0c0e; 
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: -10px 0 50px rgba(0,0,0,0.9);
+            overflow-y: auto;
+        }
+        #side-menu.open {
+            transform: translateX(0);
+        }
+
+        .lang-btn.active {
+            color: var(--mc-green);
+            background: rgba(74, 222, 128, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="fixed w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
+        </div>
+        
+        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
+            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
+        </button>
+    </header>
+
+    <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-8 md:p-12 flex flex-col">
+        <div class="flex justify-between items-center mb-12 md:mb-16">
+            <span data-i18n="menuTitle" class="text-xs font-black uppercase tracking-[0.4em] text-zinc-500">Main Menu</span>
+            <button id="close-btn" class="p-2 hover:bg-white/5 rounded-full"><i data-lucide="x-circle" class="w-8 h-8"></i></button>
+        </div>
+        
+        <nav class="flex flex-col gap-4 md:gap-6 text-3xl md:text-4xl font-black italic uppercase tracking-tighter">
+            <a href="https://craftify-mc.eu/" class="hover:translate-x-2 transition-transform" data-i18n="navHome">Home</a>
+            <a href="https://craftify-mc.eu/news" class="hover:translate-x-2 transition-transform" data-i18n="navNews">News</a>
+            <a href="https://craftify-mc.eu/ip" class="hover:translate-x-2 transition-transform" data-i18n="navIp">IP-Address</a>
+            <a href="https://craftify-mc.eu/modpack" class="hover:translate-x-2 transition-transform" data-i18n="navMods">Modpack</a>
+            <a href="https://craftify-mc.eu/status" class="hover:translate-x-2 transition-transform" data-i18n="navStatus">Status</a>
+            <a href="https://craftify-mc.eu/videos" class="hover:translate-x-2 transition-transform" data-i18n="navVideos">Videos</a>
+            <a href="https://craftify-mc.eu/chat" class="hover:translate-x-2 transition-transform" data-i18n="navChat">Quick Chat</a>
+        </nav>
+
+        <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-6">
+            <div class="flex flex-col gap-4 text-xs font-bold uppercase tracking-widest text-zinc-500">
+                <a href="https://craftify-mc.eu/imprint" class="hover:text-white transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+                <a href="https://socials.thataustrianone.eu/" target="_blank" class="hover:text-green-400 transition-colors flex items-center gap-2">
+                    <i data-lucide="share-2" class="w-4 h-4"></i> Socials
+                </a>
+            </div>
+            
+            <div class="flex items-center justify-between mt-4 pb-4">
+                <div class="flex gap-2">
+                    <button id="btn-de" class="lang-btn px-4 py-2 rounded-lg font-black text-xs text-zinc-600 transition-colors">DE</button>
+                    <button id="btn-en" class="lang-btn active px-4 py-2 rounded-lg font-black text-xs transition-colors">EN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-32 md:pt-40 pb-20 px-4 md:px-6 max-w-7xl mx-auto w-full flex-grow">
+        
+        <section class="mb-12 md:mb-16">
+            <h1 data-i18n="heroTitle" class="text-4xl sm:text-6xl md:text-8xl font-black italic tracking-tighter leading-[1.1] md:leading-[0.85] mb-6">
+                Content <br> <span class="text-green-400">Rewards.</span>
+            </h1>
+            <p data-i18n="heroDesc" class="text-sm md:text-lg text-zinc-400 max-w-2xl font-bold">
+                Make videos about Craftify, invite new players, reach milestones and receive epic in-game items!
+            </p>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-16 md:mb-24">
+            
+            <div class="game-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col justify-center">
+                <div class="flex items-center gap-3 mb-8">
+                    <i data-lucide="list-checks" class="w-8 h-8 text-green-400"></i>
+                    <h3 data-i18n="stepsTitle" class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter">Your path to loot</h3>
+                </div>
+                
+                <div class="flex flex-col gap-6">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-green-400 flex-shrink-0">1</div>
+                        <div>
+                            <h4 data-i18n="step1Title" class="font-bold text-white text-lg mb-1">Generate Link</h4>
+                            <p data-i18n="step1Desc" class="text-zinc-400 text-sm">Use the tool on the right to generate your personal GitHub Invite Link and put it in your video description.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-green-400 flex-shrink-0">2</div>
+                        <div>
+                            <h4 data-i18n="step2Title" class="font-bold text-white text-lg mb-1">Players verify</h4>
+                            <p data-i18n="step2Desc" class="text-zinc-400 text-sm">When viewers click your link, it automatically opens a GitHub issue stating they were invited by you.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-green-400 flex-shrink-0">3</div>
+                        <div>
+                            <h4 data-i18n="step3Title" class="font-bold text-white text-lg mb-1">Claim Reward</h4>
+                            <p data-i18n="step3Desc" class="text-zinc-400 text-sm">Once you reach a milestone of submitted issues on GitHub, open a Reward Claim issue to get your loot!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col items-center justify-center text-center relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-green-400/5 blur-[80px] rounded-full pointer-events-none group-hover:bg-green-400/10 transition-colors"></div>
+                
+                <div class="relative z-10 w-full flex flex-col items-center">
+                    <i data-lucide="link" class="w-16 h-16 md:w-20 md:h-20 mx-auto text-green-400 mb-6 drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]"></i>
+                    
+                    <p data-i18n="generatorLabel" class="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-2">Setup Tracking</p>
+                    <h3 data-i18n="generatorTitle" class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-4 text-white">Create Referral Link</h3>
+
+                    <p data-i18n="generatorDesc" class="text-zinc-300 text-sm md:text-base mb-6 max-w-sm">
+                        Enter your Minecraft name to generate your personal GitHub Invite URL. Share this link with your viewers!
+                    </p>
+
+                    <div class="flex flex-col gap-4 w-full max-w-sm mx-auto">
+                        <input type="text" id="creator-username" placeholder="Your Minecraft Name" class="bg-black/60 border border-white/10 rounded-xl px-4 py-4 text-white text-center font-bold focus:outline-none focus:border-green-400 transition-colors w-full shadow-inner placeholder:text-zinc-600">
+                        
+                        <button onclick="generateReferralUrl()" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all w-full active:scale-95">
+                            <span data-i18n="generateBtn">Generate Link</span>
+                        </button>
+                    </div>
+
+                    <div id="link-result" class="hidden mt-6 bg-black/40 border border-green-400/30 rounded-2xl p-5 flex-col items-center w-full max-w-sm mx-auto">
+                        <span class="text-green-400 font-black uppercase tracking-[0.2em] text-[10px] mb-2 block" data-i18n="yourLink">Your Invite Link</span>
+                        <input type="text" id="generated-url" readonly class="bg-transparent text-sm md:text-base font-bold text-white text-center w-full mb-4 outline-none selection:bg-green-400/30" value="">
+                        
+                        <div class="flex gap-3 w-full">
+                            <button onclick="copyGeneratedUrl()" id="btn-copy-url" class="bg-green-400 hover:bg-green-300 text-black px-4 py-3 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex-1 flex items-center justify-center gap-2 active:scale-95">
+                                <i data-lucide="copy" class="w-4 h-4 icon-slot-url"></i>
+                                <span class="text-slot-url" data-i18n="copyBtn">Copy</span>
+                            </button>
+                            <a href="https://github.com/der46er/craftify/issues" target="_blank" class="bg-white/10 hover:bg-white/20 text-white px-4 py-3 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2 active:scale-95" title="Claim Rewards">
+                                <i data-lucide="gift" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <section class="mb-16 md:mb-24 relative">
+            <div class="flex items-center justify-center gap-3 mb-10">
+                <i data-lucide="trophy" class="w-8 h-8 md:w-10 md:h-10 text-yellow-400"></i>
+                <h2 data-i18n="milestoneTitle" class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-center">Milestones</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-blue-400">
+                    <span class="text-blue-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier1Label">Tier 1</span>
+                    <h3 class="text-3xl font-black italic text-white mb-6">1 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Player</span></h3>
+                    <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
+                        <li class="flex items-center gap-2"><i data-lucide="gem" class="w-4 h-4 text-cyan-400"></i> <span data-i18n="reward1_1">64x Diamonds</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="apple" class="w-4 h-4 text-yellow-400"></i> <span data-i18n="reward1_2">1x Enchanted Golden Apple</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="wind" class="w-4 h-4 text-zinc-300"></i> <span data-i18n="reward1_3">16x Wind Charges</span></li>
+                    </ul>
+                </div>
+
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-indigo-400">
+                    <span class="text-indigo-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier2Label">Tier 2</span>
+                    <h3 class="text-4xl font-black italic text-white mb-6">3 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
+                    <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
+                        <li class="flex items-center gap-2"><i data-lucide="box" class="w-4 h-4 text-zinc-500"></i> <span data-i18n="reward2_1">1x Netherite Ingot</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="feather" class="w-4 h-4 text-zinc-300"></i> <span data-i18n="reward2_2">1x Elytra</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="anvil" class="w-4 h-4 text-zinc-500"></i> <span data-i18n="reward2_3">1x Heavy Core</span></li>
+                    </ul>
+                </div>
+
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-purple-400">
+                    <span class="text-purple-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier3Label">Tier 3</span>
+                    <h3 class="text-3xl font-black italic text-white mb-6">5 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
+                    <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
+                        <li class="flex items-center gap-2"><i data-lucide="message-square" class="w-4 h-4 text-purple-400"></i> <span data-i18n="reward3_1">Creator Chat Prefix</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="package" class="w-4 h-4 text-purple-500"></i> <span data-i18n="reward3_2">1x Shulker Box</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="hammer" class="w-4 h-4 text-zinc-400"></i> <span data-i18n="reward3_3">1x Mace</span></li>
+                    </ul>
+                </div>
+
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-pink-400">
+                    <span class="text-pink-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier4Label">Tier 4</span>
+                    <h3 class="text-3xl font-black italic text-white mb-6">10 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
+                    <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
+                        <li class="flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4 text-orange-400"></i> <span data-i18n="reward4_1">Creator Rank (14 Days)</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="swords" class="w-4 h-4 text-blue-400"></i> <span data-i18n="reward4_2">1x Trident</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="apple" class="w-4 h-4 text-yellow-400"></i> <span data-i18n="reward4_3">64x Enchanted Golden Apples</span></li>
+                    </ul>
+                </div>
+
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-red-500 shadow-[0_10px_30px_rgba(239,68,68,0.1)]">
+                    <span class="text-red-500 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier5Label">Tier 5</span>
+                    <h3 class="text-4xl font-black italic text-white mb-6">25 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
+                    <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
+                        <li class="flex items-center gap-2"><i data-lucide="crown" class="w-4 h-4 text-green-400"></i> <span data-i18n="reward5_1">Creator Rank (30 Days)</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="skull" class="w-4 h-4 text-red-400"></i> <span data-i18n="reward5_2">1x Monster Spawner</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="box" class="w-4 h-4 text-zinc-400"></i> <span data-i18n="reward5_3">4x Netherite Blocks</span></li>
+                    </ul>
+                </div>
+
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-orange-400">
+                    <span class="text-orange-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier6Label">Tier 6</span>
+                    <h3 class="text-3xl font-black italic text-white mb-6">50 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
+                    <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
+                        <li class="flex items-center gap-2"><i data-lucide="crown" class="w-4 h-4 text-yellow-500"></i> <span data-i18n="reward6_1">Permanent Creator Rank</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="egg" class="w-4 h-4 text-purple-500"></i> <span data-i18n="reward6_2">1x Dragon Egg</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="key" class="w-4 h-4 text-orange-500"></i> <span data-i18n="reward6_3">16x Ominous Trial Keys</span></li>
+                    </ul>
+                </div>
+
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-yellow-400 shadow-[0_10px_30px_rgba(250,204,21,0.15)]">
+                    <span class="text-yellow-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier7Label">Tier 7</span>
+                    <h3 class="text-3xl font-black italic text-white mb-6">100 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
+                    <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
+                        <li class="flex items-center gap-2"><i data-lucide="star" class="w-4 h-4 text-yellow-400"></i> <span data-i18n="reward7_1">Partner Rank (30 Days)</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="palette" class="w-4 h-4 text-pink-400"></i> <span data-i18n="reward7_2">Custom Chat Color</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="skull" class="w-4 h-4 text-red-500"></i> <span data-i18n="reward7_3">5x Monster Spawners</span></li>
+                    </ul>
+                </div>
+
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-green-400 shadow-[0_15px_40px_rgba(74,222,128,0.15)]">
+                    <span class="text-green-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier8Label">Tier 8</span>
+                    <h3 class="text-4xl font-black italic text-white mb-6">250 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
+                    <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
+                        <li class="flex items-center gap-2"><i data-lucide="star" class="w-4 h-4 text-yellow-500"></i> <span data-i18n="reward8_1">Permanent Partner Rank</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="user" class="w-4 h-4 text-blue-400"></i> <span data-i18n="reward8_2">Personal NPC at Spawn</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="box" class="w-4 h-4 text-zinc-500"></i> <span data-i18n="reward8_3">64x Netherite Blocks</span></li>
+                    </ul>
+                </div>
+
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-cyan-400 shadow-[0_0_50px_rgba(34,211,238,0.25)]">
+                    <span class="text-cyan-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier9Label">Tier 9</span>
+                    <h3 class="text-5xl font-black italic text-white mb-6">500 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
+                    <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
+                        <li class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i> <span data-i18n="reward9_1">Custom Named In-Game Item</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="scan-line" class="w-4 h-4 text-green-400"></i> <span data-i18n="reward9_2">Personal Server Hologram</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="package" class="w-4 h-4 text-zinc-400"></i> <span data-i18n="reward9_3">1x Shulker Box full of Netherite</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-16 md:mt-24">
+            <div class="game-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col lg:flex-row items-center justify-between gap-8 border-green-400/20">
+                <div class="flex-grow">
+                    <h3 data-i18n="promoTitle" class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-6">Tips for your success</h3>
+                    <ul class="flex flex-col gap-4 text-sm md:text-base text-zinc-400 font-bold">
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                            <span data-i18n="promoTip1">Tell viewers to click your GitHub link to get a starter bonus.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                            <span data-i18n="promoTip2">Mention <strong class="text-white">play.craftify-mc.eu</strong> in the first 3 seconds of your video.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                            <span data-i18n="promoTip3">Use the hashtags #CraftifyMC and #MinecraftServer.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="w-full lg:w-auto flex-shrink-0">
+                    <div class="p-6 rounded-3xl bg-black/40 border border-white/5 text-center shadow-inner">
+                        <i data-lucide="gem" class="w-10 h-10 text-cyan-400 mx-auto mb-3"></i>
+                        <p data-i18n="promoReward" class="text-sm text-zinc-300 max-w-[200px] mx-auto">
+                            The best creators receive <span class="text-green-400 font-black">legendary loot</span> & custom items!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-16 border-t border-white/5 pt-16">
+            <div class="flex items-center gap-3 mb-6">
+                <i data-lucide="folder-down" class="w-6 h-6 text-zinc-500"></i>
+                <h2 data-i18n="assetsTitle" class="text-xl md:text-2xl font-black italic uppercase tracking-tighter text-zinc-400">Official Creator Templates</h2>
+            </div>
+            
+            <p data-i18n="assetsDesc" class="text-zinc-500 text-sm mb-6 max-w-2xl">Use our official OBS overlay directly in your stream or recording software. Click a color to open the URL, then follow the tutorial below!</p>
+
+            <div class="flex flex-wrap gap-3 mb-10">
+                <a href="https://craftify-mc.eu/assets/overlays/craftify-overlay-green.html" target="_blank" class="bg-green-500/10 hover:bg-green-500/20 border border-green-500/30 text-green-400 px-5 py-3 rounded-xl text-sm font-bold transition-colors flex items-center gap-2 group">
+                    <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Craftify Green
+                </a>
+                <a href="https://craftify-mc.eu/assets/overlays/craftify-overlay-blue.html" target="_blank" class="bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-400 px-5 py-3 rounded-xl text-sm font-bold transition-colors flex items-center gap-2 group">
+                    <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Diamond Blue
+                </a>
+                <a href="https://craftify-mc.eu/assets/overlays/craftify-overlay-purple.html" target="_blank" class="bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-purple-400 px-5 py-3 rounded-xl text-sm font-bold transition-colors flex items-center gap-2 group">
+                    <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Amethyst Purple
+                </a>
+                <a href="https://craftify-mc.eu/assets/overlays/craftify-overlay-red.html" target="_blank" class="bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 px-5 py-3 rounded-xl text-sm font-bold transition-colors flex items-center gap-2 group">
+                    <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Redstone Red
+                </a>
+                <a href="https://craftify-mc.eu/assets/overlays/craftify-overlay-gold.html" target="_blank" class="bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 px-5 py-3 rounded-xl text-sm font-bold transition-colors flex items-center gap-2 group">
+                    <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Gold Yellow
+                </a>
+            </div>
+
+            <div class="bg-black/40 border border-white/10 rounded-2xl p-6 md:p-8 max-w-2xl">
+                <div class="flex items-center gap-3 mb-4">
+                    <i data-lucide="settings-2" class="w-6 h-6 text-zinc-400"></i>
+                    <h3 data-i18n="obsTutorialTitle" class="text-lg md:text-xl font-black italic uppercase tracking-tighter text-white">How to use in OBS</h3>
+                </div>
+                <ol class="flex flex-col gap-3 text-sm text-zinc-400 font-bold list-decimal list-inside ml-2">
+                    <li data-i18n="obsStep1">Click on your preferred color above and copy the URL of the opened page.</li>
+                    <li data-i18n="obsStep2">In OBS, add a new source and select "Browser" (Browserquelle).</li>
+                    <li data-i18n="obsStep3">Paste the copied URL into the "URL" field.</li>
+                    <li data-i18n="obsStep4">Set Width to 800 and Height to 200, then click OK. You're done!</li>
+                </ol>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+        
+        // --- GitHub Link Generator Logik (mit URL Shortener) ---
+        async function generateReferralUrl() {
+            const inputField = document.getElementById('creator-username');
+            const name = inputField.value.trim();
+            const resultBox = document.getElementById('link-result');
+            const urlDisplay = document.getElementById('generated-url');
+            
+            if (name === "") {
+                inputField.classList.add('border-red-500');
+                setTimeout(() => inputField.classList.remove('border-red-500'), 500);
+                return;
+            }
+
+            const repoBase = "https://github.com/der46er/craftify/issues/new";
+            const issueTitle = encodeURIComponent(`Player Invite: ${name}`);
+            const issueBody = encodeURIComponent(`**My Minecraft Name:** [Enter your Name here]\n**Invited by:** ${name}\n\n*(Leave the "Invited by" field unchanged so the creator gets their reward!)*`);
+            const longLink = `${repoBase}?title=${issueTitle}&body=${issueBody}`;
+            
+            // Lade Status
+            const isDe = document.documentElement.lang === 'de';
+            urlDisplay.value = isDe ? "Generiere Link..." : "Generating Link...";
+            resultBox.classList.remove('hidden');
+            resultBox.classList.add('flex');
+            lucide.createIcons();
+
+            try {
+                // Kostenloser TinyURL API Call
+                const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longLink)}`);
+                if (response.ok) {
+                    const shortLink = await response.text();
+                    urlDisplay.value = shortLink;
+                } else {
+                    urlDisplay.value = longLink; 
+                }
+            } catch (error) {
+                console.error("URL Shortener Error:", error);
+                urlDisplay.value = longLink; // Fallback bei Adblockern
+            }
+        }
+
+        // --- Robuste Kopier-Logik ---
+        function copyGeneratedUrl() {
+            const inputField = document.getElementById('generated-url');
+            const textToCopy = inputField.value;
+            if (!textToCopy || textToCopy.includes('Gener')) return;
+
+            const btn = document.getElementById('btn-copy-url');
+            const iconSlot = btn.querySelector('.icon-slot-url');
+            const textSlot = btn.querySelector('.text-slot-url');
+            const currentLang = document.documentElement.lang || 'en';
+
+            try {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showCopiedSuccess(btn, iconSlot, textSlot, currentLang);
+                }).catch(() => {
+                    fallbackCopy(textToCopy, btn, iconSlot, textSlot, currentLang);
+                });
+            } catch (e) {
+                fallbackCopy(textToCopy, btn, iconSlot, textSlot, currentLang);
+            }
+        }
+
+        function fallbackCopy(text, btn, iconSlot, textSlot, currentLang) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try { document.execCommand('copy'); } catch (err) { }
+            document.body.removeChild(textArea);
+            showCopiedSuccess(btn, iconSlot, textSlot, currentLang);
+        }
+
+        function showCopiedSuccess(btn, iconSlot, textSlot, currentLang) {
+            const originalClasses = btn.className;
+            btn.className = "bg-white text-green-600 px-4 py-3 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex-1 flex items-center justify-center gap-2 active:scale-95";
+            iconSlot.setAttribute('data-lucide', 'check');
+            lucide.createIcons();
+            textSlot.innerText = translations[currentLang]['copiedText'];
+
+            setTimeout(() => {
+                btn.className = originalClasses;
+                iconSlot.setAttribute('data-lucide', 'copy');
+                lucide.createIcons();
+                textSlot.innerText = translations[currentLang]['copyBtn'];
+            }, 2000);
+        }
+
+        // --- Menü Logik ---
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sideMenu = document.getElementById('side-menu');
+        
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('open'));
+        document.addEventListener('click', (e) => {
+            if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                sideMenu.classList.remove('open');
+            }
+        });
+
+        // --- Übersetzungen ---
+        const translations = {
+            en: {
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy",
+                heroTitle: "Content <br> <span class='text-green-400'>Rewards.</span>",
+                heroDesc: "Make videos about Craftify, invite new players, reach milestones and receive epic in-game items!",
+                stepsTitle: "Your path to loot",
+                step1Title: "Generate Link", step1Desc: "Use the tool on the right to generate your personal GitHub Invite Link and put it in your video description.",
+                step2Title: "Players verify", step2Desc: "When viewers click your link, it automatically opens a GitHub issue stating they were invited by you.",
+                step3Title: "Claim Reward", step3Desc: "Once you reach a milestone of submitted issues on GitHub, open a Reward Claim issue to get your loot!",
+                generatorLabel: "Setup Tracking",
+                generatorTitle: "Create Referral Link",
+                generatorDesc: "Enter your Minecraft name to generate your personal GitHub Invite URL. Share this link with your viewers!",
+                generateBtn: "Generate Link",
+                yourLink: "Your Invite Link",
+                copyBtn: "Copy",
+                copiedText: "Copied!",
+                milestoneTitle: "Milestones",
+                playersLabel: "Players",
+                tier1Label: "Tier 1", tier2Label: "Tier 2", tier3Label: "Tier 3",
+                tier4Label: "Tier 4", tier5Label: "Tier 5", tier6Label: "Tier 6",
+                tier7Label: "Tier 7", tier8Label: "Tier 8", tier9Label: "Tier 9",
+                reward1_1: "64x Diamonds", reward1_2: "1x Enchanted Golden Apple", reward1_3: "16x Wind Charges",
+                reward2_1: "1x Netherite Ingot", reward2_2: "1x Elytra", reward2_3: "1x Heavy Core",
+                reward3_1: "Creator Chat Prefix", reward3_2: "1x Shulker Box", reward3_3: "1x Mace",
+                reward4_1: "Creator Rank (14 Days)", reward4_2: "1x Trident", reward4_3: "64x Enchanted Golden Apples",
+                reward5_1: "Creator Rank (30 Days)", reward5_2: "1x Monster Spawner", reward5_3: "4x Netherite Blocks",
+                reward6_1: "Permanent Creator Rank", reward6_2: "1x Dragon Egg", reward6_3: "16x Ominous Trial Keys",
+                reward7_1: "Partner Rank (30 Days)", reward7_2: "Custom Chat Color", reward7_3: "5x Monster Spawners",
+                reward8_1: "Permanent Partner Rank", reward8_2: "Personal NPC at Spawn", reward8_3: "64x Netherite Blocks",
+                reward9_1: "Custom Named In-Game Item", reward9_2: "Personal Server Hologram", reward9_3: "1x Shulker Box full of Netherite",
+                promoTitle: "Tips for your success",
+                promoTip1: "Tell viewers to click your GitHub link to get a starter bonus.",
+                promoTip2: "Mention <strong class='text-white'>play.craftify-mc.eu</strong> in the first 3 seconds of your video.",
+                promoTip3: "Use the hashtags #CraftifyMC and #MinecraftServer.",
+                promoReward: "The best creators receive <span class='text-green-400 font-black'>legendary loot</span> & custom items!",
+                assetsTitle: "Official Creator Templates",
+                assetsDesc: "Use our official OBS overlay directly in your stream or recording software. Click a color to open the URL, then follow the tutorial below!",
+                obsTutorialTitle: "How to use in OBS",
+                obsStep1: "Click on your preferred color above and copy the URL of the opened page.",
+                obsStep2: "In OBS, add a new source and select \"Browser\".",
+                obsStep3: "Paste the copied URL into the \"URL\" field.",
+                obsStep4: "Set Width to 800 and Height to 200, then click OK. You're done!"
+            },
+            de: {
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Impressum & Datenschutz",
+                heroTitle: "Content <br> <span class='text-green-400'>Belohnungen.</span>",
+                heroDesc: "Mache Videos über Craftify, lade neue Spieler ein, erreiche Meilensteine und erhalte epische In-Game Items!",
+                stepsTitle: "Dein Weg zum Loot",
+                step1Title: "Link generieren", step1Desc: "Nutze das Tool rechts, um deinen GitHub-Einladungslink zu erstellen und packe ihn in deine Videobeschreibung.",
+                step2Title: "Spieler verifizieren", step2Desc: "Klicken Zuschauer auf den Link, öffnet sich direkt ein GitHub-Issue, in dem steht, dass sie von dir eingeladen wurden.",
+                step3Title: "Belohnung anfordern", step3Desc: "Sobald du durch die GitHub-Issues einen Meilenstein erreichst, öffne ein 'Reward Claim'-Issue für deinen Loot!",
+                generatorLabel: "Tracking Einrichten",
+                generatorTitle: "Referral Link Erstellen",
+                generatorDesc: "Gib deinen Minecraft-Namen ein, um deine persönliche GitHub Invite URL zu generieren. Teile diesen Link mit deinen Zuschauern!",
+                generateBtn: "Link generieren",
+                yourLink: "Dein Einladungslink",
+                copyBtn: "Kopieren",
+                copiedText: "Kopiert!",
+                milestoneTitle: "Meilensteine",
+                playersLabel: "Spieler",
+                tier1Label: "Stufe 1", tier2Label: "Stufe 2", tier3Label: "Stufe 3",
+                tier4Label: "Stufe 4", tier5Label: "Stufe 5", tier6Label: "Stufe 6",
+                tier7Label: "Stufe 7", tier8Label: "Stufe 8", tier9Label: "Stufe 9",
+                reward1_1: "64x Diamanten", reward1_2: "1x Verzauberter Goldapfel", reward1_3: "16x Windkugeln",
+                reward2_1: "1x Netherite-Barren", reward2_2: "1x Elytra", reward2_3: "1x Schwerer Kern",
+                reward3_1: "Creator Chat-Präfix", reward3_2: "1x Shulker Box", reward3_3: "1x Streitkolben",
+                reward4_1: "Creator Rang (14 Tage)", reward4_2: "1x Dreizack", reward4_3: "64x Verzauberte Goldäpfel",
+                reward5_1: "Creator Rang (30 Tage)", reward5_2: "1x Monster Spawner", reward5_3: "4x Netherite-Blöcke",
+                reward6_1: "Permanenter Creator Rang", reward6_2: "1x Drachenei", reward6_3: "16x Unheilvolle Prüfschlüssel",
+                reward7_1: "Partner Rang (30 Tage)", reward7_2: "Eigene Chatfarbe", reward7_3: "5x Monster Spawner",
+                reward8_1: "Permanenter Partner Rang", reward8_2: "Eigener NPC am Spawn", reward8_3: "64x Netherite-Blöcke",
+                reward9_1: "Item mit Wunschname", reward9_2: "Persönliches Server-Hologramm", reward9_3: "1x Shulker-Kiste voller Netherite-Blöcke",
+                promoTitle: "Tipps für deinen Erfolg",
+                promoTip1: "Sag deinen Zuschauern, dass sie auf den Link klicken sollen, um einen Bonus zu bekommen.",
+                promoTip2: "Erwähne <strong class='text-white'>play.craftify-mc.eu</strong> in den ersten 3 Sekunden deines Videos.",
+                promoTip3: "Verwende die Hashtags #CraftifyMC und #MinecraftServer.",
+                promoReward: "Die besten Creator erhalten <span class='text-green-400 font-black'>legendären Loot</span> & eigene Items!",
+                assetsTitle: "Offizielle Creator Vorlagen",
+                assetsDesc: "Nutze unser offizielles OBS-Overlay direkt in deinem Stream oder deiner Aufnahmesoftware. Klicke auf eine Farbe, um die URL zu öffnen, und folge dem Tutorial unten!",
+                obsTutorialTitle: "So funktioniert's in OBS",
+                obsStep1: "Klicke oben auf deine Wunschfarbe und kopiere die URL der geöffneten Seite.",
+                obsStep2: "Füge in OBS eine neue Quelle hinzu und wähle \"Browser\" (Browserquelle).",
+                obsStep3: "Füge die kopierte URL in das Feld \"URL\" ein.",
+                obsStep4: "Setze die Breite auf 800 und Höhe auf 200, klicke auf OK. Fertig!"
+            }
+        };
+
+        const btnDe = document.getElementById('btn-de');
+        const btnEn = document.getElementById('btn-en');
+        
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            
+            // Input-Platzhalter anpassen
+            const creatorInput = document.getElementById('creator-username');
+            if(creatorInput) {
+                creatorInput.placeholder = lang === 'en' ? "Your Minecraft Name" : "Dein Minecraft Name";
+            }
+            
+            // Kopier-Button aktualisieren
+            const copyTextSlot = document.querySelector('.text-slot-url');
+            if (copyTextSlot) {
+                copyTextSlot.innerText = translations[lang]['copyBtn'];
+            }
+
+            if (lang === 'en') {
+                btnEn.classList.add('active'); btnEn.classList.remove('text-zinc-600');
+                btnDe.classList.remove('active'); btnDe.classList.add('text-zinc-600');
+            } else {
+                btnDe.classList.add('active'); btnDe.classList.remove('text-zinc-600');
+                btnEn.classList.remove('active'); btnEn.classList.add('text-zinc-600');
+            }
+        }
+        
+        btnDe.addEventListener('click', () => setLanguage('de'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // Set default language to English
+        setLanguage('en');
+    </script>
+</body>
+</html>
