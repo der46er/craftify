@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftify Mc | Server Status</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
+
+        :root { --mc-green: #4ade80; --mc-red: #ef4444; --acrylic: rgba(20, 20, 25, 0.75); }
+        body { font-family: 'Inter', sans-serif; color: #e4e4e7; margin: 0; background-color: #0c0c0e; background-image: linear-gradient(rgba(12, 12, 14, 0.8), rgba(12, 12, 14, 0.95)), url('https://raw.githubusercontent.com/der46er/craftify/main/assets/background.png'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .game-card { background: var(--acrylic); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 50px rgba(0,0,0,0.8); transition: all 0.5s ease; }
+        
+        /* Status Glow Effects */
+        .glow-online { box-shadow: 0 0 60px -10px rgba(74, 222, 128, 0.15); border-color: rgba(74, 222, 128, 0.2); }
+        .glow-offline { box-shadow: 0 0 60px -10px rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.2); }
+
+        #side-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); background-color: #0c0c0e; border-left: 1px solid rgba(255, 255, 255, 0.05); }
+        #side-menu.open { transform: translateX(0); }
+
+        .status-dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+        .pulse { animation: pulse-animation 2s infinite; }
+        @keyframes pulse-animation { 0% { box-shadow: 0 0 0 0px rgba(74, 222, 128, 0.4); } 100% { box-shadow: 0 0 0 15px rgba(74, 222, 128, 0); } }
+    </style>
+</head>
+<body>
+
+    <header class="w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5 fixed top-0">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
+        </div>
+        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
+            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
+        </button>
+    </header>
+
+    <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-10 flex flex-col shadow-2xl">
+        <div class="flex justify-between items-center mb-12">
+            <span data-i18n="menuTitle" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Main Menu</span>
+            <button id="close-btn" class="hover:scale-110 transition-transform"><i data-lucide="x-circle" class="w-8 h-8 text-white"></i></button>
+        </div>
+        <nav class="flex flex-col gap-6 text-[2.5rem] font-black italic uppercase tracking-tighter leading-none">
+            <a href="https://craftify-mc.eu/" class="hover:text-zinc-300 transition-colors" data-i18n="navHome">Home</a>
+            <a href="https://craftify-mc.eu/news" class="hover:text-zinc-300 transition-colors" data-i18n="navNews">News</a>
+            <a href="https://craftify-mc.eu/ip" class="hover:text-zinc-300 transition-colors" data-i18n="navIp">IP-Address</a>
+            <a href="https://craftify-mc.eu/modpack" class="hover:text-zinc-300 transition-colors" data-i18n="navMods">Modpack</a>
+            <a href="https://craftify-mc.eu/status" class="text-green-400" data-i18n="navStatus">Status</a>
+            <a href="https://craftify-mc.eu/videos" class="hover:text-zinc-300 transition-colors" data-i18n="navVideos">Videos</a>
+            <a href="https://craftify-mc.eu/chat" class="hover:text-zinc-300 transition-colors" data-i18n="navChat">Quick Chat</a>
+        </nav>
+        <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-4">
+            <a href="https://craftify-mc.eu/imprint/" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+            <a href="https://socials.thataustrianone.eu" target="_blank" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors flex items-center gap-2" data-i18n="navSocials">
+                <i data-lucide="share-2" class="w-4 h-4"></i> Socials
+            </a>
+            <div class="flex gap-4 mt-4">
+                <button id="btn-de" class="lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors">DE</button>
+                <button id="btn-en" class="lang-btn active font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors">EN</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-32 pb-10 px-4 flex-grow flex items-center justify-center w-full">
+        <div class="max-w-3xl w-full flex flex-col items-center">
+            
+            <h1 data-i18n="pageTitle" class="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter text-center mb-12">
+                Server <span class="text-green-400">Status.</span>
+            </h1>
+
+            <div id="status-card" class="game-card p-10 md:p-14 rounded-[3.5rem] w-full relative overflow-hidden">
+                <div id="dynamic-glow" class="absolute inset-0 opacity-20 blur-[80px] rounded-full pointer-events-none transition-all duration-1000"></div>
+
+                <div class="relative z-10 flex flex-col items-center text-center">
+                    
+                    <div class="mb-8">
+                        <p class="text-[11px] font-black uppercase tracking-[0.4em] text-zinc-500 mb-2">Network Address</p>
+                        <h2 class="text-3xl md:text-5xl font-black text-white italic tracking-tight">play.craftify-mc.eu</h2>
+                    </div>
+
+                    <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-8 pt-6 border-t border-white/5">
+                        <div class="flex flex-col items-center">
+                            <p data-i18n="statStatus" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-2">Status</p>
+                            <div class="flex items-center gap-3">
+                                <span id="status-dot" class="status-dot bg-zinc-600"></span>
+                                <p id="status-text" class="font-black italic text-2xl text-zinc-400 uppercase tracking-tighter">Pinging...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col items-center">
+                            <p data-i18n="statPlayers" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-2">Players</p>
+                            <p id="player-count" class="font-black italic text-2xl text-white tracking-tighter">- / -</p>
+                        </div>
+
+                        <div class="flex flex-col items-center">
+                            <p data-i18n="statVersion" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-2">Version</p>
+                            <p id="server-version" class="font-black italic text-2xl text-zinc-300 tracking-tighter">-</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <button onclick="updateStatus()" class="mt-10 group flex flex-col items-center gap-2 transition-all">
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-green-400/10 group-hover:border-green-400/50 transition-all">
+                    <i data-lucide="refresh-cw" class="w-5 h-5 text-zinc-500 group-hover:text-green-400 group-hover:rotate-180 transition-all duration-700"></i>
+                </div>
+                <span data-i18n="refreshBtn" class="text-[10px] font-black uppercase tracking-widest text-zinc-500 group-hover:text-zinc-300">Refresh Data</span>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sideMenu = document.getElementById('side-menu');
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('open'));
+
+        const translations = {
+            en: { 
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
+                pageTitle: "Server <span class='text-green-400'>Status.</span>",
+                statStatus: "Status", statPlayers: "Players", statVersion: "Version",
+                refreshBtn: "Refresh Data", online: "Online", offline: "Offline", pinging: "Pinging..."
+            },
+            de: { 
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
+                pageTitle: "Server <span class='text-green-400'>Status.</span>",
+                statStatus: "Status", statPlayers: "Spieler", statVersion: "Version",
+                refreshBtn: "Daten aktualisieren", online: "Online", offline: "Offline", pinging: "Pinge..."
+            }
+        };
+
+        const btnDe = document.getElementById('btn-de');
+        const btnEn = document.getElementById('btn-en');
+        let currentLang = 'en';
+        
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            btnEn.className = lang === 'en' ? 'lang-btn active font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors' : 'lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors';
+            btnDe.className = lang === 'de' ? 'lang-btn active font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors' : 'lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors';
+        }
+        
+        btnDe.addEventListener('click', () => setLanguage('de'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+        setLanguage('en');
+
+        async function updateStatus() {
+            const serverIp = 'play.craftify-mc.eu';
+            const statusCard = document.getElementById('status-card');
+            const dynamicGlow = document.getElementById('dynamic-glow');
+            const statusText = document.getElementById('status-text');
+            const statusDot = document.getElementById('status-dot');
+            const playerCount = document.getElementById('player-count');
+            const serverVersion = document.getElementById('server-version');
+
+            statusText.innerText = translations[currentLang].pinging;
+            
+            try {
+                const response = await fetch(`https://api.mcstatus.io/v2/status/java/${serverIp}`);
+                const data = await response.json();
+
+                if (data.online) {
+                    statusText.innerText = translations[currentLang].online;
+                    statusText.className = "font-black italic text-2xl text-green-400 uppercase tracking-tighter";
+                    statusDot.className = "status-dot bg-green-400 pulse";
+                    
+                    // Green Glow
+                    statusCard.className = "game-card p-10 md:p-14 rounded-[3.5rem] w-full relative overflow-hidden glow-online";
+                    dynamicGlow.style.backgroundColor = "rgba(74, 222, 128, 0.4)";
+                    
+                    playerCount.innerText = `${data.players.online} / ${data.players.max}`;
+                    serverVersion.innerText = data.version.name_clean || "1.20.1";
+                } else {
+                    throw new Error();
+                }
+            } catch (error) {
+                statusText.innerText = translations[currentLang].offline;
+                statusText.className = "font-black italic text-2xl text-red-500 uppercase tracking-tighter";
+                statusDot.className = "status-dot bg-red-500";
+                
+                // Red Glow
+                statusCard.className = "game-card p-10 md:p-14 rounded-[3.5rem] w-full relative overflow-hidden glow-offline";
+                dynamicGlow.style.backgroundColor = "rgba(239, 68, 68, 0.4)";
+                
+                playerCount.innerText = "0 / 0";
+                serverVersion.innerText = "-";
+            }
+        }
+
+        updateStatus();
+        setInterval(updateStatus, 60000);
+    </script>
+</body>
+</html>
