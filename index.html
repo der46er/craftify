@@ -11,21 +11,19 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Lokale Einbindung von Inter exklusiv über dein GitHub Repository */
+        /* Schriften EXKLUSIV über dein GitHub in 3 Stärken */
         @font-face {
             font-family: 'Inter';
             src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-regular.woff2') format('woff2');
             font-weight: 400;
             font-display: swap;
         }
-
         @font-face {
             font-family: 'Inter';
             src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2');
             font-weight: 700;
             font-display: swap;
         }
-
         @font-face {
             font-family: 'Inter';
             src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2');
@@ -67,7 +65,7 @@
             box-shadow: 0 0 40px var(--border-glow);
         }
 
-        /* Side Menu - Absolut Blickdicht */
+        /* Side Menu - Absolut blickdicht und scrollbar */
         #side-menu {
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(100%);
@@ -137,7 +135,7 @@
 
         <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-6">
             <div class="flex flex-col gap-4 text-xs font-bold uppercase tracking-widest text-zinc-500">
-                <a href="https://craftify-mc.eu/imprint/" class="hover:text-white transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+                <a href="https://craftify-mc.eu/imprint" class="hover:text-white transition-colors" data-i18n="navLegal">Legal & Privacy</a>
                 <a href="https://socials.thataustrianone.eu/" target="_blank" class="hover:text-green-400 transition-colors flex items-center gap-2">
                     <i data-lucide="share-2" class="w-4 h-4"></i> Socials
                 </a>
@@ -166,8 +164,7 @@
                         <span data-i18n="funFactLabel" class="text-xs font-black uppercase tracking-widest text-green-400">Fun Fact / Bonus</span>
                     </div>
                     <p data-i18n="funFactText" class="text-sm md:text-base text-zinc-300">
-                        Did you know? If you join the server using our <strong>new template</strong>, you will automatically receive 
-                        <span class="text-white font-bold italic">free items</span> in-game!
+                        Did you know? If you join the server using our <strong>new template</strong>, you will automatically receive <span class="text-white font-bold italic">free items</span> in-game!
                     </p>
                 </div>
                 <a href="https://craftify-mc.eu/template" data-i18n="templateBtn" class="btn-template w-full sm:w-auto px-6 py-3 rounded-xl font-bold whitespace-nowrap text-sm flex justify-center items-center gap-2 flex-shrink-0">
@@ -257,7 +254,7 @@
                 menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy",
                 heroTitle: "Welcome to <br> <span class='text-green-400'>Craftify.</span>",
                 funFactLabel: "Fun Fact / Bonus",
-                funFactText: "Did you know? If you promote the server using our <strong>new template</strong> on social media, you will automatically receive <span class='text-white font-bold italic'>free items</span> in-game!",
+                funFactText: "Did you know? If you join the server using our <strong>new template</strong>, you will automatically receive <span class='text-white font-bold italic'>free items</span> in-game!",
                 templateBtn: "To Template <i data-lucide='arrow-right' class='w-4 h-4'></i>",
                 cardNewsTitle: "Server News", cardNewsDesc: "What's happening on Craftify?",
                 cardModsTitle: "Modpack", cardModsDesc: "Optimized gameplay for everyone.",
@@ -271,7 +268,7 @@
                 menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Impressum & Datenschutz",
                 heroTitle: "Willkommen bei <br> <span class='text-green-400'>Craftify.</span>",
                 funFactLabel: "Fun Fact / Bonus",
-                funFactText: "Wusstest du schon? Wenn du mit unserer <strong>neuen Vorlage</strong> auf Social Media für uns wirbst, erhältst du automatisch <span class='text-white font-bold italic'>Gratis-Items</span> direkt im Spiel!",
+                funFactText: "Wusstest du schon? Wenn du mit der <strong>neuen Vorlage</strong> (Template) in der Sektion beitrittst, erhältst du automatisch <span class='text-white font-bold italic'>Gratis-Items</span> direkt im Spiel!",
                 templateBtn: "Zur Vorlage <i data-lucide='arrow-right' class='w-4 h-4'></i>",
                 cardNewsTitle: "Server News", cardNewsDesc: "Was passiert gerade auf Craftify?",
                 cardModsTitle: "Modpack", cardModsDesc: "Optimiertes Gameplay für alle.",
