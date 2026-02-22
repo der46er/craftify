@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftify Mc | IP-Adresse</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Schriften korrekt über dein GitHub geladen */
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
+
+        :root { --mc-green: #4ade80; --acrylic: rgba(20, 20, 25, 0.75); }
+        
+        body { font-family: 'Inter', sans-serif; color: #e4e4e7; margin: 0; background-color: #0c0c0e; background-image: linear-gradient(rgba(12, 12, 14, 0.8), rgba(12, 12, 14, 0.95)), url('https://raw.githubusercontent.com/der46er/craftify/main/assets/background.png'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .game-card { background: var(--acrylic); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 50px rgba(0,0,0,0.8); }
+        
+        /* Sidebar */
+        #side-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); background-color: #0c0c0e; border-left: 1px solid rgba(255, 255, 255, 0.05); }
+        #side-menu.open { transform: translateX(0); }
+    </style>
+</head>
+<body>
+
+    <header class="w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5 fixed top-0">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
+        </div>
+        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
+            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
+        </button>
+    </header>
+
+    <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-10 flex flex-col shadow-2xl">
+        <div class="flex justify-between items-center mb-12">
+            <span data-i18n="menuTitle" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Main Menu</span>
+            <button id="close-btn" class="hover:scale-110 transition-transform">
+                <i data-lucide="x-circle" class="w-8 h-8 text-white"></i>
+            </button>
+        </div>
+        
+        <nav class="flex flex-col gap-6 text-[2.5rem] font-black italic uppercase tracking-tighter leading-none">
+            <a href="https://craftify-mc.eu/" class="hover:text-zinc-300 transition-colors" data-i18n="navHome">Home</a>
+            <a href="https://craftify-mc.eu/news" class="hover:text-zinc-300 transition-colors" data-i18n="navNews">News</a>
+            <a href="https://craftify-mc.eu/ip" class="text-green-400" data-i18n="navIp">IP-Address</a>
+            <a href="https://craftify-mc.eu/mods" class="hover:text-zinc-300 transition-colors" data-i18n="navMods">Modpack</a>
+            <a href="https://craftify-mc.eu/status" class="hover:text-zinc-300 transition-colors" data-i18n="navStatus">Status</a>
+            <a href="https://craftify-mc.eu/videos" class="hover:text-zinc-300 transition-colors" data-i18n="navVideos">Videos</a>
+            <a href="https://craftify-mc.eu/chat" class="hover:text-zinc-300 transition-colors" data-i18n="navChat">Quick Chat</a>
+        </nav>
+
+        <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-4">
+            <a href="https://craftify-mc.eu/imprint" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+            <a href="https://socials.thataustrianone.eu" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors flex items-center gap-2" data-i18n="navSocials">
+                <i data-lucide="share-2" class="w-4 h-4"></i> Socials
+            </a>
+
+            <div class="flex gap-4 mt-4">
+                <button id="btn-de" class="lang-btn font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors">DE</button>
+                <button id="btn-en" class="lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors">EN</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-32 pb-10 px-4 flex-grow flex items-center justify-center w-full">
+        <div class="max-w-3xl w-full flex flex-col items-center">
+            
+            <h1 data-i18n="pageTitle" class="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter text-center mb-8">
+                Verbinden & <span class="text-green-400">Spielen.</span>
+            </h1>
+
+            <div class="game-card p-6 md:p-10 rounded-[2.5rem] w-full text-center relative overflow-hidden">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-green-400/10 blur-[60px] rounded-full pointer-events-none"></div>
+
+                <div class="relative z-10">
+                    <i data-lucide="globe-2" class="w-12 h-12 md:w-16 md:h-16 mx-auto text-green-400 mb-6 drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]"></i>
+                    
+                    <p data-i18n="ipLabel" class="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-6">Offizielle Server Verbindungen</p>
+
+                    <div class="bg-black/40 border border-white/10 rounded-3xl p-5 mb-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-inner">
+                        <div class="text-center md:text-left flex-grow">
+                            <span class="text-green-400 font-black uppercase tracking-[0.2em] text-[10px] mb-1 block">Java Edition</span>
+                            <span id="java-ip" class="text-2xl md:text-3xl font-black tracking-widest text-white select-all">play.craftify.eu</span>
+                        </div>
+                        <button id="btn-java-ip" onclick="copyData('java-ip', 'btn-java-ip', 'copyBtn')" class="bg-green-400 hover:bg-green-300 text-black px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(74,222,128,0.2)] w-full md:w-auto shrink-0">
+                            <i data-lucide="copy" class="w-4 h-4 icon-slot"></i>
+                            <span class="text-slot" data-i18n="copyBtn">Kopieren</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-black/40 border border-white/10 rounded-3xl p-5 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-inner">
+                        <div class="text-center md:text-left flex-grow">
+                            <span class="text-blue-400 font-black uppercase tracking-[0.2em] text-[10px] mb-1 block">Bedrock Edition</span>
+                            <span id="bedrock-ip" class="text-2xl md:text-3xl font-black tracking-widest text-white select-all block">play.craftify.eu</span>
+                            <span class="text-zinc-500 font-bold text-xs mt-1 block uppercase tracking-widest">Port: <span id="bedrock-port" class="text-white text-sm select-all ml-1">27114</span></span>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto shrink-0">
+                            <button id="btn-bed-ip" onclick="copyData('bedrock-ip', 'btn-bed-ip', 'copyIpBtn')" class="bg-white/5 hover:bg-white/10 text-white px-5 py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border border-white/10 w-full sm:w-auto">
+                                <i data-lucide="copy" class="w-4 h-4 icon-slot"></i>
+                                <span class="text-slot" data-i18n="copyIpBtn">IP</span>
+                            </button>
+                            <button id="btn-bed-port" onclick="copyData('bedrock-port', 'btn-bed-port', 'copyPortBtn')" class="bg-white/5 hover:bg-white/10 text-white px-5 py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 border border-white/10 w-full sm:w-auto">
+                                <i data-lucide="copy" class="w-4 h-4 icon-slot"></i>
+                                <span class="text-slot" data-i18n="copyPortBtn">Port</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2 text-sm font-bold text-zinc-400">
+                        <p>Minecraft <span class="text-white">•</span> Version <span id="server-version" class="text-green-400">lädt...</span></p>
+                        <p data-i18n="premiumText">Premium Account für Java erforderlich.</p>
+                        
+                        <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-center gap-2">
+                            <i data-lucide="info" class="w-4 h-4 text-zinc-500"></i>
+                            <p data-i18n="regionWarning" class="text-[11px] text-zinc-500 leading-tight max-w-sm">
+                                Das Beitreten aus China ist möglich, aber nicht optimal.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        
+        // --- Menü Logik ---
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sideMenu = document.getElementById('side-menu');
+
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('open'));
+
+        // --- Übersetzungen ---
+        const translations = {
+            en: { 
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
+                pageTitle: "Connect & <span class='text-green-400'>Play.</span>",
+                ipLabel: "Official Server Connections",
+                copyBtn: "Copy",
+                copyIpBtn: "IP",
+                copyPortBtn: "Port",
+                copiedText: "Copied!",
+                premiumText: "Premium Account required for Java.",
+                regionWarning: "Joining from regions like China is possible, but not optimal due to latency."
+            },
+            de: { 
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
+                pageTitle: "Verbinden & <span class='text-green-400'>Spielen.</span>",
+                ipLabel: "Offizielle Server Verbindungen",
+                copyBtn: "Kopieren",
+                copyIpBtn: "IP",
+                copyPortBtn: "Port",
+                copiedText: "Kopiert!",
+                premiumText: "Premium Account für Java erforderlich.",
+                regionWarning: "Das Beitreten aus Regionen wie China ist möglich, aber aufgrund der Entfernung nicht optimal."
+            }
+        };
+
+        const btnDe = document.getElementById('btn-de');
+        const btnEn = document.getElementById('btn-en');
+        
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            
+            document.querySelector('#btn-java-ip .text-slot').innerText = translations[lang]['copyBtn'];
+            document.querySelector('#btn-bed-ip .text-slot').innerText = translations[lang]['copyIpBtn'];
+            document.querySelector('#btn-bed-port .text-slot').innerText = translations[lang]['copyPortBtn'];
+
+            if (lang === 'en') {
+                btnEn.className = 'lang-btn font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors';
+                btnDe.className = 'lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors';
+            } else {
+                btnDe.className = 'lang-btn font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors';
+                btnEn.className = 'lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors';
+            }
+        }
+        
+        btnDe.addEventListener('click', () => setLanguage('de'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // --- Dynamische Version laden ---
+        async function fetchServerVersion() {
+            try {
+                const url = 'https://raw.githubusercontent.com/der46er/craftify/main/assets/version.txt?t=' + new Date().getTime();
+                const response = await fetch(url);
+                
+                if (response.ok) {
+                    const version = await response.text();
+                    document.getElementById('server-version').innerText = version.trim();
+                } else {
+                    document.getElementById('server-version').innerText = "Unbekannt";
+                }
+            } catch (error) {
+                console.error("Fehler beim Laden der version.txt", error);
+                document.getElementById('server-version').innerText = "Unbekannt";
+            }
+        }
+        
+        fetchServerVersion();
+
+        // --- Kopier-Funktion ---
+        function copyData(textElementId, buttonId, originalTranslationKey) {
+            const textToCopy = document.getElementById(textElementId).innerText;
+            const btn = document.getElementById(buttonId);
+            const iconSlot = btn.querySelector('.icon-slot');
+            const textSlot = btn.querySelector('.text-slot');
+            const currentLang = document.documentElement.lang || 'de';
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalClasses = btn.className;
+                btn.className = "bg-white text-green-600 px-6 py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2 w-full md:w-auto shrink-0";
+                
+                iconSlot.setAttribute('data-lucide', 'check');
+                lucide.createIcons();
+                textSlot.innerText = translations[currentLang]['copiedText'];
+
+                setTimeout(() => {
+                    btn.className = originalClasses;
+                    iconSlot.setAttribute('data-lucide', 'copy');
+                    lucide.createIcons();
+                    textSlot.innerText = translations[currentLang][originalTranslationKey];
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
