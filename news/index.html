@@ -176,68 +176,99 @@
             if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target)) sideMenu.classList.remove('open');
         });
 
-        // --- DYNAMISCHES NEWS SYSTEM ---
-        async function loadNews() {
-            const repo = 'der46er/craftify';
-            // WICHTIG: Das ist der Ordnerpfad in deinem Repository
-            const folder = 'assets/news'; 
-            const container = document.getElementById('news-container');
+   // --- DYNAMISCHES NEWS SYSTEM ---
+async function loadNews() {
+    const repo = 'der46er/craftify';
+    const folder = 'assets/news'; 
+    const container = document.getElementById('news-container');
 
-            try {
-                // 1. Hole alle Dateien aus dem GitHub Ordner
-                const response = await fetch(`https://api.github.com/repos/${repo}/contents/${folder}`);
-                
-                if (!response.ok) {
-                    throw new Error('News-Ordner nicht gefunden');
-                }
+    // Hilfsfunktion: Wandelt "28-01-2024 19:36.txt" in ein Datum um
+    function parseNewsDate(filename) {
+        const rawName = filename.replace('.txt', '');
+        const parts = rawName.split(' ');
+        const datePart = parts[0] || '';
+        const timePart = parts[1] ? parts[1].replace('-', ':') : '00:00'; 
+        
+        const dParts = datePart.split('-');
+        if(dParts.length === 3) {
+            // Umwandlung in YYYY-MM-DD für JS-Engine
+            return new Date(`${dParts[2]}-${dParts[1]}-${dParts[0]}T${timePart}:00`);
+        }
+        return new Date(0);
+    }
 
-                let files = await response.json();
-                
-                // 2. Filtere nur .txt Dateien und sortiere sie nach Namen absteigend (neuestes Datum zuerst)
-                files = files.filter(f => f.name.endsWith('.txt')).sort((a, b) => b.name.localeCompare(a.name));
+    try {
+        const response = await fetch(`https://api.github.com/repos/${repo}/contents/${folder}`);
+        if (!response.ok) throw new Error('News-Ordner nicht gefunden');
 
-                if (files.length === 0) {
-                    container.innerHTML = `<div class="text-center p-10 game-card rounded-[2rem] text-zinc-400">No news articles found in assets/news/.</div>`;
-                    return;
-                }
+        let files = await response.json();
+        
+        // Sortierung: Neuestes Datum oben
+        files = files.filter(f => f.name.endsWith('.txt')).sort((a, b) => {
+            return parseNewsDate(b.name) - parseNewsDate(a.name);
+        });
 
-                container.innerHTML = ''; // Lade-Animation entfernen
-
-                // 3. Jede Textdatei herunterladen und anzeigen
-                for (const file of files) {
-                    const textRes = await fetch(file.download_url);
-                    const text = await textRes.text();
-                    
-                    // Trenne die erste Zeile (Titel) vom Rest (Inhalt)
-                    const lines = text.split('\n');
-                    const title = lines[0] || 'Update';
-                    // Der Rest wird mit <br> für Zeilenumbrüche versehen
-                    const content = lines.slice(1).join('<br>').trim();
-                    const date = file.name.replace('.txt', ''); // Entfernt .txt vom Dateinamen
-
-                    // Baue die Acryl-Karte
-                    const card = document.createElement('div');
-                    card.className = 'game-card p-8 md:p-12 rounded-[2rem] flex flex-col gap-4';
-                    card.innerHTML = `
-                        <div class="flex items-center gap-3 mb-2">
-                            <i data-lucide="calendar" class="w-5 h-5 text-green-400"></i>
-                            <span class="text-xs font-black uppercase tracking-widest text-green-400">${date}</span>
-                        </div>
-                        <h3 class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter">${title}</h3>
-                        <p class="text-zinc-300 text-sm md:text-base leading-relaxed mt-2">${content}</p>
-                    `;
-                    container.appendChild(card);
-                }
-                
-                // Lade die Kalender-Icons für die neuen Karten
-                lucide.createIcons();
-
-            } catch (error) {
-                console.error(error);
-                container.innerHTML = `<div class="text-center p-10 game-card rounded-[2rem] text-red-400">Failed to load news. Please try again later.</div>`;
-            }
+        if (files.length === 0) {
+            container.innerHTML = `<div class="text-center p-10 game-card rounded-[2rem] text-zinc-400">No news articles found.</div>`;
+            return;
         }
 
+        container.innerHTML = ''; 
+
+        for (const file of files) {
+            const textRes = await fetch(file.download_url);
+            const text = await textRes.text();
+            
+            const lines = text.split('\n');
+            const title = lines[0] || 'Update';
+            let rawContent = lines.slice(1).join('\n').trim();
+
+            // --- BILDER-LOGIK ---
+            // Findet ![Alt](URL) und korrigiert GitHub-Links automatisch
+            const imgRegex = /!\[(.*?)\]\((.*?)\)/g;
+            rawContent = rawContent.replace(imgRegex, (match, alt, url) => {
+                let finalUrl = url.trim();
+                // Korrektur: Falls ein GitHub Web-Link (blob) kopiert wurde, wandle ihn in Raw um
+                if (finalUrl.includes('github.com') && finalUrl.includes('/blob/')) {
+                    finalUrl = finalUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                }
+                return `<img src="${finalUrl}" alt="${alt}" class="w-full rounded-2xl mt-4 mb-2 object-cover border border-white/10 shadow-2xl">`;
+            });
+
+            // Zeilenumbrüche NACH der Bildersuche umwandeln
+            const content = rawContent.replace(/\n/g, '<br>');
+
+            // Datum & Uhrzeit für die Anzeige
+            const dateObj = parseNewsDate(file.name);
+            const rawName = file.name.replace('.txt', '');
+            const rawTime = rawName.split(' ')[1] || '';
+            const isDe = document.documentElement.lang === 'de';
+            
+            let displayDate = dateObj.toLocaleDateString(isDe ? 'de-DE' : 'en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            let displayTime = rawTime ? ` • ${rawTime.replace('-', ':')} ${isDe ? 'Uhr' : ''}` : '';
+
+            // Erstellen der News-Karte
+            const card = document.createElement('div');
+            card.className = 'game-card p-6 md:p-10 rounded-[2rem] flex flex-col gap-4';
+            card.innerHTML = `
+                <div class="flex items-center gap-3 mb-1">
+                    <i data-lucide="clock" class="w-4 h-4 text-green-400"></i>
+                    <span class="text-xs font-black uppercase tracking-widest text-green-400">${displayDate}${displayTime}</span>
+                </div>
+                <h3 class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter">${title}</h3>
+                <div class="text-zinc-300 text-sm md:text-base leading-relaxed">${content}</div>
+            `;
+            container.appendChild(card);
+        }
+        
+        // Icons für die neuen Karten laden
+        lucide.createIcons();
+
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = `<div class="text-center p-10 game-card rounded-[2rem] text-red-400">Failed to load news.</div>`;
+    }
+}
         // Starte das Laden der News
         loadNews();
 
