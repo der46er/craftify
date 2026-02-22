@@ -57,8 +57,8 @@
         </nav>
 
         <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-4">
-            <a href="https://craftify-mc.eu/imprint" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors" data-i18n="navLegal">Legal & Privacy</a>
-            <a href="https://socials.thataustrianone.eu" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors flex items-center gap-2" data-i18n="navSocials">
+            <a href="/imprint" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+            <a href="https://socials.thataustrianone.eu" target="_blank" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors flex items-center gap-2" data-i18n="navSocials">
                 <i data-lucide="share-2" class="w-4 h-4"></i> Socials
             </a>
 
@@ -117,14 +117,15 @@
                     <div class="flex flex-col gap-2 text-sm font-bold text-zinc-400">
                         <p>Minecraft <span class="text-white">•</span> Version <span id="server-version" class="text-green-400">lädt...</span></p>
                         <p data-i18n="premiumText">Premium Account für Java erforderlich.</p>
-                        
-                        <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-center gap-2">
-                            <i data-lucide="info" class="w-4 h-4 text-zinc-500"></i>
-                            <p data-i18n="regionWarning" class="text-[11px] text-zinc-500 leading-tight max-w-sm">
-                                Das Beitreten aus China ist möglich, aber nicht optimal.
-                            </p>
-                        </div>
                     </div>
+
+                    <div class="mt-8 flex items-center justify-center gap-2">
+                        <i data-lucide="info" class="w-4 h-4 text-zinc-400"></i>
+                        <p data-i18n="regionWarning" class="text-sm font-bold text-zinc-400">
+                            Das Beitreten aus China ist möglich, aber nicht optimal.
+                        </p>
+                    </div>
+
                 </div>
             </div>
 
@@ -153,7 +154,7 @@
                 copyPortBtn: "Port",
                 copiedText: "Copied!",
                 premiumText: "Premium Account required for Java.",
-                regionWarning: "Joining from regions like China is possible, but not optimal due to latency."
+                regionWarning: "Joining from China is possible, but not optimal."
             },
             de: { 
                 menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
@@ -164,7 +165,7 @@
                 copyPortBtn: "Port",
                 copiedText: "Kopiert!",
                 premiumText: "Premium Account für Java erforderlich.",
-                regionWarning: "Das Beitreten aus Regionen wie China ist möglich, aber aufgrund der Entfernung nicht optimal."
+                regionWarning: "Das Beitreten aus China ist möglich, aber nicht optimal."
             }
         };
 
