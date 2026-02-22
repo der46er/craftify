@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,900;1,900&display=swap');
+        body { margin: 0; padding: 20px; background: transparent; font-family: 'Inter', sans-serif; overflow: hidden; }
+        .box {
+            display: inline-flex; align-items: center; gap: 12px;
+            background: rgba(12, 12, 14, 0.85); backdrop-filter: blur(10px);
+            border: 2px solid #60a5fa66;
+            padding: 12px 24px; border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px #60a5fa33;
+            animation: float 4s ease-in-out infinite;
+        }
+        .text { color: white; font-size: 24px; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: 2px; }
+        .ip { color: #60a5fa; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); box-shadow: 0 20px 30px rgba(0,0,0,0.3), 0 0 30px #60a5fa66; }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <span class="text">PLAY ON <span class="ip">CRAFTIFY-MC.EU</span></span>
+    </div>
+</body>
+</html>
