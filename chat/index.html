@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftify Mc | Live Chat</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        /* Schriften korrekt über dein GitHub geladen */
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
+
+        :root { --mc-green: #4ade80; --acrylic: rgba(20, 20, 25, 0.75); }
+        
+        body { font-family: 'Inter', sans-serif; color: #e4e4e7; margin: 0; background-color: #0c0c0e; background-image: linear-gradient(rgba(12, 12, 14, 0.8), rgba(12, 12, 14, 0.95)), url('https://raw.githubusercontent.com/der46er/craftify/main/assets/background.png'); background-size: cover; background-position: center; background-attachment: fixed; overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
+        
+        .game-card { background: var(--acrylic); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 50px rgba(0,0,0,0.8); }
+        
+        /* Sidebar exakt wie auf deinem Screenshot */
+        #side-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); background-color: #0c0c0e; border-left: 1px solid rgba(255, 255, 255, 0.05); }
+        #side-menu.open { transform: translateX(0); }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(74, 222, 128, 0.5); }
+        
+        .fade-out { opacity: 0; transform: scale(0.95); transition: all 0.3s ease-out; }
+        .mention-highlight { border-color: rgba(74, 222, 128, 0.5) !important; background-color: rgba(74, 222, 128, 0.1) !important; }
+    </style>
+</head>
+<body>
+
+    <header class="w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5 shrink-0">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
+        </div>
+        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
+            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
+        </button>
+    </header>
+
+    <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-10 flex flex-col shadow-2xl">
+        <div class="flex justify-between items-center mb-12">
+            <span data-i18n="menuTitle" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Main Menu</span>
+            <button id="close-btn" class="hover:scale-110 transition-transform">
+                <i data-lucide="x-circle" class="w-8 h-8 text-white"></i>
+            </button>
+        </div>
+        
+        <nav class="flex flex-col gap-6 text-[2.5rem] font-black italic uppercase tracking-tighter leading-none">
+            <a href="https://craftify-mc.eu/" class="hover:text-zinc-300 transition-colors" data-i18n="navHome">Home</a>
+            <a href="https://craftify-mc.eu/news" class="hover:text-zinc-300 transition-colors" data-i18n="navNews">News</a>
+            <a href="https://craftify-mc.eu/ip" class="hover:text-zinc-300 transition-colors" data-i18n="navIp">IP-Address</a>
+            <a href="https://craftify-mc.eu/mods" class="hover:text-zinc-300 transition-colors" data-i18n="navMods">Modpack</a>
+            <a href="https://craftify-mc.eu/status" class="hover:text-zinc-300 transition-colors" data-i18n="navStatus">Status</a>
+            <a href="https://craftify-mc.eu/videos" class="hover:text-zinc-300 transition-colors" data-i18n="navVideos">Videos</a>
+            <a href="https://craftify-mc.eu/chat" class="text-green-400" data-i18n="navChat">Quick Chat</a>
+        </nav>
+
+        <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-4">
+            <a href="https://craftify-mc.eu/legal" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+            <a href="https://craftify-mc.eu/socials" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors flex items-center gap-2" data-i18n="navSocials">
+                <i data-lucide="share-2" class="w-4 h-4"></i> Socials
+            </a>
+
+            <div class="flex gap-4 mt-4">
+                <button id="btn-de" class="lang-btn font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors">DE</button>
+                <button id="btn-en" class="lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors">EN</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="p-4 md:p-8 flex-grow flex justify-center w-full h-full overflow-hidden">
+        
+        <div class="game-card rounded-[2rem] flex flex-col w-full max-w-6xl h-full overflow-hidden relative border-white/10">
+            
+            <div id="auth-overlay" class="absolute inset-0 z-30 flex flex-col items-center justify-center bg-zinc-950/90 backdrop-blur-xl p-6 transition-opacity duration-500 overflow-y-auto">
+                <h1 class="text-4xl md:text-5xl font-black italic tracking-tighter text-center mb-8 mt-10">
+                    Community <span class="text-green-400">Chat.</span>
+                </h1>
+                <div class="w-full max-w-sm space-y-4 bg-zinc-900/50 p-8 rounded-[2rem] border border-white/5 shadow-2xl">
+                    <h2 data-i18n="loginTitle" class="text-xl font-black uppercase italic mb-6 text-center text-white">Identität wählen</h2>
+                    <div>
+                        <label data-i18n="loginUser" class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-2">Benutzername</label>
+                        <input id="login-user" type="text" placeholder="Minecraft Name" class="w-full mt-1 bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-green-400 text-white transition-all text-sm">
+                    </div>
+                    <div>
+                        <label data-i18n="loginPass" class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 ml-2">Passwort (Geheimwort)</label>
+                        <input id="login-pass" type="password" placeholder="••••••••" class="w-full mt-1 bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus:outline-none focus:border-green-400 text-white transition-all text-sm">
+                    </div>
+                    <p id="auth-error" class="text-red-400 text-xs text-center font-bold hidden"></p>
+                    <button id="auth-btn" class="w-full bg-green-400 text-black font-black uppercase tracking-widest py-4 rounded-2xl hover:bg-green-300 active:scale-95 transition-all shadow-[0_0_20px_rgba(74,222,128,0.2)] mt-4">
+                        <span data-i18n="loginBtn">Chat betreten</span>
+                    </button>
+                    
+                    <div class="mt-6 pt-4 border-t border-white/10">
+                        <p data-i18n="disclaimerLogin" class="text-[9px] leading-tight text-zinc-500 text-center">
+                            ⚠️ Durch das Betreten stimmst du zu, keine sensiblen oder rechtswidrigen Inhalte zu teilen. Nachrichten werden verschlüsselt über die Supabase API verarbeitet. Der Betreiber übernimmt keine Haftung für nutzergenerierte Inhalte.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 md:p-6 bg-black/40 border-b border-white/5 flex justify-between items-center z-10 shrink-0">
+                <div>
+                    <h2 class="font-black italic uppercase tracking-tighter text-xl">Globaler <span class="text-green-400">Chat</span></h2>
+                    <p class="text-xs text-zinc-500 font-bold" id="user-display">Nicht angemeldet</p>
+                </div>
+                <button onclick="logout()" class="p-2 md:px-4 md:py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 rounded-xl transition-all text-xs font-bold uppercase flex items-center gap-2">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> <span class="hidden md:inline">Abmelden</span>
+                </button>
+            </div>
+
+            <div id="chat-box" class="flex-grow overflow-y-auto p-4 md:p-8 flex flex-col gap-6 relative"></div>
+
+            <div class="p-4 bg-black/40 border-t border-white/5 flex flex-col gap-2 shrink-0">
+                
+                <div class="flex gap-2 px-2 pb-1 overflow-x-auto scrollbar-hide">
+                    <button onclick="addEmoji('⛏️')" class="hover:scale-125 transition-transform">⛏️</button>
+                    <button onclick="addEmoji('❤️')" class="hover:scale-125 transition-transform">❤️</button>
+                    <button onclick="addEmoji('😂')" class="hover:scale-125 transition-transform">😂</button>
+                    <button onclick="addEmoji('🔥')" class="hover:scale-125 transition-transform">🔥</button>
+                    <button onclick="addEmoji('👍')" class="hover:scale-125 transition-transform">👍</button>
+                    <button onclick="addEmoji('✨')" class="hover:scale-125 transition-transform">✨</button>
+                    <span class="text-zinc-600 text-[10px] ml-auto italic hidden md:inline">Nutze @Name für Erwähnungen</span>
+                </div>
+                
+                <div class="flex gap-2">
+                    <input id="chat-input" type="text" placeholder="Schreibe eine Nachricht..." disabled class="flex-grow bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-green-400/50 transition-all text-sm text-white disabled:opacity-50">
+                    <button id="send-btn" disabled class="bg-green-400 hover:bg-green-300 disabled:bg-zinc-700 disabled:text-zinc-500 text-black px-6 py-4 rounded-2xl transition-all hover:scale-105 active:scale-95 shadow-lg font-black uppercase tracking-widest flex items-center gap-2">
+                        <span class="hidden md:inline">Senden</span>
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div class="text-center mt-1">
+                    <span data-i18n="poweredBy" class="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">⚡ Powered by Supabase API • No Liability for User Content</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sideMenu = document.getElementById('side-menu');
+
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('open'));
+
+        const translations = {
+            en: { 
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
+                loginTitle: "Choose Identity", loginUser: "Username", loginPass: "Password (Secret)", loginBtn: "Join Chat", 
+                disclaimerLogin: "⚠️ By joining, you agree not to share sensitive or illegal content. Messages are processed encrypted via the Supabase API. The operator assumes no liability for user-generated content.",
+                poweredBy: "⚡ Powered by Supabase API • No Liability for User Content"
+            },
+            de: { 
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
+                loginTitle: "Identität wählen", loginUser: "Benutzername", loginPass: "Passwort (Geheimwort)", loginBtn: "Chat betreten", 
+                disclaimerLogin: "⚠️ Durch das Betreten stimmst du zu, keine sensiblen oder rechtswidrigen Inhalte zu teilen. Nachrichten werden verschlüsselt über die Supabase API verarbeitet. Der Betreiber übernimmt keine Haftung für nutzergenerierte Inhalte.",
+                poweredBy: "⚡ Powered by Supabase API • Keine Haftung für Nutzerinhalte"
+            }
+        };
+
+        const btnDe = document.getElementById('btn-de');
+        const btnEn = document.getElementById('btn-en');
+        
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            if (lang === 'en') {
+                btnEn.className = 'lang-btn font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors';
+                btnDe.className = 'lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors';
+                document.getElementById('chat-input').placeholder = "Type a message...";
+            } else {
+                btnDe.className = 'lang-btn font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors';
+                btnEn.className = 'lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors';
+                document.getElementById('chat-input').placeholder = "Schreibe eine Nachricht...";
+            }
+        }
+        
+        btnDe.addEventListener('click', () => setLanguage('de'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // --- SUPABASE CONFIG ---
+        const SUPABASE_URL = 'https://zzlhlmpwqvqthglrqzbh.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp6bGhsbXB3cXZxdGhnbHJxemJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3ODQzMDEsImV4cCI6MjA4NzM2MDMwMX0.PbRaGiLp95pnFYIRbLF3pfDLKx83HyVp0ViKdz1-kkc';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const authOverlay = document.getElementById('auth-overlay');
+        const chatBox = document.getElementById('chat-box');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const errText = document.getElementById('auth-error');
+        const userDisplay = document.getElementById('user-display');
+        
+        let currentUser = null;
+
+        // --- AUTH & LOGIN ---
+        async function handleAuth() {
+            const user = document.getElementById('login-user').value.trim();
+            const pass = document.getElementById('login-pass').value.trim();
+            errText.classList.add('hidden');
+
+            if (!user || !pass) {
+                errText.innerText = "Bitte fülle beide Felder aus!";
+                errText.classList.remove('hidden');
+                return;
+            }
+
+            const btn = document.getElementById('auth-btn');
+            btn.innerHTML = `<div class="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto"></div>`;
+
+            const { data, error } = await _supabase.from('profiles').select('*').eq('username', user).single();
+
+            if (data) {
+                if (data.password === pass) {
+                    loginSuccess(user, pass);
+                } else {
+                    errText.innerText = "Falsches Passwort für diesen Namen!";
+                    errText.classList.remove('hidden');
+                    btn.innerHTML = `<span data-i18n="loginBtn">Chat betreten</span>`;
+                    setLanguage(document.documentElement.lang);
+                }
+            } else {
+                const { error: insertErr } = await _supabase.from('profiles').insert([{ username: user, password: pass }]);
+                if (insertErr) {
+                    errText.innerText = "Fehler bei der Anmeldung.";
+                    errText.classList.remove('hidden');
+                    btn.innerHTML = `<span data-i18n="loginBtn">Chat betreten</span>`;
+                } else {
+                    loginSuccess(user, pass);
+                }
+            }
+        }
+
+        function loginSuccess(user, pass) {
+            currentUser = user;
+            localStorage.setItem('chat-user', user);
+            localStorage.setItem('chat-pass', pass);
+            
+            userDisplay.innerText = "Eingeloggt als: " + user;
+            
+            authOverlay.style.opacity = '0';
+            setTimeout(() => authOverlay.classList.add('hidden'), 500);
+            chatInput.disabled = false;
+            sendBtn.disabled = false;
+            
+            loadMessages();
+        }
+
+        function logout() {
+            localStorage.removeItem('chat-user');
+            localStorage.removeItem('chat-pass');
+            location.reload(); 
+        }
+
+        async function checkAutoLogin() {
+            const savedUser = localStorage.getItem('chat-user');
+            const savedPass = localStorage.getItem('chat-pass');
+            if (savedUser && savedPass) {
+                document.getElementById('login-user').value = savedUser;
+                document.getElementById('login-pass').value = savedPass;
+                await handleAuth();
+            }
+        }
+
+        function addEmoji(emoji) {
+            if(chatInput.disabled) return;
+            chatInput.value += emoji;
+            chatInput.focus();
+        }
+
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        window.deleteMsg = async function(id) {
+            await _supabase.from('messages').delete().eq('id', id);
+        };
+
+        async function loadMessages() {
+            const { data } = await _supabase.from('messages').select('*').order('created_at', { ascending: true }).limit(100); 
+            if(data) {
+                chatBox.innerHTML = '';
+                data.forEach(msg => appendMessage(msg));
+                chatBox.scrollTop = chatBox.scrollHeight;
+                lucide.createIcons();
+            }
+        }
+
+        function appendMessage(msg) {
+            const isMe = msg.username === currentUser;
+            const isMention = msg.content.includes(`@${currentUser}`); 
+            
+            const div = document.createElement('div');
+            div.id = `msg-${msg.id}`; 
+            div.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-in fade-in slide-in-from-bottom-2 duration-300 transition-all w-full`;
+            
+            let deleteBtnHtml = '';
+            if (isMe || currentUser === 'Admin') { 
+                deleteBtnHtml = `<button onclick="deleteMsg('${msg.id}')" class="text-zinc-600 hover:text-red-400 transition-colors ml-2 opacity-0 hover:opacity-100 group-hover:opacity-100" title="Löschen"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>`;
+            }
+
+            const timeStr = formatTime(msg.created_at);
+
+            div.innerHTML = `
+                <div class="flex items-center mb-1.5 px-2 group cursor-pointer max-w-[85%] ${isMe ? 'justify-end' : 'justify-start'}">
+                    <span class="text-[11px] font-black uppercase text-zinc-400 tracking-widest">${msg.username}</span>
+                    <span class="text-[9px] text-zinc-600 ml-2 font-bold">${timeStr}</span>
+                    ${deleteBtnHtml}
+                </div>
+                <div class="px-5 py-3 rounded-3xl text-[15px] max-w-[85%] break-words ${isMe ? 'bg-green-400 text-black font-medium shadow-lg shadow-green-400/20' : 'bg-white/5 text-zinc-200 border border-white/10'} ${isMention && !isMe ? 'mention-highlight' : ''}">
+                    ${msg.content}
+                </div>
+            `;
+            chatBox.appendChild(div);
+        }
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if(!text || !currentUser) return;
+            
+            chatInput.value = ''; 
+            await _supabase.from('messages').insert([{ username: currentUser, content: text }]);
+        }
+
+        _supabase.channel('public:messages')
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
+                appendMessage(payload.new);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                lucide.createIcons();
+            })
+            .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'messages' }, payload => {
+                const msgElement = document.getElementById(`msg-${payload.old.id}`);
+                if (msgElement) {
+                    msgElement.classList.add('fade-out');
+                    setTimeout(() => msgElement.remove(), 300);
+                }
+            })
+            .subscribe();
+
+        document.getElementById('auth-btn').addEventListener('click', handleAuth);
+        document.getElementById('login-pass').addEventListener('keypress', (e) => { if(e.key === 'Enter') handleAuth(); });
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+
+        checkAutoLogin();
+    </script>
+</body>
+</html>
