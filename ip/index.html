@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -185,6 +185,8 @@
         
         btnDe.addEventListener('click', () => setLanguage('de'));
         btnEn.addEventListener('click', () => setLanguage('en'));
+
+        setLanguage('en');
 
         // --- Dynamische Version laden ---
         async function fetchServerVersion() {
