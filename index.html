@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftify Mc</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Lokale Einbindung von Inter exklusiv über dein GitHub Repository */
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-400.woff2') format('woff2');
+            font-weight: 400;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2');
+            font-weight: 900;
+            font-display: swap;
+        }
+
+        :root {
+            --mc-green: #4ade80;
+            --acrylic: rgba(20, 20, 25, 0.8);
+            --border-glow: rgba(74, 222, 128, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #e4e4e7;
+            margin: 0;
+            background-color: #0c0c0e;
+            background-image: 
+                linear-gradient(rgba(12, 12, 14, 0.6), rgba(12, 12, 14, 0.8)),
+                url('https://raw.githubusercontent.com/der46er/craftify/main/assets/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .game-card {
+            background: var(--acrylic);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .game-card:hover {
+            transform: scale(1.02);
+            border-color: var(--mc-green);
+            box-shadow: 0 0 40px var(--border-glow);
+        }
+
+        /* Side Menu - Absolut Blickdicht */
+        #side-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+            background-color: #0c0c0e; 
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: -10px 0 50px rgba(0,0,0,0.9);
+            overflow-y: auto;
+        }
+        #side-menu.open {
+            transform: translateX(0);
+        }
+
+        .lang-btn.active {
+            color: var(--mc-green);
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .fun-fact-box {
+            background: linear-gradient(90deg, rgba(74, 222, 128, 0.15), transparent);
+            border-left: 4px solid var(--mc-green);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-template {
+            background: rgba(74, 222, 128, 0.15);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            color: var(--mc-green);
+            transition: all 0.2s;
+        }
+        
+        .btn-template:hover {
+            background: rgba(74, 222, 128, 0.25);
+            border-color: var(--mc-green);
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.2);
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="fixed w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
+        </div>
+        
+        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
+            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
+        </button>
+    </header>
+
+    <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-8 md:p-12 flex flex-col">
+        <div class="flex justify-between items-center mb-12 md:mb-16">
+            <span data-i18n="menuTitle" class="text-xs font-black uppercase tracking-[0.4em] text-zinc-500">Main Menu</span>
+            <button id="close-btn" class="p-2 hover:bg-white/5 rounded-full"><i data-lucide="x-circle" class="w-8 h-8"></i></button>
+        </div>
+        
+        <nav class="flex flex-col gap-4 md:gap-6 text-3xl md:text-4xl font-black italic uppercase tracking-tighter">
+            <a href="https://craftify-mc.eu/" class="text-green-400" data-i18n="navHome">Home</a>
+            <a href="https://craftify-mc.eu/news" class="hover:translate-x-2 transition-transform" data-i18n="navNews">News</a>
+            <a href="https://craftify-mc.eu/ip" class="hover:translate-x-2 transition-transform" data-i18n="navIp">IP-Address</a>
+            <a href="https://craftify-mc.eu/mods" class="hover:translate-x-2 transition-transform" data-i18n="navMods">Modpack</a>
+            <a href="https://craftify-mc.eu/status" class="hover:translate-x-2 transition-transform" data-i18n="navStatus">Status</a>
+            <a href="https://craftify-mc.eu/videos" class="hover:translate-x-2 transition-transform" data-i18n="navVideos">Videos</a>
+            <a href="https://craftify-mc.eu/chat" class="hover:translate-x-2 transition-transform" data-i18n="navChat">Quick Chat</a>
+        </nav>
+
+        <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-6">
+            <div class="flex flex-col gap-4 text-xs font-bold uppercase tracking-widest text-zinc-500">
+                <a href="https://craftify-mc.eu/imprint/" class="hover:text-white transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+                <a href="https://socials.thataustrianone.eu/" target="_blank" class="hover:text-green-400 transition-colors flex items-center gap-2">
+                    <i data-lucide="share-2" class="w-4 h-4"></i> Socials
+                </a>
+            </div>
+            
+            <div class="flex items-center justify-between mt-4 pb-4">
+                <div class="flex gap-2">
+                    <button id="btn-de" class="lang-btn px-4 py-2 rounded-lg font-black text-xs text-zinc-600 transition-colors">DE</button>
+                    <button id="btn-en" class="lang-btn active px-4 py-2 rounded-lg font-black text-xs transition-colors">EN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-32 md:pt-40 pb-20 px-4 md:px-6 max-w-7xl mx-auto w-full flex-grow">
+        
+        <section class="mb-16 md:mb-24">
+            <h1 data-i18n="heroTitle" class="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black italic tracking-tighter leading-[1.1] md:leading-[0.85] mb-6 md:mb-8">
+                Welcome to <br> <span class="text-green-400">Craftify.</span>
+            </h1>
+            
+            <div class="fun-fact-box p-5 md:p-8 rounded-2xl md:rounded-l-none md:rounded-r-2xl max-w-3xl flex flex-col sm:flex-row sm:items-center gap-6">
+                <div class="flex-grow">
+                    <div class="flex items-center gap-3 mb-2">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                        <span data-i18n="funFactLabel" class="text-xs font-black uppercase tracking-widest text-green-400">Fun Fact / Bonus</span>
+                    </div>
+                    <p data-i18n="funFactText" class="text-sm md:text-base text-zinc-300">
+                        Did you know? If you join the server using our <strong>new template</strong>, you will automatically receive 
+                        <span class="text-white font-bold italic">free items</span> in-game!
+                    </p>
+                </div>
+                <a href="https://craftify-mc.eu/template" data-i18n="templateBtn" class="btn-template w-full sm:w-auto px-6 py-3 rounded-xl font-bold whitespace-nowrap text-sm flex justify-center items-center gap-2 flex-shrink-0">
+                    To Template <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <a href="https://craftify-mc.eu/news" class="game-card p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-between h-56 md:h-64 group">
+                <i data-lucide="flame" class="w-8 h-8 md:w-10 md:h-10 text-orange-500"></i>
+                <div>
+                    <h3 data-i18n="cardNewsTitle" class="text-xl md:text-2xl font-black italic uppercase tracking-tighter">Server News</h3>
+                    <p data-i18n="cardNewsDesc" class="text-zinc-500 text-xs md:text-sm mt-1">What's happening on Craftify?</p>
+                </div>
+            </a>
+            <a href="https://craftify-mc.eu/mods" class="game-card p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-between h-56 md:h-64 group">
+                <i data-lucide="binary" class="w-8 h-8 md:w-10 md:h-10 text-green-400"></i>
+                <div>
+                    <h3 data-i18n="cardModsTitle" class="text-xl md:text-2xl font-black italic uppercase tracking-tighter">Modpack</h3>
+                    <p data-i18n="cardModsDesc" class="text-zinc-500 text-xs md:text-sm mt-1">Optimized gameplay for everyone.</p>
+                </div>
+            </a>
+            <a href="https://craftify-mc.eu/ip" class="game-card p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-between h-56 md:h-64 group">
+                <i data-lucide="hash" class="w-8 h-8 md:w-10 md:h-10 text-blue-400"></i>
+                <div>
+                    <h3 data-i18n="cardIpTitle" class="text-xl md:text-2xl font-black italic uppercase tracking-tighter">IP-Address</h3>
+                    <p data-i18n="cardIpDesc" class="text-zinc-500 text-xs md:text-sm mt-1">Just copy and start playing.</p>
+                </div>
+            </a>
+            <a href="https://craftify-mc.eu/status" class="game-card p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-between h-56 md:h-64 group">
+                <i data-lucide="radio" class="w-8 h-8 md:w-10 md:h-10 text-red-500"></i>
+                <div>
+                    <h3 data-i18n="cardStatusTitle" class="text-xl md:text-2xl font-black italic uppercase tracking-tighter">Live Status</h3>
+                    <p data-i18n="cardStatusDesc" class="text-zinc-500 text-xs md:text-sm mt-1">Check if the server is currently online.</p>
+                </div>
+            </a>
+            <a href="https://craftify-mc.eu/videos" class="game-card p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-between h-56 md:h-64 group">
+                <i data-lucide="monitor-play" class="w-8 h-8 md:w-10 md:h-10 text-purple-400"></i>
+                <div>
+                    <h3 data-i18n="cardVideosTitle" class="text-xl md:text-2xl font-black italic uppercase tracking-tighter">Videos</h3>
+                    <p data-i18n="cardVideosDesc" class="text-zinc-500 text-xs md:text-sm mt-1">Community trailers & clips.</p>
+                </div>
+            </a>
+            <a href="https://craftify-mc.eu/chat" class="game-card p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-between h-56 md:h-64 group">
+                <i data-lucide="message-square" class="w-8 h-8 md:w-10 md:h-10 text-pink-400"></i>
+                <div>
+                    <h3 data-i18n="cardChatTitle" class="text-xl md:text-2xl font-black italic uppercase tracking-tighter">Quick Chat</h3>
+                    <p data-i18n="cardChatDesc" class="text-zinc-500 text-xs md:text-sm mt-1">Chat directly from the website.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="mt-8 md:mt-12">
+            <a href="https://discord.gg/jTFfFD823J" target="_blank" class="game-card p-6 md:p-12 rounded-[1.5rem] md:rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 border-[#5865F2]/40 hover:border-[#5865F2] hover:shadow-[0_0_30px_rgba(88,101,242,0.3)] bg-[#5865F2]/5 group">
+                <div class="flex items-center gap-4 md:gap-8 flex-col sm:flex-row text-center sm:text-left w-full md:w-auto">
+                    <div class="p-4 md:p-5 rounded-2xl bg-[#5865F2]/20 text-[#5865F2] group-hover:scale-110 transition-transform">
+                        <i data-lucide="message-circle" class="w-10 h-10 md:w-12 md:h-12"></i>
+                    </div>
+                    <div>
+                        <h3 data-i18n="bannerDiscordTitle" class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-1 md:mb-2">Join the Discord</h3>
+                        <p data-i18n="bannerDiscordDesc" class="text-zinc-400 text-xs md:text-base">Connect with the family and over 50 other players.</p>
+                    </div>
+                </div>
+                <div class="flex-shrink-0 w-full sm:w-auto mt-2 sm:mt-0 flex">
+                    <span data-i18n="bannerDiscordBtn" class="btn-template w-full text-center px-8 py-4 rounded-xl font-black uppercase tracking-widest text-sm text-[#5865F2] border-[#5865F2]/30 bg-[#5865F2]/10 group-hover:bg-[#5865F2]/20 group-hover:border-[#5865F2]">Join</span>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sideMenu = document.getElementById('side-menu');
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('open'));
+        document.addEventListener('click', (e) => {
+            if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                sideMenu.classList.remove('open');
+            }
+        });
+
+        const translations = {
+            en: {
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy",
+                heroTitle: "Welcome to <br> <span class='text-green-400'>Craftify.</span>",
+                funFactLabel: "Fun Fact / Bonus",
+                funFactText: "Did you know? If you promote the server using our <strong>new template</strong> on social media, you will automatically receive <span class='text-white font-bold italic'>free items</span> in-game!",
+                templateBtn: "To Template <i data-lucide='arrow-right' class='w-4 h-4'></i>",
+                cardNewsTitle: "Server News", cardNewsDesc: "What's happening on Craftify?",
+                cardModsTitle: "Modpack", cardModsDesc: "Optimized gameplay for everyone.",
+                cardIpTitle: "IP-Address", cardIpDesc: "Just copy and start playing.",
+                cardStatusTitle: "Live Status", cardStatusDesc: "Check if the server is currently online.",
+                cardVideosTitle: "Videos", cardVideosDesc: "Community trailers & clips.",
+                cardChatTitle: "Quick Chat", cardChatDesc: "Chat directly from the website.",
+                bannerDiscordTitle: "Join the Discord", bannerDiscordDesc: "Connect with the family and over 50 other players.", bannerDiscordBtn: "Join"
+            },
+            de: {
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Impressum & Datenschutz",
+                heroTitle: "Willkommen bei <br> <span class='text-green-400'>Craftify.</span>",
+                funFactLabel: "Fun Fact / Bonus",
+                funFactText: "Wusstest du schon? Wenn du mit unserer <strong>neuen Vorlage</strong> auf Social Media für uns wirbst, erhältst du automatisch <span class='text-white font-bold italic'>Gratis-Items</span> direkt im Spiel!",
+                templateBtn: "Zur Vorlage <i data-lucide='arrow-right' class='w-4 h-4'></i>",
+                cardNewsTitle: "Server News", cardNewsDesc: "Was passiert gerade auf Craftify?",
+                cardModsTitle: "Modpack", cardModsDesc: "Optimiertes Gameplay für alle.",
+                cardIpTitle: "IP-Adresse", cardIpDesc: "Einfach kopieren und loslegen.",
+                cardStatusTitle: "Live Status", cardStatusDesc: "Sieh nach, ob der Server gerade online ist.",
+                cardVideosTitle: "Videos", cardVideosDesc: "Community Trailer & Clips.",
+                cardChatTitle: "Quick Chat", cardChatDesc: "Chatte direkt über die Webseite.",
+                bannerDiscordTitle: "Tritt dem Discord bei", bannerDiscordDesc: "Verbinde dich mit der Familie und über 50 anderen Spielern.", bannerDiscordBtn: "Beitreten"
+            }
+        };
+
+        const btnDe = document.getElementById('btn-de');
+        const btnEn = document.getElementById('btn-en');
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            lucide.createIcons();
+            if (lang === 'en') {
+                btnEn.classList.add('active'); btnEn.classList.remove('text-zinc-600');
+                btnDe.classList.remove('active'); btnDe.classList.add('text-zinc-600');
+            } else {
+                btnDe.classList.add('active'); btnDe.classList.remove('text-zinc-600');
+                btnEn.classList.remove('active'); btnEn.classList.add('text-zinc-600');
+            }
+        }
+        btnDe.addEventListener('click', () => setLanguage('de'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+    </script>
+</body>
+</html>
