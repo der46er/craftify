@@ -1,92 +1,281 @@
-// --- DYNAMISCHES NEWS SYSTEM MIT NEUEM DATUMSFORMAT ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftify Mc | News</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Schriften EXKLUSIV über dein GitHub in 3 Stärken */
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-400.woff2') format('woff2');
+            font-weight: 400;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2');
+            font-weight: 900;
+            font-display: swap;
+        }
+
+        :root {
+            --mc-green: #4ade80;
+            --acrylic: rgba(20, 20, 25, 0.8);
+            --border-glow: rgba(74, 222, 128, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #e4e4e7;
+            margin: 0;
+            background-color: #0c0c0e;
+            background-image: 
+                linear-gradient(rgba(12, 12, 14, 0.6), rgba(12, 12, 14, 0.8)),
+                url('https://raw.githubusercontent.com/der46er/craftify/main/assets/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .game-card {
+            background: var(--acrylic);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .game-card:hover {
+            border-color: var(--mc-green);
+            box-shadow: 0 0 40px var(--border-glow);
+        }
+
+        #side-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+            background-color: #0c0c0e; 
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: -10px 0 50px rgba(0,0,0,0.9);
+            overflow-y: auto;
+        }
+        #side-menu.open {
+            transform: translateX(0);
+        }
+
+        .lang-btn.active {
+            color: var(--mc-green);
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: var(--mc-green);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="fixed w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
+        </div>
+        
+        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
+            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
+        </button>
+    </header>
+
+    <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-8 md:p-12 flex flex-col">
+        <div class="flex justify-between items-center mb-12 md:mb-16">
+            <span data-i18n="menuTitle" class="text-xs font-black uppercase tracking-[0.4em] text-zinc-500">Main Menu</span>
+            <button id="close-btn" class="p-2 hover:bg-white/5 rounded-full"><i data-lucide="x-circle" class="w-8 h-8"></i></button>
+        </div>
+        
+        <nav class="flex flex-col gap-4 md:gap-6 text-3xl md:text-4xl font-black italic uppercase tracking-tighter">
+            <a href="https://craftify-mc.eu/" class="hover:translate-x-2 transition-transform" data-i18n="navHome">Home</a>
+            <a href="https://craftify-mc.eu/news" class="text-green-400" data-i18n="navNews">News</a>
+            <a href="https://craftify-mc.eu/ip" class="hover:translate-x-2 transition-transform" data-i18n="navIp">IP-Address</a>
+            <a href="https://craftify-mc.eu/mods" class="hover:translate-x-2 transition-transform" data-i18n="navMods">Modpack</a>
+            <a href="https://craftify-mc.eu/status" class="hover:translate-x-2 transition-transform" data-i18n="navStatus">Status</a>
+            <a href="https://craftify-mc.eu/videos" class="hover:translate-x-2 transition-transform" data-i18n="navVideos">Videos</a>
+            <a href="https://craftify-mc.eu/chat" class="hover:translate-x-2 transition-transform" data-i18n="navChat">Quick Chat</a>
+        </nav>
+
+        <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-6">
+            <div class="flex flex-col gap-4 text-xs font-bold uppercase tracking-widest text-zinc-500">
+                <a href="https://craftify-mc.eu/imprint" class="hover:text-white transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+                <a href="https://socials.thataustrianone.eu/" target="_blank" class="hover:text-green-400 transition-colors flex items-center gap-2">
+                    <i data-lucide="share-2" class="w-4 h-4"></i> Socials
+                </a>
+            </div>
+            
+            <div class="flex items-center justify-between mt-4 pb-4">
+                <div class="flex gap-2">
+                    <button id="btn-de" class="lang-btn px-4 py-2 rounded-lg font-black text-xs text-zinc-600 transition-colors">DE</button>
+                    <button id="btn-en" class="lang-btn active px-4 py-2 rounded-lg font-black text-xs transition-colors">EN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-32 md:pt-40 pb-20 px-4 md:px-6 max-w-4xl mx-auto w-full flex-grow">
+        
+        <section class="mb-12 md:mb-16 text-center">
+            <h1 data-i18n="newsTitle" class="text-4xl sm:text-6xl md:text-7xl font-black italic tracking-tighter leading-[1.1] md:leading-[0.85] mb-4">
+                Server <span class="text-green-400">News.</span>
+            </h1>
+            <p data-i18n="newsSubtitle" class="text-zinc-400 text-sm md:text-lg">Stay updated with the latest changes and announcements.</p>
+        </section>
+
+        <div id="news-container" class="flex flex-col gap-8">
+            <div class="flex flex-col items-center justify-center py-20 gap-4">
+                <div class="loader"></div>
+                <span data-i18n="loadingText" class="text-zinc-500 font-bold uppercase tracking-widest text-xs">Loading updates...</span>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Icons initialisieren
+        lucide.createIcons();
+
+        // Hamburger-Menü Logik
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sideMenu = document.getElementById('side-menu');
+
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('open'));
+
+        document.addEventListener('click', (e) => {
+            if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target)) sideMenu.classList.remove('open');
+        });
+
+        // --- DYNAMISCHES NEWS SYSTEM ---
         async function loadNews() {
             const repo = 'der46er/craftify';
+            // WICHTIG: Das ist der Ordnerpfad in deinem Repository
             const folder = 'assets/news'; 
             const container = document.getElementById('news-container');
 
-            // Hilfsfunktion: Wandelt "28-01-2024 19:36.txt" in ein echtes Datum um für die Sortierung
-            function parseNewsDate(filename) {
-                const rawName = filename.replace('.txt', '');
-                const parts = rawName.split(' ');
-                const datePart = parts[0] || '';
-                const timePart = parts[1] ? parts[1].replace('-', ':') : '00:00'; 
-                
-                const dParts = datePart.split('-');
-                if(dParts.length === 3) {
-                    // Wandelt DD-MM-YYYY in YYYY-MM-DD um, damit JavaScript es versteht
-                    return new Date(`${dParts[2]}-${dParts[1]}-${dParts[0]}T${timePart}:00`);
-                }
-                return new Date(0); // Fallback
-            }
-
             try {
+                // 1. Hole alle Dateien aus dem GitHub Ordner
                 const response = await fetch(`https://api.github.com/repos/${repo}/contents/${folder}`);
-                if (!response.ok) throw new Error('News-Ordner nicht gefunden');
+                
+                if (!response.ok) {
+                    throw new Error('News-Ordner nicht gefunden');
+                }
 
                 let files = await response.json();
                 
-                // Filtern & Sortieren (Neuestes Datum zuerst mit der neuen Hilfsfunktion)
-                files = files.filter(f => f.name.endsWith('.txt')).sort((a, b) => {
-                    return parseNewsDate(b.name) - parseNewsDate(a.name);
-                });
+                // 2. Filtere nur .txt Dateien und sortiere sie nach Namen absteigend (neuestes Datum zuerst)
+                files = files.filter(f => f.name.endsWith('.txt')).sort((a, b) => b.name.localeCompare(a.name));
 
                 if (files.length === 0) {
-                    container.innerHTML = `<div class="text-center p-10 game-card rounded-[2rem] text-zinc-400">No news articles found.</div>`;
+                    container.innerHTML = `<div class="text-center p-10 game-card rounded-[2rem] text-zinc-400">No news articles found in assets/news/.</div>`;
                     return;
                 }
 
-                container.innerHTML = ''; 
+                container.innerHTML = ''; // Lade-Animation entfernen
 
+                // 3. Jede Textdatei herunterladen und anzeigen
                 for (const file of files) {
                     const textRes = await fetch(file.download_url);
                     const text = await textRes.text();
                     
+                    // Trenne die erste Zeile (Titel) vom Rest (Inhalt)
                     const lines = text.split('\n');
                     const title = lines[0] || 'Update';
-                    let rawContent = lines.slice(1).join('\n').trim();
+                    // Der Rest wird mit <br> für Zeilenumbrüche versehen
+                    const content = lines.slice(1).join('<br>').trim();
+                    const date = file.name.replace('.txt', ''); // Entfernt .txt vom Dateinamen
 
-                    // Bild-Formatierung
-                    const imgRegex = /!\[(.*?)\]\((.*?)\)/g;
-                    rawContent = rawContent.replace(imgRegex, '<img src="$2" alt="$1" class="w-full rounded-2xl mt-4 mb-2 object-cover border border-white/10 shadow-2xl">');
-                    
-                    const content = rawContent.replace(/\n/g, '<br>');
-
-                    // Anzeige für die Webseite formatieren
-                    const dateObj = parseNewsDate(file.name);
-                    const rawName = file.name.replace('.txt', '');
-                    const rawTime = rawName.split(' ')[1] || '';
-                    
-                    let displayDate = rawName;
-                    let displayTime = '';
-
-                    if (dateObj.getTime() !== 0) {
-                        const isDe = document.documentElement.lang === 'de';
-                        displayDate = dateObj.toLocaleDateString(isDe ? 'de-DE' : 'en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
-                        if (rawTime) {
-                            // Ersetzt eventuelle Bindestriche wieder durch Doppelpunkte
-                            const formattedTime = rawTime.replace('-', ':');
-                            displayTime = ` • ${formattedTime} ${isDe ? 'Uhr' : ''}`;
-                        }
-                    }
-
-                    // Karte bauen
+                    // Baue die Acryl-Karte
                     const card = document.createElement('div');
-                    card.className = 'game-card p-6 md:p-10 rounded-[2rem] flex flex-col gap-4';
+                    card.className = 'game-card p-8 md:p-12 rounded-[2rem] flex flex-col gap-4';
                     card.innerHTML = `
-                        <div class="flex items-center gap-3 mb-1">
-                            <i data-lucide="clock" class="w-4 h-4 text-green-400"></i>
-                            <span class="text-xs font-black uppercase tracking-widest text-green-400">${displayDate}${displayTime}</span>
+                        <div class="flex items-center gap-3 mb-2">
+                            <i data-lucide="calendar" class="w-5 h-5 text-green-400"></i>
+                            <span class="text-xs font-black uppercase tracking-widest text-green-400">${date}</span>
                         </div>
                         <h3 class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter">${title}</h3>
-                        <p class="text-zinc-300 text-sm md:text-base leading-relaxed">${content}</p>
+                        <p class="text-zinc-300 text-sm md:text-base leading-relaxed mt-2">${content}</p>
                     `;
                     container.appendChild(card);
                 }
                 
+                // Lade die Kalender-Icons für die neuen Karten
                 lucide.createIcons();
 
             } catch (error) {
                 console.error(error);
-                container.innerHTML = `<div class="text-center p-10 game-card rounded-[2rem] text-red-400">Failed to load news.</div>`;
+                container.innerHTML = `<div class="text-center p-10 game-card rounded-[2rem] text-red-400">Failed to load news. Please try again later.</div>`;
             }
         }
+
+        // Starte das Laden der News
+        loadNews();
+
+        // --- ÜBERSETZUNGEN ---
+        const translations = {
+            en: {
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy",
+                newsTitle: "Server <span class='text-green-400'>News.</span>",
+                newsSubtitle: "Stay updated with the latest changes and announcements.",
+                loadingText: "Loading updates..."
+            },
+            de: {
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Impressum & Datenschutz",
+                newsTitle: "Server <span class='text-green-400'>News.</span>",
+                newsSubtitle: "Bleib auf dem Laufenden mit den neuesten Updates.",
+                loadingText: "Updates werden geladen..."
+            }
+        };
+
+        const btnDe = document.getElementById('btn-de');
+        const btnEn = document.getElementById('btn-en');
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            lucide.createIcons();
+            if (lang === 'en') {
+                btnEn.classList.add('active'); btnEn.classList.remove('text-zinc-600');
+                btnDe.classList.remove('active'); btnDe.classList.add('text-zinc-600');
+            } else {
+                btnDe.classList.add('active'); btnDe.classList.remove('text-zinc-600');
+                btnEn.classList.remove('active'); btnEn.classList.add('text-zinc-600');
+            }
+        }
+        btnDe.addEventListener('click', () => setLanguage('de'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+    </script>
+</body>
+</html>
