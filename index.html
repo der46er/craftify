@@ -236,6 +236,16 @@
         </div>
     </main>
 
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-white/10 p-4 md:p-6 z-[200] flex flex-col sm:flex-row justify-between items-center gap-4 transform translate-y-full transition-transform duration-500">
+        <div class="text-sm text-zinc-300 max-w-3xl">
+            <p data-i18n="cookieText">We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?</p>
+        </div>
+        <div class="flex gap-3 flex-shrink-0 w-full sm:w-auto">
+            <button id="cookie-decline" class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs text-zinc-400 hover:text-white hover:bg-white/5 border border-white/10 transition-colors" data-i18n="cookieDecline">Decline</button>
+            <button id="cookie-accept" class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs bg-green-500/20 text-green-400 hover:bg-green-500/30 border border-green-500/30 transition-colors" data-i18n="cookieAccept">Accept</button>
+        </div>
+    </div>
+
     <script>
         lucide.createIcons();
         const menuBtn = document.getElementById('menu-btn');
@@ -254,7 +264,7 @@
                 menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy",
                 heroTitle: "Welcome to <br> <span class='text-green-400'>Craftify.</span>",
                 funFactLabel: "Fun Fact / Bonus",
-                funFactText: "Did you know? If you advertise for the server using our <strong>new template</strong>, you will automatically <span class='text-white font-bold italic'>free items</span> in-game!",
+                funFactText: "Did you know? If you advertise for the server using our <strong>new template</strong>, you will automatically receive <span class='text-white font-bold italic'>free items</span> in-game!",
                 templateBtn: "To Template <i data-lucide='arrow-right' class='w-4 h-4'></i>",
                 cardNewsTitle: "Server News", cardNewsDesc: "What's happening on Craftify?",
                 cardModsTitle: "Modpack", cardModsDesc: "Optimized gameplay for everyone.",
@@ -262,7 +272,8 @@
                 cardStatusTitle: "Live Status", cardStatusDesc: "Check if the server is currently online.",
                 cardVideosTitle: "Videos", cardVideosDesc: "Community trailers & clips.",
                 cardChatTitle: "Quick Chat", cardChatDesc: "Chat directly from the website.",
-                bannerDiscordTitle: "Join the Discord", bannerDiscordDesc: "Connect with the family and over 50 other players.", bannerDiscordBtn: "Join"
+                bannerDiscordTitle: "Join the Discord", bannerDiscordDesc: "Connect with the family and over 50 other players.", bannerDiscordBtn: "Join",
+                cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
             },
             de: {
                 menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Impressum & Datenschutz",
@@ -276,7 +287,8 @@
                 cardStatusTitle: "Live Status", cardStatusDesc: "Sieh nach, ob der Server gerade online ist.",
                 cardVideosTitle: "Videos", cardVideosDesc: "Community Trailer & Clips.",
                 cardChatTitle: "Quick Chat", cardChatDesc: "Chatte direkt über die Webseite.",
-                bannerDiscordTitle: "Tritt dem Discord bei", bannerDiscordDesc: "Verbinde dich mit der Familie und über 50 anderen Spielern.", bannerDiscordBtn: "Beitreten"
+                bannerDiscordTitle: "Tritt dem Discord bei", bannerDiscordDesc: "Verbinde dich mit der Familie und über 50 anderen Spielern.", bannerDiscordBtn: "Beitreten",
+                cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
             }
         };
 
@@ -299,6 +311,52 @@
         }
         btnDe.addEventListener('click', () => setLanguage('de'));
         btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // --- Cookie & Google Analytics Logic ---
+        const cookieBanner = document.getElementById('cookie-banner');
+        const cookieAccept = document.getElementById('cookie-accept');
+        const cookieDecline = document.getElementById('cookie-decline');
+
+        function loadGoogleAnalytics() {
+            const script1 = document.createElement('script');
+            script1.async = true;
+            script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-LTZZ8FXG9D';
+            document.head.appendChild(script1);
+
+            const script2 = document.createElement('script');
+            script2.innerHTML = `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-LTZZ8FXG9D');
+            `;
+            document.head.appendChild(script2);
+        }
+
+        const consentStatus = localStorage.getItem('craftifyCookieConsent');
+
+        if (consentStatus === 'granted') {
+            loadGoogleAnalytics();
+        } else if (!consentStatus) {
+            // Zeige Banner mit kurzer Verzögerung für eine geschmeidige Animation
+            setTimeout(() => {
+                cookieBanner.classList.remove('translate-y-full');
+            }, 500);
+        }
+
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('craftifyCookieConsent', 'granted');
+            cookieBanner.classList.add('translate-y-full');
+            loadGoogleAnalytics();
+        });
+
+        cookieDecline.addEventListener('click', () => {
+            localStorage.setItem('craftifyCookieConsent', 'denied');
+            cookieBanner.classList.add('translate-y-full');
+        });
+
+        // Initialize default translations based on the active button
+        setLanguage('en');
     </script>
 </body>
 </html>
