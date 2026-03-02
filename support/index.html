@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftify Mc | Support Us</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321842148888741" crossorigin="anonymous"></script>
+
+    <style>
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
+
+        :root { --mc-green: #4ade80; --acrylic: rgba(20, 20, 25, 0.75); }
+        
+        body { font-family: 'Inter', sans-serif; color: #e4e4e7; margin: 0; background-color: #0c0c0e; background-image: linear-gradient(rgba(12, 12, 14, 0.8), rgba(12, 12, 14, 0.95)), url('https://raw.githubusercontent.com/der46er/craftify/main/assets/background.png'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .game-card { background: var(--acrylic); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 50px rgba(0,0,0,0.8); }
+        
+        #side-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); background-color: #0c0c0e; border-left: 1px solid rgba(255, 255, 255, 0.05); }
+        #side-menu.open { transform: translateX(0); }
+
+        .ad-container-slot { background: rgba(255, 255, 255, 0.02); border-radius: 1.5rem; overflow: hidden; min-height: 250px; border: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; position: relative;}
+        /* Pseudo-element to show when AdBlock is active or ad is loading */
+        .ad-container-slot::before { content: 'Advertisement'; position: absolute; color: rgba(255,255,255,0.1); font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; z-index: -1; }
+    </style>
+</head>
+<body>
+
+    <header class="w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5 fixed top-0">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
+        </div>
+        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
+            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
+        </button>
+    </header>
+
+    <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-10 flex flex-col shadow-2xl">
+        <div class="flex justify-between items-center mb-12">
+            <span data-i18n="menuTitle" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Main Menu</span>
+            <button id="close-btn" class="hover:scale-110 transition-transform">
+                <i data-lucide="x-circle" class="w-8 h-8 text-white"></i>
+            </button>
+        </div>
+        
+        <nav class="flex flex-col gap-6 text-[2.5rem] font-black italic uppercase tracking-tighter leading-none">
+            <a href="https://craftify-mc.eu/" class="hover:text-zinc-300 transition-colors" data-i18n="navHome">Home</a>
+            <a href="https://craftify-mc.eu/news" class="hover:text-zinc-300 transition-colors" data-i18n="navNews">News</a>
+            <a href="https://craftify-mc.eu/ip" class="hover:text-zinc-300 transition-colors" data-i18n="navIp">IP-Address</a>
+            <a href="https://craftify-mc.eu/modpack" class="hover:text-zinc-300 transition-colors" data-i18n="navMods">Modpack</a>
+            <a href="https://craftify-mc.eu/status" class="hover:text-zinc-300 transition-colors" data-i18n="navStatus">Status</a>
+            <a href="https://craftify-mc.eu/videos" class="hover:text-zinc-300 transition-colors" data-i18n="navVideos">Videos</a>
+            <a href="https://craftify-mc.eu/chat" class="hover:text-zinc-300 transition-colors" data-i18n="navChat">Quick Chat</a>
+            <a href="https://craftify-mc.eu/support" class="text-green-400" data-i18n="navSupport">Support Us</a>
+        </nav>
+
+        <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-4">
+            <a href="https://craftify-mc.eu/imprint/" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+            <a href="https://socials.thataustrianone.eu" target="_blank" class="text-xs font-bold tracking-[0.2em] text-zinc-400 hover:text-white uppercase transition-colors flex items-center gap-2" data-i18n="navSocials">
+                <i data-lucide="share-2" class="w-4 h-4"></i> Socials
+            </a>
+
+            <div class="flex gap-4 mt-4">
+                <button id="btn-de" class="lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors">DE</button>
+                <button id="btn-en" class="lang-btn active font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors">EN</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-32 pb-10 px-4 flex-grow flex items-center justify-center w-full">
+        <div class="max-w-7xl w-full flex flex-col items-center">
+            
+            <div class="text-center mb-10">
+                <h1 data-i18n="pageTitle" class="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-4">
+                    Support <span class="text-green-400">Craftify.</span>
+                </h1>
+                <p data-i18n="pageSubtitle" class="text-zinc-400 font-bold uppercase tracking-widest text-xs">Help us keep the server running simply by being here.</p>
+            </div>
+
+            <div class="w-full grid md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-black/40 border border-white/5 p-6 rounded-3xl flex flex-col gap-2">
+                    <i data-lucide="server" class="w-6 h-6 text-green-400 mb-2"></i>
+                    <h3 data-i18n="info1Title" class="text-white font-black uppercase tracking-tighter text-lg">Server Hosting</h3>
+                    <p data-i18n="info1Desc" class="text-xs text-zinc-400 leading-relaxed">Dedicated hardware is expensive. Every ad viewed on this page goes directly into paying the monthly root server bills.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-6 rounded-3xl flex flex-col gap-2">
+                    <i data-lucide="code" class="w-6 h-6 text-green-400 mb-2"></i>
+                    <h3 data-i18n="info2Title" class="text-white font-black uppercase tracking-tighter text-lg">Development</h3>
+                    <p data-i18n="info2Desc" class="text-xs text-zinc-400 leading-relaxed">Maintaining plugins, the modpack, and fixing bugs takes hundreds of hours. Your support keeps the development alive.</p>
+                </div>
+                <div class="bg-black/40 border border-white/5 p-6 rounded-3xl flex flex-col gap-2">
+                    <i data-lucide="heart" class="w-6 h-6 text-green-400 mb-2"></i>
+                    <h3 data-i18n="info3Title" class="text-white font-black uppercase tracking-tighter text-lg">How it works</h3>
+                    <p data-i18n="info3Desc" class="text-xs text-zinc-400 leading-relaxed">Disable your AdBlocker and let this page open in the background. Google AdSense handles the rest automatically. Thank you!</p>
+                </div>
+            </div>
+
+            <div class="game-card p-6 md:p-10 rounded-[2.5rem] w-full relative">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <div class="ad-container-slot">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+
+                    <div class="ad-container-slot">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+
+                    <div class="ad-container-slot">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+
+                    <div class="ad-container-slot">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+
+                    <div class="ad-container-slot">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+
+                    <div class="ad-container-slot">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+
+                    <div class="ad-container-slot">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+
+                    <div class="ad-container-slot">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+
+                    <div class="ad-container-slot">
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-white/10 p-4 md:p-6 z-[200] flex flex-col sm:flex-row justify-between items-center gap-4 transform translate-y-full transition-transform duration-500">
+        <div class="text-sm text-zinc-300 max-w-3xl">
+            <p data-i18n="cookieText">We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?</p>
+        </div>
+        <div class="flex gap-3 flex-shrink-0 w-full sm:w-auto">
+            <button id="cookie-decline" class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs text-zinc-400 hover:text-white hover:bg-white/5 border border-white/10 transition-colors" data-i18n="cookieDecline">Decline</button>
+            <button id="cookie-accept" class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs bg-green-500/20 text-green-400 hover:bg-green-500/30 border border-green-500/30 transition-colors" data-i18n="cookieAccept">Accept</button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sideMenu = document.getElementById('side-menu');
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('open'));
+
+        const translations = {
+            en: { 
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Support Us", navLegal: "Legal & Privacy", navSocials: "Socials",
+                pageTitle: "Support <span class='text-green-400'>Craftify.</span>",
+                pageSubtitle: "Help us keep the server running simply by being here.",
+                info1Title: "Server Hosting", info1Desc: "Dedicated hardware is expensive. Every ad viewed on this page goes directly into paying the monthly root server bills.",
+                info2Title: "Development", info2Desc: "Maintaining plugins, the modpack, and fixing bugs takes hundreds of hours. Your support keeps the development alive.",
+                info3Title: "How it works", info3Desc: "Disable your AdBlocker and let this page open in the background. Google AdSense handles the rest automatically. Thank you!",
+                cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
+            },
+            de: { 
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Unterstützung", navLegal: "Legal & Privacy", navSocials: "Socials",
+                pageTitle: "Unterstütze <span class='text-green-400'>Craftify.</span>",
+                pageSubtitle: "Hilf uns den Server zu finanzieren, einfach indem du hier bist.",
+                info1Title: "Server Hosting", info1Desc: "Dedizierte Hardware ist teuer. Jede hier gesehene Werbung fließt direkt in die monatlichen Root-Server Kosten.",
+                info2Title: "Entwicklung", info2Desc: "Plugins warten, das Modpack updaten und Bugs fixen kostet hunderte Stunden. Deine Unterstützung hält alles am Laufen.",
+                info3Title: "Wie es funktioniert", info3Desc: "Deaktiviere deinen AdBlocker und lass diese Seite im Hintergrund offen. Google AdSense regelt den Rest. Danke!",
+                cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
+            }
+        };
+
+        const btnDe = document.getElementById('btn-de');
+        const btnEn = document.getElementById('btn-en');
+        
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            if (lang === 'en') {
+                btnEn.className = 'lang-btn active font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors';
+                btnDe.className = 'lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors';
+            } else {
+                btnDe.className = 'lang-btn active font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors';
+                btnEn.className = 'lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors';
+            }
+        }
+        
+        btnDe.addEventListener('click', () => setLanguage('de'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+        setLanguage('en');
+
+        const cookieBanner = document.getElementById('cookie-banner');
+        function loadGA() {
+            const s1 = document.createElement('script'); s1.async = true; s1.src = 'https://www.googletagmanager.com/gtag/js?id=G-LG4C4Y1NW8'; document.head.appendChild(s1);
+            const s2 = document.createElement('script'); s2.innerHTML = `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-LG4C4Y1NW8');`; document.head.appendChild(s2);
+        }
+        if (localStorage.getItem('craftifyCookieConsent') === 'granted') loadGA();
+        else if (!localStorage.getItem('craftifyCookieConsent')) setTimeout(() => cookieBanner.classList.remove('translate-y-full'), 500);
+
+        document.getElementById('cookie-accept').addEventListener('click', () => { localStorage.setItem('craftifyCookieConsent', 'granted'); cookieBanner.classList.add('translate-y-full'); loadGA(); });
+        document.getElementById('cookie-decline').addEventListener('click', () => { localStorage.setItem('craftifyCookieConsent', 'denied'); cookieBanner.classList.add('translate-y-full'); });
+    </script>
+</body>
+</html>
