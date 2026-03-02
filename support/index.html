@@ -25,21 +25,33 @@
         #side-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); background-color: #0c0c0e; border-left: 1px solid rgba(255, 255, 255, 0.05); }
         #side-menu.open { transform: translateX(0); }
 
-        .ad-container-slot { background: rgba(255, 255, 255, 0.02); border-radius: 1.5rem; overflow: hidden; min-height: 250px; border: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; position: relative;}
-        /* Pseudo-element to show when AdBlock is active or ad is loading */
-        .ad-container-slot::before { content: 'Advertisement'; position: absolute; color: rgba(255,255,255,0.1); font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; z-index: -1; }
+        .ad-container-slot { background: rgba(255, 255, 255, 0.02); border-radius: 1.5rem; overflow: hidden; min-height: 280px; border: 1px dashed rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; position: relative; margin-top: 2rem; margin-bottom: 2rem; width: 100%; }
+        .ad-container-slot::before { content: 'Advertisement Placement'; position: absolute; color: rgba(255,255,255,0.1); font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; z-index: -1; }
     </style>
 </head>
 <body>
 
-    <header class="w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5 fixed top-0">
-        <div class="flex items-center gap-3">
+    <header class="fixed w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5">
+        <div class="flex items-center gap-3 shrink-0">
             <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
-            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter hidden sm:inline">Craftify <span class="text-green-400">Mc</span></span>
         </div>
-        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
-            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
-        </button>
+        
+        <div class="flex items-center gap-2 md:gap-4">
+            <a href="https://discord.gg/jTFfFD823J" target="_blank" title="Discord" class="flex items-center gap-2 p-2 md:px-4 md:py-2.5 bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/30 hover:bg-[#5865F2]/20 hover:border-[#5865F2] rounded-xl transition-all font-black uppercase text-xs tracking-widest">
+                <i data-lucide="message-circle" class="w-5 h-5 md:w-4 md:h-4"></i>
+                <span class="hidden md:inline">Discord</span>
+            </a>
+
+            <a href="https://craftify-mc.eu/support" title="Support Us" class="flex items-center gap-2 p-2 md:px-4 md:py-2.5 bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 hover:bg-yellow-400/20 hover:border-yellow-400 hover:shadow-[0_0_15px_rgba(250,204,21,0.3)] rounded-xl transition-all font-black uppercase text-xs tracking-widest">
+                <i data-lucide="heart" class="w-5 h-5 md:w-4 md:h-4"></i>
+                <span class="hidden md:inline" data-i18n="navSupport">Support Us</span>
+            </a>
+
+            <button id="menu-btn" class="p-2 md:p-2.5 hover:bg-white/5 rounded-xl transition-all border border-white/10 bg-zinc-900/50 ml-1">
+                <i data-lucide="menu-square" class="w-6 h-6 md:w-5 md:h-5"></i>
+            </button>
+        </div>
     </header>
 
     <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-10 flex flex-col shadow-2xl">
@@ -74,87 +86,74 @@
         </div>
     </div>
 
-    <main class="pt-32 pb-10 px-4 flex-grow flex items-center justify-center w-full">
-        <div class="max-w-7xl w-full flex flex-col items-center">
-            
-            <div class="text-center mb-10">
-                <h1 data-i18n="pageTitle" class="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-4">
-                    Support <span class="text-green-400">Craftify.</span>
-                </h1>
-                <p data-i18n="pageSubtitle" class="text-zinc-400 font-bold uppercase tracking-widest text-xs">Help us keep the server running simply by being here.</p>
-            </div>
-
-            <div class="w-full grid md:grid-cols-3 gap-6 mb-10">
-                <div class="bg-black/40 border border-white/5 p-6 rounded-3xl flex flex-col gap-2">
-                    <i data-lucide="server" class="w-6 h-6 text-green-400 mb-2"></i>
-                    <h3 data-i18n="info1Title" class="text-white font-black uppercase tracking-tighter text-lg">Server Hosting</h3>
-                    <p data-i18n="info1Desc" class="text-xs text-zinc-400 leading-relaxed">Dedicated hardware is expensive. Every ad viewed on this page goes directly into paying the monthly root server bills.</p>
-                </div>
-                <div class="bg-black/40 border border-white/5 p-6 rounded-3xl flex flex-col gap-2">
-                    <i data-lucide="code" class="w-6 h-6 text-green-400 mb-2"></i>
-                    <h3 data-i18n="info2Title" class="text-white font-black uppercase tracking-tighter text-lg">Development</h3>
-                    <p data-i18n="info2Desc" class="text-xs text-zinc-400 leading-relaxed">Maintaining plugins, the modpack, and fixing bugs takes hundreds of hours. Your support keeps the development alive.</p>
-                </div>
-                <div class="bg-black/40 border border-white/5 p-6 rounded-3xl flex flex-col gap-2">
-                    <i data-lucide="heart" class="w-6 h-6 text-green-400 mb-2"></i>
-                    <h3 data-i18n="info3Title" class="text-white font-black uppercase tracking-tighter text-lg">How it works</h3>
-                    <p data-i18n="info3Desc" class="text-xs text-zinc-400 leading-relaxed">Disable your AdBlocker and let this page open in the background. Google AdSense handles the rest automatically. Thank you!</p>
-                </div>
-            </div>
-
-            <div class="game-card p-6 md:p-10 rounded-[2.5rem] w-full relative">
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
-                    <div class="ad-container-slot">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>
-
-                    <div class="ad-container-slot">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>
-
-                    <div class="ad-container-slot">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>
-
-                    <div class="ad-container-slot">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>
-
-                    <div class="ad-container-slot">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>
-
-                    <div class="ad-container-slot">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>
-
-                    <div class="ad-container-slot">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>
-
-                    <div class="ad-container-slot">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>
-
-                    <div class="ad-container-slot">
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>
-
-                </div>
-
-            </div>
+    <main class="pt-32 pb-10 px-4 flex-grow flex items-center w-full max-w-4xl mx-auto flex-col">
+        
+        <div class="text-center mb-10 w-full">
+            <h1 data-i18n="pageTitle" class="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-4 text-white">
+                Support <span class="text-green-400">Craftify.</span>
+            </h1>
+            <p data-i18n="pageSubtitle" class="text-zinc-400 font-bold uppercase tracking-widest text-xs">Scroll down & leave this page open.</p>
         </div>
+
+        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+                <i data-lucide="server" class="w-6 h-6 text-green-400"></i>
+                <h3 data-i18n="info1Title" class="text-white font-black uppercase tracking-tighter text-2xl">Server Hosting Costs</h3>
+            </div>
+            <p data-i18n="info1Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
+                Running a high-performance Minecraft server requires dedicated hardware to ensure a lag-free experience for everyone. Monthly root server bills, DDoS protection, and backups cost a significant amount of money. By simply viewing the ads on this page, you directly contribute to keeping the server online.
+            </p>
+        </div>
+
+        <div class="ad-container-slot">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+                <i data-lucide="code" class="w-6 h-6 text-green-400"></i>
+                <h3 data-i18n="info2Title" class="text-white font-black uppercase tracking-tighter text-2xl">Development & Maintenance</h3>
+            </div>
+            <p data-i18n="info2Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
+                Maintaining custom plugins, keeping the Modpack updated, and fixing bugs takes hundreds of hours of voluntary work. Your support helps to keep the development alive and guarantees that we can continue bringing new, exciting features to the Craftify community.
+            </p>
+        </div>
+
+        <div class="ad-container-slot">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4">
+            <div class="flex items-center gap-3">
+                <i data-lucide="shield-check" class="w-6 h-6 text-green-400"></i>
+                <h3 data-i18n="info3Title" class="text-white font-black uppercase tracking-tighter text-2xl">Community Events</h3>
+            </div>
+            <p data-i18n="info3Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
+                We regularly host tournaments, events, and giveaways. The generated revenue allows us to give back to the community by offering better prizes, upgrading our infrastructure for large-scale events, and rewarding active players.
+            </p>
+        </div>
+
+        <div class="ad-container-slot">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321842148888741" data-ad-slot="default" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 mb-8">
+            <div class="flex items-center gap-3">
+                <i data-lucide="heart" class="w-6 h-6 text-green-400"></i>
+                <h3 data-i18n="info4Title" class="text-white font-black uppercase tracking-tighter text-2xl">How exactly does this work?</h3>
+            </div>
+            <p data-i18n="info4Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
+                It's 100% free for you! Just disable your AdBlocker on our website and let this page open in the background while you play. Google AdSense handles the rest automatically. Every view counts. Thank you so much for being an awesome part of our family!
+            </p>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-white/5 text-center w-full">
+            <p data-i18n="thankYou" class="text-green-400 font-black italic text-xl uppercase tracking-tighter drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]">You are helping us keep the server running!</p>
+        </div>
+
     </main>
 
     <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-white/10 p-4 md:p-6 z-[200] flex flex-col sm:flex-row justify-between items-center gap-4 transform translate-y-full transition-transform duration-500">
@@ -180,19 +179,23 @@
             en: { 
                 menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Support Us", navLegal: "Legal & Privacy", navSocials: "Socials",
                 pageTitle: "Support <span class='text-green-400'>Craftify.</span>",
-                pageSubtitle: "Help us keep the server running simply by being here.",
-                info1Title: "Server Hosting", info1Desc: "Dedicated hardware is expensive. Every ad viewed on this page goes directly into paying the monthly root server bills.",
-                info2Title: "Development", info2Desc: "Maintaining plugins, the modpack, and fixing bugs takes hundreds of hours. Your support keeps the development alive.",
-                info3Title: "How it works", info3Desc: "Disable your AdBlocker and let this page open in the background. Google AdSense handles the rest automatically. Thank you!",
+                pageSubtitle: "Scroll down & leave this page open.",
+                info1Title: "Server Hosting Costs", info1Desc: "Running a high-performance Minecraft server requires dedicated hardware to ensure a lag-free experience for everyone. Monthly root server bills, DDoS protection, and backups cost a significant amount of money. By simply viewing the ads on this page, you directly contribute to keeping the server online.",
+                info2Title: "Development & Maintenance", info2Desc: "Maintaining custom plugins, keeping the Modpack updated, and fixing bugs takes hundreds of hours of voluntary work. Your support helps to keep the development alive and guarantees that we can continue bringing new, exciting features to the Craftify community.",
+                info3Title: "Community Events", info3Desc: "We regularly host tournaments, events, and giveaways. The generated revenue allows us to give back to the community by offering better prizes, upgrading our infrastructure for large-scale events, and rewarding active players.",
+                info4Title: "How exactly does this work?", info4Desc: "It's 100% free for you! Just disable your AdBlocker on our website and let this page open in the background while you play. Google AdSense handles the rest automatically. Every view counts. Thank you so much for being an awesome part of our family!",
+                thankYou: "You are helping us keep the server running!",
                 cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
             },
             de: { 
-                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Unterstützung", navLegal: "Legal & Privacy", navSocials: "Socials",
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Unterstütze uns", navLegal: "Impressum & Datenschutz", navSocials: "Socials",
                 pageTitle: "Unterstütze <span class='text-green-400'>Craftify.</span>",
-                pageSubtitle: "Hilf uns den Server zu finanzieren, einfach indem du hier bist.",
-                info1Title: "Server Hosting", info1Desc: "Dedizierte Hardware ist teuer. Jede hier gesehene Werbung fließt direkt in die monatlichen Root-Server Kosten.",
-                info2Title: "Entwicklung", info2Desc: "Plugins warten, das Modpack updaten und Bugs fixen kostet hunderte Stunden. Deine Unterstützung hält alles am Laufen.",
-                info3Title: "Wie es funktioniert", info3Desc: "Deaktiviere deinen AdBlocker und lass diese Seite im Hintergrund offen. Google AdSense regelt den Rest. Danke!",
+                pageSubtitle: "Scrolle nach unten & lass diese Seite offen.",
+                info1Title: "Server Hosting Kosten", info1Desc: "Ein leistungsstarker Minecraft-Server erfordert teure Hardware, damit alle lagfrei spielen können. Die monatlichen Root-Server-Kosten, DDoS-Schutz und Backups verschlingen viel Geld. Wenn du die Anzeigen hier ansiehst, trägst du direkt dazu bei, dass der Server online bleibt.",
+                info2Title: "Entwicklung & Wartung", info2Desc: "Eigene Plugins programmieren, das Modpack aktualisieren und Bugs beheben kostet hunderte Stunden freiwillige Arbeit. Deine Unterstützung hält die Entwicklung am Leben und garantiert, dass wir weiterhin neue, coole Features für die Community bringen können.",
+                info3Title: "Community Events", info3Desc: "Wir veranstalten regelmäßig Turniere, Events und Giveaways. Durch die Werbeeinnahmen können wir der Community etwas zurückgeben, bessere Preise anbieten, unsere Infrastruktur für Großevents ausbauen und aktive Spieler belohnen.",
+                info4Title: "Wie genau funktioniert das?", info4Desc: "Es ist zu 100% kostenlos für dich! Deaktiviere einfach deinen AdBlocker und lass diese Seite im Hintergrund offen, während du spielst. Google AdSense erledigt den Rest ganz automatisch. Jeder Aufruf zählt. Danke, dass du ein Teil unserer Familie bist!",
+                thankYou: "Du hilfst uns dabei, den Server am Laufen zu halten!",
                 cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
             }
         };
