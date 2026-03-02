@@ -10,6 +10,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321842148888741" crossorigin="anonymous"></script>
+
     <style>
         /* Schriften EXKLUSIV über dein GitHub in 3 Stärken */
         @font-face {
@@ -107,14 +109,27 @@
 <body class="min-h-screen flex flex-col">
 
     <header class="fixed w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 shrink-0">
             <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
-            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter hidden sm:inline">Craftify <span class="text-green-400">Mc</span></span>
         </div>
         
-        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
-            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
-        </button>
+        <div class="flex items-center gap-2 md:gap-4">
+            
+            <a href="https://discord.gg/jTFfFD823J" target="_blank" title="Discord" class="flex items-center gap-2 p-2 md:px-4 md:py-2.5 bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/30 hover:bg-[#5865F2]/20 hover:border-[#5865F2] rounded-xl transition-all font-black uppercase text-xs tracking-widest">
+                <i data-lucide="message-circle" class="w-5 h-5 md:w-4 md:h-4"></i>
+                <span class="hidden md:inline">Discord</span>
+            </a>
+
+            <a href="https://craftify-mc.eu/support" title="Support Us" class="flex items-center gap-2 p-2 md:px-4 md:py-2.5 bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 hover:bg-yellow-400/20 hover:border-yellow-400 hover:shadow-[0_0_15px_rgba(250,204,21,0.3)] rounded-xl transition-all font-black uppercase text-xs tracking-widest">
+                <i data-lucide="heart" class="w-5 h-5 md:w-4 md:h-4"></i>
+                <span class="hidden md:inline" data-i18n="navSupport">Support Us</span>
+            </a>
+
+            <button id="menu-btn" class="p-2 md:p-2.5 hover:bg-white/5 rounded-xl transition-all border border-white/10 bg-zinc-900/50 ml-1">
+                <i data-lucide="menu-square" class="w-6 h-6 md:w-5 md:h-5"></i>
+            </button>
+        </div>
     </header>
 
     <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-8 md:p-12 flex flex-col">
@@ -131,7 +146,7 @@
             <a href="https://craftify-mc.eu/status" class="hover:translate-x-2 transition-transform" data-i18n="navStatus">Status</a>
             <a href="https://craftify-mc.eu/videos" class="hover:translate-x-2 transition-transform" data-i18n="navVideos">Videos</a>
             <a href="https://craftify-mc.eu/chat" class="hover:translate-x-2 transition-transform" data-i18n="navChat">Quick Chat</a>
-            <a href="support.html" class="hover:text-zinc-300 transition-colors" data-i18n="navSupport">Support Us</a>
+            <a href="https://craftify-mc.eu/support" class="hover:translate-x-2 transition-transform hover:text-green-400" data-i18n="navSupport">Support Us</a>
         </nav>
 
         <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-6">
@@ -218,23 +233,6 @@
                 </div>
             </a>
         </div>
-
-        <div class="mt-8 md:mt-12">
-            <a href="https://discord.gg/jTFfFD823J" target="_blank" class="game-card p-6 md:p-12 rounded-[1.5rem] md:rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 border-[#5865F2]/40 hover:border-[#5865F2] hover:shadow-[0_0_30px_rgba(88,101,242,0.3)] bg-[#5865F2]/5 group">
-                <div class="flex items-center gap-4 md:gap-8 flex-col sm:flex-row text-center sm:text-left w-full md:w-auto">
-                    <div class="p-4 md:p-5 rounded-2xl bg-[#5865F2]/20 text-[#5865F2] group-hover:scale-110 transition-transform">
-                        <i data-lucide="message-circle" class="w-10 h-10 md:w-12 md:h-12"></i>
-                    </div>
-                    <div>
-                        <h3 data-i18n="bannerDiscordTitle" class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-1 md:mb-2">Join the Discord</h3>
-                        <p data-i18n="bannerDiscordDesc" class="text-zinc-400 text-xs md:text-base">Connect with the family and over 50 other players.</p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0 w-full sm:w-auto mt-2 sm:mt-0 flex">
-                    <span data-i18n="bannerDiscordBtn" class="btn-template w-full text-center px-8 py-4 rounded-xl font-black uppercase tracking-widest text-sm text-[#5865F2] border-[#5865F2]/30 bg-[#5865F2]/10 group-hover:bg-[#5865F2]/20 group-hover:border-[#5865F2]">Join</span>
-                </div>
-            </a>
-        </div>
     </main>
 
     <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-white/10 p-4 md:p-6 z-[200] flex flex-col sm:flex-row justify-between items-center gap-4 transform translate-y-full transition-transform duration-500">
@@ -262,7 +260,7 @@
 
         const translations = {
             en: {
-                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy",
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Support Us", navLegal: "Legal & Privacy",
                 heroTitle: "Welcome to <br> <span class='text-green-400'>Craftify.</span>",
                 funFactLabel: "Fun Fact / Bonus",
                 funFactText: "Did you know? If you advertise for the server using our <strong>new template</strong>, you will automatically receive <span class='text-white font-bold italic'>free items</span> in-game!",
@@ -273,11 +271,10 @@
                 cardStatusTitle: "Live Status", cardStatusDesc: "Check if the server is currently online.",
                 cardVideosTitle: "Videos", cardVideosDesc: "Community trailers & clips.",
                 cardChatTitle: "Quick Chat", cardChatDesc: "Chat directly from the website.",
-                bannerDiscordTitle: "Join the Discord", bannerDiscordDesc: "Connect with the family and over 50 other players.", bannerDiscordBtn: "Join",
                 cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
             },
             de: {
-                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Impressum & Datenschutz",
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Unterstützung", navLegal: "Impressum & Datenschutz",
                 heroTitle: "Willkommen bei <br> <span class='text-green-400'>Craftify.</span>",
                 funFactLabel: "Fun Fact / Bonus",
                 funFactText: "Wusstest du schon? Wenn du mit der <strong>neuen Vorlage</strong> für den server wirbst, erhältst du <span class='text-white font-bold italic'>Gratis-Items</span> direkt im Spiel!",
@@ -288,7 +285,6 @@
                 cardStatusTitle: "Live Status", cardStatusDesc: "Sieh nach, ob der Server gerade online ist.",
                 cardVideosTitle: "Videos", cardVideosDesc: "Community Trailer & Clips.",
                 cardChatTitle: "Quick Chat", cardChatDesc: "Chatte direkt über die Webseite.",
-                bannerDiscordTitle: "Tritt dem Discord bei", bannerDiscordDesc: "Verbinde dich mit der Familie und über 50 anderen Spielern.", bannerDiscordBtn: "Beitreten",
                 cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
             }
         };
@@ -339,7 +335,6 @@
         if (consentStatus === 'granted') {
             loadGoogleAnalytics();
         } else if (!consentStatus) {
-            // Zeige Banner mit kurzer Verzögerung für eine geschmeidige Animation
             setTimeout(() => {
                 cookieBanner.classList.remove('translate-y-full');
             }, 500);
@@ -356,7 +351,6 @@
             cookieBanner.classList.add('translate-y-full');
         });
 
-        // Initialize default translations based on the active button
         setLanguage('en');
     </script>
 </body>
