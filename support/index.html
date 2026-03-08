@@ -83,13 +83,34 @@
         </div>
     </div>
 
-    <main class="pt-32 pb-20 px-4 flex-grow flex items-center w-full max-w-4xl mx-auto flex-col gap-12">
+    <main class="pt-32 pb-20 px-4 flex-grow flex items-center w-full max-w-4xl mx-auto flex-col gap-8">
         
-        <div class="text-center w-full mt-8">
+        <div class="text-center w-full mt-8 mb-4">
             <h1 data-i18n="pageTitle" class="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-4 text-white">
                 Support <span class="text-green-400">Craftify.</span>
             </h1>
-            <p data-i18n="pageSubtitle" class="text-zinc-400 font-bold uppercase tracking-widest text-xs">Scroll down & leave this page open.</p>
+            <p data-i18n="pageSubtitle" class="text-zinc-400 font-bold uppercase tracking-widest text-xs">Discover how you can help us grow and keep the community thriving.</p>
+        </div>
+
+        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
+            <div class="flex items-center gap-3">
+                <i data-lucide="gem" class="w-6 h-6 text-green-400"></i>
+                <h3 data-i18n="directDonateTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Direct Donations</h3>
+            </div>
+            <p data-i18n="directDonateDesc" class="text-sm text-zinc-400 leading-relaxed font-medium mb-4">
+                Prefer to support us directly? You can use the platforms below. 100% of these funds go directly into server upgrades, maintaining our infrastructure, and commissioning new community features. Every single contribution makes a huge difference.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a id="btn-paypal" href="#" target="_blank" style="display: none;" class="flex items-center gap-2 px-6 py-3 bg-[#00457C]/20 text-[#0079C1] border border-[#0079C1]/30 hover:bg-[#00457C]/40 hover:border-[#0079C1] rounded-xl transition-all font-black uppercase text-sm tracking-widest">
+                    <i data-lucide="wallet" class="w-5 h-5"></i> PayPal
+                </a>
+                <a id="btn-patreon" href="#" target="_blank" style="display: none;" class="flex items-center gap-2 px-6 py-3 bg-[#FF424D]/20 text-[#FF424D] border border-[#FF424D]/30 hover:bg-[#FF424D]/40 hover:border-[#FF424D] rounded-xl transition-all font-black uppercase text-sm tracking-widest">
+                    <i data-lucide="coins" class="w-5 h-5"></i> Patreon
+                </a>
+                <a id="btn-kofi" href="#" target="_blank" style="display: none;" class="flex items-center gap-2 px-6 py-3 bg-[#FF5E5B]/20 text-[#FF5E5B] border border-[#FF5E5B]/30 hover:bg-[#FF5E5B]/40 hover:border-[#FF5E5B] rounded-xl transition-all font-black uppercase text-sm tracking-widest">
+                    <i data-lucide="coffee" class="w-5 h-5"></i> Ko-Fi
+                </a>
+            </div>
         </div>
 
         <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
@@ -98,7 +119,7 @@
                 <h3 data-i18n="info1Title" class="text-white font-black uppercase tracking-tighter text-2xl">Server Hosting Costs</h3>
             </div>
             <p data-i18n="info1Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
-                Running a high-performance Minecraft server requires dedicated hardware to ensure a lag-free experience for everyone. Monthly root server bills, DDoS protection, and backups cost a significant amount of money. By simply viewing the ads on this page, you directly contribute to keeping the server online.
+                Running a high-performance Minecraft server requires dedicated hardware to ensure a lag-free experience for everyone. Monthly root server bills, extensive DDoS protection, automated off-site backups, and web hosting domains cost a significant amount of money. 
             </p>
         </div>
 
@@ -108,27 +129,49 @@
                 <h3 data-i18n="info2Title" class="text-white font-black uppercase tracking-tighter text-2xl">Development & Maintenance</h3>
             </div>
             <p data-i18n="info2Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
-                Maintaining custom plugins, keeping the Modpack updated, and fixing bugs takes hundreds of hours of voluntary work. Your support helps to keep the development alive and guarantees that we can continue bringing new, exciting features to the Craftify community.
+                Maintaining custom plugins, keeping the Modpack updated, optimizing server performance, and fixing bugs takes hundreds of hours of voluntary work. Your support helps to keep the development alive and guarantees that we can continue bringing new, exciting features to the Craftify community without interruptions.
             </p>
         </div>
 
         <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
             <div class="flex items-center gap-3">
-                <i data-lucide="shield-check" class="w-6 h-6 text-green-400"></i>
-                <h3 data-i18n="info3Title" class="text-white font-black uppercase tracking-tighter text-2xl">Community Events</h3>
+                <i data-lucide="map" class="w-6 h-6 text-green-400"></i>
+                <h3 data-i18n="roadmapTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Future Roadmap & Goals</h3>
             </div>
-            <p data-i18n="info3Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
-                We regularly host tournaments, events, and giveaways. The generated revenue allows us to give back to the community by offering better prizes, upgrading our infrastructure for large-scale events, and rewarding active players.
+            <p data-i18n="roadmapDesc" class="text-sm text-zinc-400 leading-relaxed font-medium">
+                We have massive plans for Craftify. With your continued support, our next major milestones include upgrading our primary server node for increased player slots, commissioning exclusive custom minigames, expanding our proprietary modpack with unique content, and hosting larger community events with real, tangible prizes. Every contribution brings us one step closer to making Craftify the ultimate Minecraft experience.
             </p>
         </div>
 
         <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
             <div class="flex items-center gap-3">
-                <i data-lucide="heart" class="w-6 h-6 text-green-400"></i>
-                <h3 data-i18n="info4Title" class="text-white font-black uppercase tracking-tighter text-2xl">How exactly does this work?</h3>
+                <i data-lucide="help-circle" class="w-6 h-6 text-green-400"></i>
+                <h3 data-i18n="faqTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Frequently Asked Questions</h3>
+            </div>
+            
+            <div class="mt-2 flex flex-col gap-4">
+                <div>
+                    <h4 data-i18n="faq1Q" class="text-white font-bold text-sm mb-1">Do I get in-game advantages for donating?</h4>
+                    <p data-i18n="faq1A" class="text-sm text-zinc-400 leading-relaxed font-medium">To comply strictly with the Minecraft EULA, we do not offer any "pay-to-win" advantages. Supporters may receive cosmetic perks, special Discord roles, or early access to new non-competitive features, but core gameplay remains fair and balanced for everyone.</p>
+                </div>
+                <div>
+                    <h4 data-i18n="faq2Q" class="text-white font-bold text-sm mb-1">Are donations refundable?</h4>
+                    <p data-i18n="faq2A" class="text-sm text-zinc-400 leading-relaxed font-medium">Since funds are immediately put towards server costs and active development, donations are generally non-refundable. Please only support us if you have the financial means to do so comfortably. If there is a processing error, please contact our support team on Discord.</p>
+                </div>
+                <div>
+                    <h4 data-i18n="faq3Q" class="text-white font-bold text-sm mb-1">Where exactly does the money go?</h4>
+                    <p data-i18n="faq3A" class="text-sm text-zinc-400 leading-relaxed font-medium">100% of the revenue is reinvested into the project. This covers the monthly root server rental, high-speed web hosting, domain renewals, premium plugin licenses, enhanced DDoS protection infrastructure, and occasionally commissioning external developers for complex custom features.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
+            <div class="flex items-center gap-3">
+                <i data-lucide="mouse-pointer-click" class="w-6 h-6 text-green-400"></i>
+                <h3 data-i18n="info4Title" class="text-white font-black uppercase tracking-tighter text-2xl">How else can I help?</h3>
             </div>
             <p data-i18n="info4Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
-                It's 100% free for you! Just disable your AdBlocker on our website and let this page open in the background while you play. Google AdSense handles the rest automatically. Every view counts. Thank you so much for being an awesome part of our family!
+                We rely heavily on the generosity of our community and ad revenue to keep the lights on. Whitelisting our site on your AdBlocker is a completely free and incredibly easy way to support us while you are browsing our updates and news. Engaging with our community, voting for the server on tracking lists, and inviting your friends are also fantastic ways to help us grow!
             </p>
         </div>
 
@@ -162,22 +205,34 @@
             en: { 
                 menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Support Us", navLegal: "Legal & Privacy", navSocials: "Socials",
                 pageTitle: "Support <span class='text-green-400'>Craftify.</span>",
-                pageSubtitle: "Scroll down & leave this page open.",
-                info1Title: "Server Hosting Costs", info1Desc: "Running a high-performance Minecraft server requires dedicated hardware to ensure a lag-free experience for everyone. Monthly root server bills, DDoS protection, and backups cost a significant amount of money. By simply viewing the ads on this page, you directly contribute to keeping the server online.",
-                info2Title: "Development & Maintenance", info2Desc: "Maintaining custom plugins, keeping the Modpack updated, and fixing bugs takes hundreds of hours of voluntary work. Your support helps to keep the development alive and guarantees that we can continue bringing new, exciting features to the Craftify community.",
-                info3Title: "Community Events", info3Desc: "We regularly host tournaments, events, and giveaways. The generated revenue allows us to give back to the community by offering better prizes, upgrading our infrastructure for large-scale events, and rewarding active players.",
-                info4Title: "How exactly does this work?", info4Desc: "It's 100% free for you! Just disable your AdBlocker on our website and let this page open in the background while you play. Google AdSense handles the rest automatically. Every view counts. Thank you so much for being an awesome part of our family!",
+                pageSubtitle: "Discover how you can help us grow and keep the community thriving.",
+                directDonateTitle: "Direct Donations",
+                directDonateDesc: "Prefer to support us directly? You can use the platforms below. 100% of these funds go directly into server upgrades, maintaining our infrastructure, and commissioning new community features. Every single contribution makes a huge difference.",
+                info1Title: "Server Hosting Costs", info1Desc: "Running a high-performance Minecraft server requires dedicated hardware to ensure a lag-free experience for everyone. Monthly root server bills, extensive DDoS protection, automated off-site backups, and web hosting domains cost a significant amount of money.",
+                info2Title: "Development & Maintenance", info2Desc: "Maintaining custom plugins, keeping the Modpack updated, optimizing server performance, and fixing bugs takes hundreds of hours of voluntary work. Your support helps to keep the development alive and guarantees that we can continue bringing new, exciting features to the Craftify community without interruptions.",
+                roadmapTitle: "Future Roadmap & Goals", roadmapDesc: "We have massive plans for Craftify. With your continued support, our next major milestones include upgrading our primary server node for increased player slots, commissioning exclusive custom minigames, expanding our proprietary modpack with unique content, and hosting larger community events with real, tangible prizes. Every contribution brings us one step closer to making Craftify the ultimate Minecraft experience.",
+                faqTitle: "Frequently Asked Questions",
+                faq1Q: "Do I get in-game advantages for donating?", faq1A: "To comply strictly with the Minecraft EULA, we do not offer any \"pay-to-win\" advantages. Supporters may receive cosmetic perks, special Discord roles, or early access to new non-competitive features, but core gameplay remains fair and balanced for everyone.",
+                faq2Q: "Are donations refundable?", faq2A: "Since funds are immediately put towards server costs and active development, donations are generally non-refundable. Please only support us if you have the financial means to do so comfortably. If there is a processing error, please contact our support team on Discord.",
+                faq3Q: "Where exactly does the money go?", faq3A: "100% of the revenue is reinvested into the project. This covers the monthly root server rental, high-speed web hosting, domain renewals, premium plugin licenses, enhanced DDoS protection infrastructure, and occasionally commissioning external developers for complex custom features.",
+                info4Title: "How else can I help?", info4Desc: "We rely heavily on the generosity of our community and ad revenue to keep the lights on. Whitelisting our site on your AdBlocker is a completely free and incredibly easy way to support us while you are browsing our updates and news. Engaging with our community, voting for the server on tracking lists, and inviting your friends are also fantastic ways to help us grow!",
                 thankYou: "You are helping us keep the server running!",
                 cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
             },
             de: { 
                 menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Unterstütze uns", navLegal: "Impressum & Datenschutz", navSocials: "Socials",
                 pageTitle: "Unterstütze <span class='text-green-400'>Craftify.</span>",
-                pageSubtitle: "Scrolle nach unten & lass diese Seite offen.",
-                info1Title: "Server Hosting Kosten", info1Desc: "Ein leistungsstarker Minecraft-Server erfordert teure Hardware, damit alle lagfrei spielen können. Die monatlichen Root-Server-Kosten, DDoS-Schutz und Backups verschlingen viel Geld. Wenn du die Anzeigen hier ansiehst, trägst du direkt dazu bei, dass der Server online bleibt.",
-                info2Title: "Entwicklung & Wartung", info2Desc: "Eigene Plugins programmieren, das Modpack aktualisieren und Bugs beheben kostet hunderte Stunden freiwillige Arbeit. Deine Unterstützung hält die Entwicklung am Leben und garantiert, dass wir weiterhin neue, coole Features für die Community bringen können.",
-                info3Title: "Community Events", info3Desc: "Wir veranstalten regelmäßig Turniere, Events und Giveaways. Durch die Werbeeinnahmen können wir der Community etwas zurückgeben, bessere Preise anbieten, unsere Infrastruktur für Großevents ausbauen und aktive Spieler belohnen.",
-                info4Title: "Wie genau funktioniert das?", info4Desc: "Es ist zu 100% kostenlos für dich! Deaktiviere einfach deinen AdBlocker und lass diese Seite im Hintergrund offen, während du spielst. Google AdSense erledigt den Rest ganz automatisch. Jeder Aufruf zählt. Danke, dass du ein Teil unserer Familie bist!",
+                pageSubtitle: "Erfahre, wie du uns beim Wachsen helfen und die Community am Leben erhalten kannst.",
+                directDonateTitle: "Direkte Spenden",
+                directDonateDesc: "Möchtest du uns lieber direkt unterstützen? Du kannst die untenstehenden Plattformen nutzen. 100% dieser Gelder fließen direkt in Server-Upgrades, die Wartung unserer Infrastruktur und die Entwicklung neuer Community-Features. Jeder einzelne Beitrag macht einen riesigen Unterschied.",
+                info1Title: "Server Hosting Kosten", info1Desc: "Ein leistungsstarker Minecraft-Server erfordert dedizierte Hardware, damit alle lagfrei spielen können. Die monatlichen Root-Server-Kosten, umfangreicher DDoS-Schutz, automatisierte externe Backups und Webhosting-Domains verschlingen viel Geld.",
+                info2Title: "Entwicklung & Wartung", info2Desc: "Eigene Plugins programmieren, das Modpack aktualisieren, die Serverleistung optimieren und Bugs beheben kostet hunderte Stunden freiwillige Arbeit. Deine Unterstützung hält die Entwicklung am Leben und garantiert, dass wir weiterhin neue, coole Features ohne Unterbrechungen für die Craftify Community bringen können.",
+                roadmapTitle: "Zukünftige Roadmap & Ziele", roadmapDesc: "Wir haben massive Pläne für Craftify. Mit deiner fortlaufenden Unterstützung umfassen unsere nächsten großen Meilensteine das Upgrade unseres primären Server-Nodes für mehr Spieler-Slots, die Beauftragung exklusiver benutzerdefinierter Minispiele, die Erweiterung unseres eigenen Modpacks mit einzigartigen Inhalten und die Verrichtung größerer Community-Events mit echten Preisen. Jeder Beitrag bringt uns einen Schritt näher daran, Craftify zum ultimativen Minecraft-Erlebnis zu machen.",
+                faqTitle: "Häufig gestellte Fragen (FAQ)",
+                faq1Q: "Bekomme ich In-Game-Vorteile für Spenden?", faq1A: "Um die Minecraft EULA streng einzuhalten, bieten wir keine \"Pay-to-Win\"-Vorteile an. Unterstützer können kosmetische Vorteile, spezielle Discord-Rollen oder frühzeitigen Zugang zu neuen, nicht-kompetitiven Features erhalten, aber das grundlegende Gameplay bleibt für alle fair und ausbalanciert.",
+                faq2Q: "Sind Spenden rückerstattbar?", faq2A: "Da die Gelder sofort in die Serverkosten und die aktive Entwicklung fließen, sind Spenden generell nicht rückerstattbar. Bitte unterstütze uns nur, wenn du die finanziellen Mittel dazu hast. Sollte es einen Verarbeitungsfehler geben, kontaktiere bitte unser Support-Team auf Discord.",
+                faq3Q: "Wohin genau fließt das Geld?", faq3A: "100% der Einnahmen werden wieder in das Projekt investiert. Dies deckt die monatliche Root-Server-Miete, High-Speed-Webhosting, Domain-Verlängerungen, Premium-Plugin-Lizenzen, verbesserte DDoS-Schutz-Infrastruktur und gelegentlich die Beauftragung externer Entwickler für komplexe Custom-Features ab.",
+                info4Title: "Wie kann ich sonst noch helfen?", info4Desc: "Wir sind stark auf die Großzügigkeit unserer Community und Werbeeinnahmen angewiesen, um den Betrieb aufrechtzuerhalten. Unsere Seite in deinem AdBlocker auf die Whitelist zu setzen, ist ein komplett kostenloser und unglaublich einfacher Weg, uns zu unterstützen, während du unsere Updates und News durchstöberst. Sich in unserer Community zu engagieren, auf Serverlisten für uns zu voten und deine Freunde einzuladen, sind ebenfalls fantastische Möglichkeiten, uns beim Wachsen zu helfen!",
                 thankYou: "Du hilfst uns dabei, den Server am Laufen zu halten!",
                 cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
             }
@@ -215,6 +270,29 @@
 
         document.getElementById('cookie-accept').addEventListener('click', () => { localStorage.setItem('craftifyCookieConsent', 'granted'); cookieBanner.classList.add('translate-y-full'); loadGA(); });
         document.getElementById('cookie-decline').addEventListener('click', () => { localStorage.setItem('craftifyCookieConsent', 'denied'); cookieBanner.classList.add('translate-y-full'); });
+
+        // Dynamic Donation Links Fetcher
+        const donationPlatforms = ['paypal', 'patreon', 'kofi'];
+        const githubRawBase = 'https://raw.githubusercontent.com/der46er/craftify/main/support/';
+
+        donationPlatforms.forEach(platform => {
+            fetch(`${githubRawBase}${platform}.txt`)
+                .then(response => {
+                    if (response.ok) return response.text();
+                    throw new Error('Link file not found');
+                })
+                .then(text => {
+                    const link = text.trim();
+                    if (link && link.startsWith('http')) {
+                        const btn = document.getElementById(`btn-${platform}`);
+                        btn.href = link;
+                        btn.style.display = 'inline-flex';
+                    }
+                })
+                .catch(e => {
+                    console.log(`No active link for ${platform}`);
+                });
+        });
     </script>
 </body>
 </html>
