@@ -106,10 +106,10 @@
                     Every month, we have a base funding goal to cover our fixed operational costs. Hitting this goal ensures we don't have to pay out of pocket to keep the network running. Any excess funding goes directly towards commissioning new features, expanding player slots, and future events.
                 </p>
                 <div class="w-full bg-zinc-900 rounded-full h-4 mt-2 border border-white/10 relative z-10">
-                    <div class="bg-gradient-to-r from-green-600 to-green-400 h-4 rounded-full" style="width: 65%"></div>
+                    <div id="goal-bar" class="bg-gradient-to-r from-green-600 to-green-400 h-4 rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
                 </div>
                 <div class="flex justify-between text-xs font-bold text-zinc-500 uppercase tracking-widest mt-1 relative z-10">
-                    <span data-i18n="goalProgress">65% Funded this month</span>
+                    <span id="goal-text" data-i18n="goalProgress">0% Funded this month</span>
                     <span>100%</span>
                 </div>
             </div>
@@ -151,7 +151,7 @@
                     <i data-lucide="award" class="w-6 h-6 text-yellow-400"></i>
                     <h3 data-i18n="perkTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Supporter Perks & Tiers</h3>
                 </div>
-                <p data-i18n="perkIntro" class="text-sm text-zinc-400 leading-relaxed font-medium">To comply strictly with the Minecraft EULA, Craftify is strictly NOT Pay-to-Win. However, we love giving back to the people who keep us alive! These tiers are available via Patreon or Ko-Fi.</p>
+                <p data-i18n="perkIntro" class="text-sm text-zinc-400 leading-relaxed font-medium">To comply strictly with the Minecraft EULA, Craftify is strictly NOT Pay-to-Win. However, we love giving back to the people who keep us alive! These tiers are available via Patreon oder Ko-Fi.</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                     
@@ -325,7 +325,7 @@
                 pageSubtitle: "Discover how you can help us grow, fund our infrastructure, and keep the community thriving.",
                 goalTitle: "Monthly Server Goal",
                 goalDesc: "Every month, we have a base funding goal to cover our fixed operational costs. Hitting this goal ensures we don't have to pay out of pocket to keep the network running. Any excess funding goes directly towards commissioning new features, expanding player slots, and future events.",
-                goalProgress: "65% Funded this month",
+                goalProgress: "0% Funded this month",
                 costTitle: "Transparency: Where does the money go?",
                 costIntro: "We believe in complete transparency. Running a server of this scale is not cheap. Here is exactly what your donations and ad impressions help fund:",
                 cost1Title: "Dedicated Root Servers", cost1Desc: "High clock-speed CPUs and large amounts of NVMe RAM are required to keep heavily modded servers lag-free.",
@@ -359,7 +359,7 @@
                 pageSubtitle: "Erfahre, wie du uns beim Wachsen helfen, unsere Infrastruktur finanzieren und die Community am Leben erhalten kannst.",
                 goalTitle: "Monatliches Server-Ziel",
                 goalDesc: "Jeden Monat haben wir ein Basis-Finanzierungsziel, um unsere festen Betriebskosten zu decken. Wenn wir dieses Ziel erreichen, müssen wir nicht aus eigener Tasche zahlen, um das Netzwerk am Laufen zu halten. Alle überschüssigen Mittel fließen direkt in neue Features, mehr Spieler-Slots und zukünftige Events.",
-                goalProgress: "Zu 65% finanziert diesen Monat",
+                goalProgress: "Zu 0% finanziert diesen Monat",
                 costTitle: "Transparenz: Wohin fließt das Geld?",
                 costIntro: "Wir glauben an vollständige Transparenz. Einen Server dieser Größenordnung zu betreiben, ist nicht billig. Hier ist genau, was deine Spenden und Werbeaufrufe finanzieren:",
                 cost1Title: "Dedizierte Root-Server", cost1Desc: "CPUs mit hoher Taktfrequenz und große Mengen an NVMe-RAM sind erforderlich, um stark gemoddete Server lagfrei zu halten.",
@@ -398,6 +398,10 @@
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) el.innerHTML = translations[lang][key];
             });
+            
+            // Re-fetch goal to update language of the text immediately
+            fetchGoalData();
+
             if (lang === 'en') {
                 btnEn.className = 'lang-btn active font-black text-sm bg-green-900/40 text-green-400 px-3 py-1.5 rounded transition-colors';
                 btnDe.className = 'lang-btn font-black text-sm text-white hover:text-green-400 px-3 py-1.5 transition-colors';
@@ -421,6 +425,33 @@
 
         document.getElementById('cookie-accept').addEventListener('click', () => { localStorage.setItem('craftifyCookieConsent', 'granted'); cookieBanner.classList.add('translate-y-full'); loadGA(); });
         document.getElementById('cookie-decline').addEventListener('click', () => { localStorage.setItem('craftifyCookieConsent', 'denied'); cookieBanner.classList.add('translate-y-full'); });
+
+        // Goal logic
+        const updateGoal = (percentage) => {
+            const bar = document.getElementById('goal-bar');
+            const text = document.getElementById('goal-text');
+            const lang = document.documentElement.lang || 'en';
+            
+            bar.style.width = percentage + '%';
+            if (lang === 'de') {
+                text.innerText = `Zu ${percentage}% finanziert diesen Monat`;
+            } else {
+                text.innerText = `${percentage}% Funded this month`;
+            }
+        };
+
+        const fetchGoalData = () => {
+            fetch('https://raw.githubusercontent.com/der46er/craftify/main/assets/goal.txt')
+                .then(res => res.text())
+                .then(val => {
+                    const num = parseInt(val.trim());
+                    if (!isNaN(num)) setTimeout(() => updateGoal(num), 500);
+                })
+                .catch(() => console.log('Goal file not found yet.'));
+        };
+
+        // Fetch on load
+        fetchGoalData();
 
         // Dynamic Donation Links Fetcher
         const donationPlatforms = ['paypal', 'patreon'];
