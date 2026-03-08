@@ -83,104 +83,221 @@
         </div>
     </div>
 
-    <main class="pt-32 pb-20 px-4 flex-grow flex items-center w-full max-w-4xl mx-auto flex-col gap-8">
+    <div class="pt-32 pb-20 px-4 flex-grow w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 items-start">
         
-        <div class="text-center w-full mt-8 mb-4">
-            <h1 data-i18n="pageTitle" class="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-4 text-white">
-                Support <span class="text-green-400">Craftify.</span>
-            </h1>
-            <p data-i18n="pageSubtitle" class="text-zinc-400 font-bold uppercase tracking-widest text-xs">Discover how you can help us grow and keep the community thriving.</p>
-        </div>
-
-        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
-            <div class="flex items-center gap-3">
-                <i data-lucide="gem" class="w-6 h-6 text-green-400"></i>
-                <h3 data-i18n="directDonateTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Direct Donations</h3>
-            </div>
-            <p data-i18n="directDonateDesc" class="text-sm text-zinc-400 leading-relaxed font-medium mb-4">
-                Prefer to support us directly? You can use the platforms below. 100% of these funds go directly into server upgrades, maintaining our infrastructure, and commissioning new community features. Every single contribution makes a huge difference.
-            </p>
-            <div class="flex flex-wrap gap-4">
-                <a id="btn-paypal" href="#" target="_blank" style="display: none;" class="flex items-center gap-2 px-6 py-3 bg-[#00457C]/20 text-[#0079C1] border border-[#0079C1]/30 hover:bg-[#00457C]/40 hover:border-[#0079C1] rounded-xl transition-all font-black uppercase text-sm tracking-widest">
-                    <i data-lucide="wallet" class="w-5 h-5"></i> PayPal
-                </a>
-                <a id="btn-patreon" href="#" target="_blank" style="display: none;" class="flex items-center gap-2 px-6 py-3 bg-[#FF424D]/20 text-[#FF424D] border border-[#FF424D]/30 hover:bg-[#FF424D]/40 hover:border-[#FF424D] rounded-xl transition-all font-black uppercase text-sm tracking-widest">
-                    <i data-lucide="coins" class="w-5 h-5"></i> Patreon
-                </a>
-                <a id="btn-kofi" href="#" target="_blank" style="display: none;" class="flex items-center gap-2 px-6 py-3 bg-[#FF5E5B]/20 text-[#FF5E5B] border border-[#FF5E5B]/30 hover:bg-[#FF5E5B]/40 hover:border-[#FF5E5B] rounded-xl transition-all font-black uppercase text-sm tracking-widest">
-                    <i data-lucide="coffee" class="w-5 h-5"></i> Ko-Fi
-                </a>
-            </div>
-        </div>
-
-        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
-            <div class="flex items-center gap-3">
-                <i data-lucide="server" class="w-6 h-6 text-green-400"></i>
-                <h3 data-i18n="info1Title" class="text-white font-black uppercase tracking-tighter text-2xl">Server Hosting Costs</h3>
-            </div>
-            <p data-i18n="info1Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
-                Running a high-performance Minecraft server requires dedicated hardware to ensure a lag-free experience for everyone. Monthly root server bills, extensive DDoS protection, automated off-site backups, and web hosting domains cost a significant amount of money. 
-            </p>
-        </div>
-
-        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
-            <div class="flex items-center gap-3">
-                <i data-lucide="code" class="w-6 h-6 text-green-400"></i>
-                <h3 data-i18n="info2Title" class="text-white font-black uppercase tracking-tighter text-2xl">Development & Maintenance</h3>
-            </div>
-            <p data-i18n="info2Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
-                Maintaining custom plugins, keeping the Modpack updated, optimizing server performance, and fixing bugs takes hundreds of hours of voluntary work. Your support helps to keep the development alive and guarantees that we can continue bringing new, exciting features to the Craftify community without interruptions.
-            </p>
-        </div>
-
-        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
-            <div class="flex items-center gap-3">
-                <i data-lucide="map" class="w-6 h-6 text-green-400"></i>
-                <h3 data-i18n="roadmapTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Future Roadmap & Goals</h3>
-            </div>
-            <p data-i18n="roadmapDesc" class="text-sm text-zinc-400 leading-relaxed font-medium">
-                We have massive plans for Craftify. With your continued support, our next major milestones include upgrading our primary server node for increased player slots, commissioning exclusive custom minigames, expanding our proprietary modpack with unique content, and hosting larger community events with real, tangible prizes. Every contribution brings us one step closer to making Craftify the ultimate Minecraft experience.
-            </p>
-        </div>
-
-        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
-            <div class="flex items-center gap-3">
-                <i data-lucide="help-circle" class="w-6 h-6 text-green-400"></i>
-                <h3 data-i18n="faqTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Frequently Asked Questions</h3>
-            </div>
+        <main class="flex-1 flex flex-col gap-8 w-full">
             
-            <div class="mt-2 flex flex-col gap-4">
-                <div>
-                    <h4 data-i18n="faq1Q" class="text-white font-bold text-sm mb-1">Do I get in-game advantages for donating?</h4>
-                    <p data-i18n="faq1A" class="text-sm text-zinc-400 leading-relaxed font-medium">To comply strictly with the Minecraft EULA, we do not offer any "pay-to-win" advantages. Supporters may receive cosmetic perks, special Discord roles, or early access to new non-competitive features, but core gameplay remains fair and balanced for everyone.</p>
+            <div class="text-left w-full mt-4 mb-4">
+                <h1 data-i18n="pageTitle" class="text-4xl sm:text-5xl md:text-6xl font-black italic tracking-tighter mb-4 text-white">
+                    Support <span class="text-green-400">Craftify.</span>
+                </h1>
+                <p data-i18n="pageSubtitle" class="text-zinc-400 font-bold uppercase tracking-widest text-xs">Discover how you can help us grow, fund our infrastructure, and keep the community thriving.</p>
+            </div>
+
+            <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <i data-lucide="target" class="w-32 h-32"></i>
                 </div>
-                <div>
-                    <h4 data-i18n="faq2Q" class="text-white font-bold text-sm mb-1">Are donations refundable?</h4>
-                    <p data-i18n="faq2A" class="text-sm text-zinc-400 leading-relaxed font-medium">Since funds are immediately put towards server costs and active development, donations are generally non-refundable. Please only support us if you have the financial means to do so comfortably. If there is a processing error, please contact our support team on Discord.</p>
+                <div class="flex items-center gap-3 relative z-10">
+                    <i data-lucide="trending-up" class="w-6 h-6 text-green-400"></i>
+                    <h3 data-i18n="goalTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Monthly Server Goal</h3>
                 </div>
-                <div>
-                    <h4 data-i18n="faq3Q" class="text-white font-bold text-sm mb-1">Where exactly does the money go?</h4>
-                    <p data-i18n="faq3A" class="text-sm text-zinc-400 leading-relaxed font-medium">100% of the revenue is reinvested into the project. This covers the monthly root server rental, high-speed web hosting, domain renewals, premium plugin licenses, enhanced DDoS protection infrastructure, and occasionally commissioning external developers for complex custom features.</p>
+                <p data-i18n="goalDesc" class="text-sm text-zinc-400 leading-relaxed font-medium relative z-10">
+                    Every month, we have a base funding goal to cover our fixed operational costs. Hitting this goal ensures we don't have to pay out of pocket to keep the network running. Any excess funding goes directly towards commissioning new features, expanding player slots, and future events.
+                </p>
+                <div class="w-full bg-zinc-900 rounded-full h-4 mt-2 border border-white/10 relative z-10">
+                    <div class="bg-gradient-to-r from-green-600 to-green-400 h-4 rounded-full" style="width: 65%"></div>
+                </div>
+                <div class="flex justify-between text-xs font-bold text-zinc-500 uppercase tracking-widest mt-1 relative z-10">
+                    <span data-i18n="goalProgress">65% Funded this month</span>
+                    <span>100%</span>
                 </div>
             </div>
-        </div>
 
-        <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
-            <div class="flex items-center gap-3">
-                <i data-lucide="mouse-pointer-click" class="w-6 h-6 text-green-400"></i>
-                <h3 data-i18n="info4Title" class="text-white font-black uppercase tracking-tighter text-2xl">How else can I help?</h3>
+            <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="pie-chart" class="w-6 h-6 text-green-400"></i>
+                    <h3 data-i18n="costTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Transparency: Where does the money go?</h3>
+                </div>
+                <p data-i18n="costIntro" class="text-sm text-zinc-400 leading-relaxed font-medium mb-2">We believe in complete transparency. Running a server of this scale is not cheap. Here is exactly what your donations and ad impressions help fund:</p>
+                
+                <ul class="flex flex-col gap-4 mt-2">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="hard-drive" class="w-5 h-5 text-zinc-400 mt-0.5 shrink-0"></i>
+                        <div>
+                            <strong data-i18n="cost1Title" class="text-white block">Dedicated Root Servers</strong>
+                            <span data-i18n="cost1Desc" class="text-sm text-zinc-400">High clock-speed CPUs and large amounts of NVMe RAM are required to keep heavily modded servers lag-free.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="shield-alert" class="w-5 h-5 text-zinc-400 mt-0.5 shrink-0"></i>
+                        <div>
+                            <strong data-i18n="cost2Title" class="text-white block">DDoS Protection & Backups</strong>
+                            <span data-i18n="cost2Desc" class="text-sm text-zinc-400">Enterprise-grade network filtering to prevent malicious attacks, plus automated off-site cloud backups to ensure world data is never lost.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="blocks" class="w-5 h-5 text-zinc-400 mt-0.5 shrink-0"></i>
+                        <div>
+                            <strong data-i18n="cost3Title" class="text-white block">Premium Plugins & Development</strong>
+                            <span data-i18n="cost3Desc" class="text-sm text-zinc-400">Licenses for professional anti-cheat systems, custom plugin commissions, web hosting, domain renewals, and asset creation.</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <p data-i18n="info4Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
-                We rely heavily on the generosity of our community and ad revenue to keep the lights on. Whitelisting our site on your AdBlocker is a completely free and incredibly easy way to support us while you are browsing our updates and news. Engaging with our community, voting for the server on tracking lists, and inviting your friends are also fantastic ways to help us grow!
-            </p>
-        </div>
 
-        <div class="mt-4 text-center w-full">
-            <i data-lucide="sparkles" class="w-8 h-8 text-green-400 mx-auto mb-4 animate-pulse"></i>
-            <p data-i18n="thankYou" class="text-green-400 font-black italic text-2xl md:text-3xl uppercase tracking-tighter drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]">You are helping us keep the server running!</p>
-        </div>
+            <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="award" class="w-6 h-6 text-yellow-400"></i>
+                    <h3 data-i18n="perkTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Supporter Perks & Tiers</h3>
+                </div>
+                <p data-i18n="perkIntro" class="text-sm text-zinc-400 leading-relaxed font-medium">To comply strictly with the Minecraft EULA, Craftify is strictly NOT Pay-to-Win. However, we love giving back to the people who keep us alive! These tiers are available via Patreon or Ko-Fi.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                    
+                    <div class="bg-zinc-900/50 border border-white/10 p-6 rounded-2xl flex flex-col">
+                        <h4 class="text-white font-black text-xl mb-1">Supporter</h4>
+                        <p class="text-green-400 font-bold mb-4">€2.99 / $4.00 <span class="text-zinc-500 text-xs font-normal" data-i18n="perMonth">per month</span></p>
+                        <ul class="text-sm text-zinc-400 space-y-3 flex-grow">
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featSupport">You support our Minecraft server</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featDc1">Supporter Discord role</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featMc1">Supporter Server role</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featVidEnd">Your name at the end of videos</span></li>
+                        </ul>
+                    </div>
 
-    </main>
+                    <div class="bg-zinc-900/80 border border-green-500/50 p-6 rounded-2xl flex flex-col relative shadow-[0_0_20px_rgba(74,222,128,0.1)] transform md:-translate-y-2">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-black text-[10px] font-black uppercase px-3 py-1 rounded-full whitespace-nowrap" data-i18n="tierPopular">Most Popular</div>
+                        <h4 class="text-white font-black text-xl mb-1">Super Supporter</h4>
+                        <p class="text-green-400 font-bold mb-4">€5.99 / $7.50 <span class="text-zinc-500 text-xs font-normal" data-i18n="perMonth">per month</span></p>
+                        <ul class="text-sm text-zinc-400 space-y-3 flex-grow">
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featSupport">You support our Minecraft server</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featDc2">Super Supporter Discord role</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featMc2">Super Supporter Server role</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featVidEnd">Your name at the end of videos</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featShoutout">Shoutout in videos</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-zinc-900/50 border border-white/10 p-6 rounded-2xl flex flex-col">
+                        <h4 class="text-white font-black text-xl mb-1">Mega Supporter</h4>
+                        <p class="text-green-400 font-bold mb-4">€10.99 / $14.00 <span class="text-zinc-500 text-xs font-normal" data-i18n="perMonth">per month</span></p>
+                        <ul class="text-sm text-zinc-400 space-y-3 flex-grow">
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featSupport">You support our Minecraft server</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featDc3">Mega Supporter Discord role</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featMc3">Mega Supporter Server role</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featVidEnd">Your name at the end of videos</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featShoutout">Shoutout in videos</span></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 shrink-0 mt-0.5"></i> <span data-i18n="featStream">Your name permanently shown in streams</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 mt-2 w-full flex items-start gap-3">
+                    <i data-lucide="alert-triangle" class="w-6 h-6 text-yellow-500 shrink-0 mt-0.5"></i>
+                    <div>
+                        <h4 class="text-yellow-400 font-bold text-sm" data-i18n="paypalNoteTitle">Important Note for PayPal Donors!</h4>
+                        <p class="text-yellow-500/80 text-xs mt-1 leading-relaxed" data-i18n="paypalNoteDesc">If you choose to support us via a direct PayPal donation, you must include your Discord Username in the PayPal donation note message. This is the only way our staff can find you and assign your roles manually.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="map" class="w-6 h-6 text-green-400"></i>
+                    <h3 data-i18n="roadmapTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Future Roadmap & Goals</h3>
+                </div>
+                <p data-i18n="roadmapDesc" class="text-sm text-zinc-400 leading-relaxed font-medium">
+                    We have massive plans for Craftify. With your continued support, our next major milestones include upgrading our primary server node for increased player slots, commissioning exclusive custom minigames, expanding our proprietary modpack with unique content, and hosting larger community events with real, tangible prizes. Every contribution brings us one step closer to making Craftify the ultimate Minecraft experience.
+                </p>
+            </div>
+
+            <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="quote" class="w-6 h-6 text-green-400"></i>
+                    <h3 data-i18n="voiceTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Community Voices</h3>
+                </div>
+                <p data-i18n="voiceDesc" class="text-sm text-zinc-400 leading-relaxed font-medium mb-4">Craftify isn't just a server; it's a family. Here is why our players love calling this network their home:</p>
+                
+                <div class="flex flex-col gap-4">
+                    <blockquote class="border-l-4 border-green-500 bg-white/5 p-4 rounded-r-xl italic text-sm text-zinc-300">
+                        <p data-i18n="voice1">"I've played on dozens of modded servers, but the stability and the welcoming community here are unmatched. Supporting the server was an easy decision."</p>
+                    </blockquote>
+                    <blockquote class="border-l-4 border-yellow-400 bg-white/5 p-4 rounded-r-xl italic text-sm text-zinc-300">
+                        <p data-i18n="voice2">"The admins actually listen to feedback! It feels great knowing that my monthly Patreon pledge goes directly into keeping the server lag-free."</p>
+                    </blockquote>
+                </div>
+            </div>
+
+            <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="help-circle" class="w-6 h-6 text-green-400"></i>
+                    <h3 data-i18n="faqTitle" class="text-white font-black uppercase tracking-tighter text-2xl">Frequently Asked Questions</h3>
+                </div>
+                
+                <div class="mt-2 flex flex-col gap-6">
+                    <div>
+                        <h4 data-i18n="faq1Q" class="text-white font-bold text-sm mb-1">Do I get in-game advantages for donating?</h4>
+                        <p data-i18n="faq1A" class="text-sm text-zinc-400 leading-relaxed font-medium">To comply strictly with the Minecraft EULA, we do not offer any "pay-to-win" advantages. Supporters may receive cosmetic perks, special Discord roles, or early access to new non-competitive features, but core gameplay remains fair and balanced for everyone.</p>
+                    </div>
+                    <div>
+                        <h4 data-i18n="faq2Q" class="text-white font-bold text-sm mb-1">Are donations refundable?</h4>
+                        <p data-i18n="faq2A" class="text-sm text-zinc-400 leading-relaxed font-medium">Since funds are immediately put towards server costs and active development, donations are generally non-refundable. Please only support us if you have the financial means to do so comfortably. If there is a processing error, please contact our support team on Discord.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full bg-black/40 border border-white/5 p-8 rounded-3xl flex flex-col gap-4 game-card mb-8">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="mouse-pointer-click" class="w-6 h-6 text-green-400"></i>
+                    <h3 data-i18n="info4Title" class="text-white font-black uppercase tracking-tighter text-2xl">Other ways to help!</h3>
+                </div>
+                <p data-i18n="info4Desc" class="text-sm text-zinc-400 leading-relaxed font-medium">
+                    We rely heavily on the generosity of our community and ad revenue to keep the lights on. Whitelisting our site on your AdBlocker is a completely free and incredibly easy way to support us while you are browsing our updates and news. Engaging with our community, voting for the server on tracking lists, and simply playing and inviting your friends are also fantastic ways to help us grow!
+                </p>
+            </div>
+
+        </main>
+
+        <aside class="w-full lg:w-[350px] flex-shrink-0 flex flex-col gap-6 sticky top-32 z-40">
+            
+            <div class="bg-[#f9f9f9] rounded-3xl overflow-hidden shadow-[0_10px_50px_rgba(0,0,0,0.8)] border border-white/5">
+                <iframe id='kofiframe' src='https://ko-fi.com/thataustrianone/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='thataustrianone'></iframe>
+            </div>
+
+            <div class="bg-zinc-950/80 backdrop-blur-xl rounded-3xl p-6 shadow-[0_10px_50px_rgba(0,0,0,0.8)] border border-[#FF424D]/30 flex flex-col items-center gap-4 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-[#FF424D]/20 to-transparent border-b border-[#FF424D]/10"></div>
+                <img src="https://drive.google.com/thumbnail?id=1oVP0DjtKXgHs_I6pwuXDyxCQ1R5sTZXN&sz=w1000" alt="Profile" class="w-20 h-20 rounded-full border-4 border-zinc-900 shadow-xl z-10 mt-2 object-cover">
+                <h3 class="text-white font-black uppercase tracking-tighter text-2xl z-10 mt-2">Support on Patreon</h3>
+                <p class="text-zinc-400 text-sm font-medium mb-2 z-10">Join the inner circle and get exclusive perks, roles, and behind-the-scenes access.</p>
+                <a id="btn-patreon" href="#" target="_blank" style="display: none;" class="w-full py-3.5 bg-[#FF424D] hover:bg-[#ff2935] hover:scale-[1.02] text-white font-black rounded-xl transition-all uppercase tracking-widest text-xs shadow-[0_0_20px_rgba(255,66,77,0.3)] flex items-center justify-center gap-2 z-10">
+                    <i data-lucide="coins" class="w-5 h-5"></i> Become a Patron
+                </a>
+            </div>
+
+            <div class="bg-[#334037] rounded-3xl p-6 shadow-[0_10px_50px_rgba(0,0,0,0.8)] border border-[#0079C1]/30 flex flex-col items-center gap-4 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-[#0079C1]/20 to-transparent border-b border-[#0079C1]/10"></div>
+                <img src="https://drive.google.com/thumbnail?id=1oVP0DjtKXgHs_I6pwuXDyxCQ1R5sTZXN&sz=w1000" alt="Profile" class="w-20 h-20 rounded-full border-4 border-[#334037] shadow-xl z-10 mt-2 object-cover">
+                <h3 class="text-[#e5f5ea] font-black uppercase tracking-tighter text-2xl z-10 mt-2">Support via PayPal</h3>
+                <p class="text-[#e5f5ea]/80 text-sm font-medium mb-2 z-10">Quick, secure, and direct one-time donations to keep Craftify running smoothly.</p>
+                
+                <div class="bg-yellow-500/20 border border-yellow-500/50 rounded-xl p-3 mb-1 w-full text-left z-10">
+                    <p class="text-yellow-200 text-[11px] font-bold flex items-start gap-2 leading-tight">
+                        <i data-lucide="alert-triangle" class="w-3 h-3 shrink-0 mt-0.5"></i>
+                        <span data-i18n="paypalNoteShort">Include your Discord name in the note!</span>
+                    </p>
+                </div>
+
+                <a id="btn-paypal" href="#" target="_blank" style="display: none;" class="w-full py-3.5 bg-[#0079C1] hover:bg-[#005a8f] hover:scale-[1.02] text-white font-black rounded-xl transition-all uppercase tracking-widest text-xs shadow-[0_0_20px_rgba(0,121,193,0.3)] flex items-center justify-center gap-2 z-10">
+                    <i data-lucide="wallet" class="w-5 h-5"></i> Donate Now
+                </a>
+            </div>
+
+        </aside>
+
+    </div>
 
     <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-white/10 p-4 md:p-6 z-[200] flex flex-col sm:flex-row justify-between items-center gap-4 transform translate-y-full transition-transform duration-500">
         <div class="text-sm text-zinc-300 max-w-3xl">
@@ -205,35 +322,69 @@
             en: { 
                 menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Support Us", navLegal: "Legal & Privacy", navSocials: "Socials",
                 pageTitle: "Support <span class='text-green-400'>Craftify.</span>",
-                pageSubtitle: "Discover how you can help us grow and keep the community thriving.",
-                directDonateTitle: "Direct Donations",
-                directDonateDesc: "Prefer to support us directly? You can use the platforms below. 100% of these funds go directly into server upgrades, maintaining our infrastructure, and commissioning new community features. Every single contribution makes a huge difference.",
-                info1Title: "Server Hosting Costs", info1Desc: "Running a high-performance Minecraft server requires dedicated hardware to ensure a lag-free experience for everyone. Monthly root server bills, extensive DDoS protection, automated off-site backups, and web hosting domains cost a significant amount of money.",
-                info2Title: "Development & Maintenance", info2Desc: "Maintaining custom plugins, keeping the Modpack updated, optimizing server performance, and fixing bugs takes hundreds of hours of voluntary work. Your support helps to keep the development alive and guarantees that we can continue bringing new, exciting features to the Craftify community without interruptions.",
+                pageSubtitle: "Discover how you can help us grow, fund our infrastructure, and keep the community thriving.",
+                goalTitle: "Monthly Server Goal",
+                goalDesc: "Every month, we have a base funding goal to cover our fixed operational costs. Hitting this goal ensures we don't have to pay out of pocket to keep the network running. Any excess funding goes directly towards commissioning new features, expanding player slots, and future events.",
+                goalProgress: "65% Funded this month",
+                costTitle: "Transparency: Where does the money go?",
+                costIntro: "We believe in complete transparency. Running a server of this scale is not cheap. Here is exactly what your donations and ad impressions help fund:",
+                cost1Title: "Dedicated Root Servers", cost1Desc: "High clock-speed CPUs and large amounts of NVMe RAM are required to keep heavily modded servers lag-free.",
+                cost2Title: "DDoS Protection & Backups", cost2Desc: "Enterprise-grade network filtering to prevent malicious attacks, plus automated off-site cloud backups to ensure world data is never lost.",
+                cost3Title: "Premium Plugins & Development", cost3Desc: "Licenses for professional anti-cheat systems, custom plugin commissions, web hosting, domain renewals, and asset creation.",
+                perkTitle: "Supporter Perks & Tiers",
+                perkIntro: "To comply strictly with the Minecraft EULA, Craftify is strictly NOT Pay-to-Win. However, we love giving back to the people who keep us alive! These tiers are available via Patreon or Ko-Fi.",
+                perMonth: "per month", tierPopular: "Most Popular",
+                featSupport: "You support our Minecraft server",
+                featDc1: "Supporter Discord role", featMc1: "Supporter Server role",
+                featDc2: "Super Supporter Discord role", featMc2: "Super Supporter Server role",
+                featDc3: "Mega Supporter Discord role", featMc3: "Mega Supporter Server role",
+                featVidEnd: "Your name at the end of videos", featShoutout: "Shoutout in videos", featStream: "Your name permanently shown in streams",
+                paypalNoteTitle: "Important Note for PayPal Donors!",
+                paypalNoteDesc: "If you choose to support us via a direct PayPal donation, you must include your Discord Username in the PayPal donation note message. This is the only way our staff can find you and assign your roles manually.",
+                paypalNoteShort: "Include your Discord name in the note!",
                 roadmapTitle: "Future Roadmap & Goals", roadmapDesc: "We have massive plans for Craftify. With your continued support, our next major milestones include upgrading our primary server node for increased player slots, commissioning exclusive custom minigames, expanding our proprietary modpack with unique content, and hosting larger community events with real, tangible prizes. Every contribution brings us one step closer to making Craftify the ultimate Minecraft experience.",
+                voiceTitle: "Community Voices",
+                voiceDesc: "Craftify isn't just a server; it's a family. Here is why our players love calling this network their home:",
+                voice1: "\"I've played on dozens of modded servers, but the stability and the welcoming community here are unmatched. Supporting the server was an easy decision.\"",
+                voice2: "\"The admins actually listen to feedback! It feels great knowing that my monthly Patreon pledge goes directly into keeping the server lag-free.\"",
                 faqTitle: "Frequently Asked Questions",
                 faq1Q: "Do I get in-game advantages for donating?", faq1A: "To comply strictly with the Minecraft EULA, we do not offer any \"pay-to-win\" advantages. Supporters may receive cosmetic perks, special Discord roles, or early access to new non-competitive features, but core gameplay remains fair and balanced for everyone.",
                 faq2Q: "Are donations refundable?", faq2A: "Since funds are immediately put towards server costs and active development, donations are generally non-refundable. Please only support us if you have the financial means to do so comfortably. If there is a processing error, please contact our support team on Discord.",
-                faq3Q: "Where exactly does the money go?", faq3A: "100% of the revenue is reinvested into the project. This covers the monthly root server rental, high-speed web hosting, domain renewals, premium plugin licenses, enhanced DDoS protection infrastructure, and occasionally commissioning external developers for complex custom features.",
-                info4Title: "How else can I help?", info4Desc: "We rely heavily on the generosity of our community and ad revenue to keep the lights on. Whitelisting our site on your AdBlocker is a completely free and incredibly easy way to support us while you are browsing our updates and news. Engaging with our community, voting for the server on tracking lists, and inviting your friends are also fantastic ways to help us grow!",
-                thankYou: "You are helping us keep the server running!",
+                info4Title: "Other ways to help!", info4Desc: "We rely heavily on the generosity of our community and ad revenue to keep the lights on. Whitelisting our site on your AdBlocker is a completely free and incredibly easy way to support us while you are browsing our updates and news. Engaging with our community, voting for the server on tracking lists, and simply playing and inviting your friends are also fantastic ways to help us grow!",
                 cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
             },
             de: { 
                 menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navSupport: "Unterstütze uns", navLegal: "Impressum & Datenschutz", navSocials: "Socials",
                 pageTitle: "Unterstütze <span class='text-green-400'>Craftify.</span>",
-                pageSubtitle: "Erfahre, wie du uns beim Wachsen helfen und die Community am Leben erhalten kannst.",
-                directDonateTitle: "Direkte Spenden",
-                directDonateDesc: "Möchtest du uns lieber direkt unterstützen? Du kannst die untenstehenden Plattformen nutzen. 100% dieser Gelder fließen direkt in Server-Upgrades, die Wartung unserer Infrastruktur und die Entwicklung neuer Community-Features. Jeder einzelne Beitrag macht einen riesigen Unterschied.",
-                info1Title: "Server Hosting Kosten", info1Desc: "Ein leistungsstarker Minecraft-Server erfordert dedizierte Hardware, damit alle lagfrei spielen können. Die monatlichen Root-Server-Kosten, umfangreicher DDoS-Schutz, automatisierte externe Backups und Webhosting-Domains verschlingen viel Geld.",
-                info2Title: "Entwicklung & Wartung", info2Desc: "Eigene Plugins programmieren, das Modpack aktualisieren, die Serverleistung optimieren und Bugs beheben kostet hunderte Stunden freiwillige Arbeit. Deine Unterstützung hält die Entwicklung am Leben und garantiert, dass wir weiterhin neue, coole Features ohne Unterbrechungen für die Craftify Community bringen können.",
-                roadmapTitle: "Zukünftige Roadmap & Ziele", roadmapDesc: "Wir haben massive Pläne für Craftify. Mit deiner fortlaufenden Unterstützung umfassen unsere nächsten großen Meilensteine das Upgrade unseres primären Server-Nodes für mehr Spieler-Slots, die Beauftragung exklusiver benutzerdefinierter Minispiele, die Erweiterung unseres eigenen Modpacks mit einzigartigen Inhalten und die Verrichtung größerer Community-Events mit echten Preisen. Jeder Beitrag bringt uns einen Schritt näher daran, Craftify zum ultimativen Minecraft-Erlebnis zu machen.",
+                pageSubtitle: "Erfahre, wie du uns beim Wachsen helfen, unsere Infrastruktur finanzieren und die Community am Leben erhalten kannst.",
+                goalTitle: "Monatliches Server-Ziel",
+                goalDesc: "Jeden Monat haben wir ein Basis-Finanzierungsziel, um unsere festen Betriebskosten zu decken. Wenn wir dieses Ziel erreichen, müssen wir nicht aus eigener Tasche zahlen, um das Netzwerk am Laufen zu halten. Alle überschüssigen Mittel fließen direkt in neue Features, mehr Spieler-Slots und zukünftige Events.",
+                goalProgress: "Zu 65% finanziert diesen Monat",
+                costTitle: "Transparenz: Wohin fließt das Geld?",
+                costIntro: "Wir glauben an vollständige Transparenz. Einen Server dieser Größenordnung zu betreiben, ist nicht billig. Hier ist genau, was deine Spenden und Werbeaufrufe finanzieren:",
+                cost1Title: "Dedizierte Root-Server", cost1Desc: "CPUs mit hoher Taktfrequenz und große Mengen an NVMe-RAM sind erforderlich, um stark gemoddete Server lagfrei zu halten.",
+                cost2Title: "DDoS-Schutz & Backups", cost2Desc: "Netzwerkfilterung auf Enterprise-Niveau, um böswillige Angriffe zu verhindern, sowie automatisierte Cloud-Backups, damit Welt-Daten nie verloren gehen.",
+                cost3Title: "Premium-Plugins & Entwicklung", cost3Desc: "Lizenzen für professionelle Anti-Cheat-Systeme, Custom-Plugin-Aufträge, Webhosting, Domain-Verlängerungen und Asset-Erstellung.",
+                perkTitle: "Unterstützer-Vorteile & Stufen",
+                perkIntro: "Um die Minecraft EULA streng einzuhalten, ist Craftify strikt NICHT Pay-to-Win. Wir geben jedoch gerne denen etwas zurück, die uns am Leben erhalten! Diese Stufen sind über Patreon oder Ko-Fi verfügbar.",
+                perMonth: "pro Monat", tierPopular: "Beliebteste",
+                featSupport: "Du unterstützt unseren Minecraft Server",
+                featDc1: "Supporter Discord Rolle", featMc1: "Supporter Server Rolle",
+                featDc2: "Super Supporter Discord Rolle", featMc2: "Super Supporter Server Rolle",
+                featDc3: "Mega Supporter Discord Rolle", featMc3: "Mega Supporter Server Rolle",
+                featVidEnd: "Dein Name am Ende von Videos", featShoutout: "Shoutout in Videos", featStream: "Dein Name permanent in Streams eingeblendet",
+                paypalNoteTitle: "Wichtiger Hinweis für PayPal-Spender!",
+                paypalNoteDesc: "Wenn du uns über eine direkte PayPal-Spende unterstützt, musst du deinen Discord-Nutzernamen in der PayPal-Nachricht (Notiz) angeben. Nur so kann unser Team dich finden und dir deine Rollen manuell zuweisen.",
+                paypalNoteShort: "Schreib deinen Discord-Namen in die Notiz!",
+                roadmapTitle: "Zukünftige Roadmap & Ziele", roadmapDesc: "Wir haben massive Pläne für Craftify. Mit deiner fortlaufenden Unterstützung umfassen unsere nächsten großen Meilensteine das Upgrade unseres primären Server-Nodes für mehr Spieler-Slots, die Beauftragung exklusiver benutzerdefinierter Minispiele, die Erweiterung unseres eigenen Modpacks mit einzigartigen Inhalten und die Verrichtung größerer Community-Events mit echten Preisen.",
+                voiceTitle: "Stimmen aus der Community",
+                voiceDesc: "Craftify ist nicht nur ein Server; es ist eine Familie. Hier ist, warum unsere Spieler dieses Netzwerk ihr Zuhause nennen:",
+                voice1: "\"Ich habe auf Dutzenden gemoddeten Servern gespielt, aber die Stabilität und die einladende Community hier sind unübertroffen. Den Server zu unterstützen war eine einfache Entscheidung.\"",
+                voice2: "\"Die Admins hören tatsächlich auf Feedback! Es ist ein tolles Gefühl zu wissen, dass meine monatliche Patreon-Unterstützung direkt in die Lagfreiheit des Servers fließt.\"",
                 faqTitle: "Häufig gestellte Fragen (FAQ)",
                 faq1Q: "Bekomme ich In-Game-Vorteile für Spenden?", faq1A: "Um die Minecraft EULA streng einzuhalten, bieten wir keine \"Pay-to-Win\"-Vorteile an. Unterstützer können kosmetische Vorteile, spezielle Discord-Rollen oder frühzeitigen Zugang zu neuen, nicht-kompetitiven Features erhalten, aber das grundlegende Gameplay bleibt für alle fair und ausbalanciert.",
                 faq2Q: "Sind Spenden rückerstattbar?", faq2A: "Da die Gelder sofort in die Serverkosten und die aktive Entwicklung fließen, sind Spenden generell nicht rückerstattbar. Bitte unterstütze uns nur, wenn du die finanziellen Mittel dazu hast. Sollte es einen Verarbeitungsfehler geben, kontaktiere bitte unser Support-Team auf Discord.",
-                faq3Q: "Wohin genau fließt das Geld?", faq3A: "100% der Einnahmen werden wieder in das Projekt investiert. Dies deckt die monatliche Root-Server-Miete, High-Speed-Webhosting, Domain-Verlängerungen, Premium-Plugin-Lizenzen, verbesserte DDoS-Schutz-Infrastruktur und gelegentlich die Beauftragung externer Entwickler für komplexe Custom-Features ab.",
-                info4Title: "Wie kann ich sonst noch helfen?", info4Desc: "Wir sind stark auf die Großzügigkeit unserer Community und Werbeeinnahmen angewiesen, um den Betrieb aufrechtzuerhalten. Unsere Seite in deinem AdBlocker auf die Whitelist zu setzen, ist ein komplett kostenloser und unglaublich einfacher Weg, uns zu unterstützen, während du unsere Updates und News durchstöberst. Sich in unserer Community zu engagieren, auf Serverlisten für uns zu voten und deine Freunde einzuladen, sind ebenfalls fantastische Möglichkeiten, uns beim Wachsen zu helfen!",
-                thankYou: "Du hilfst uns dabei, den Server am Laufen zu halten!",
+                info4Title: "Wie kann ich sonst noch helfen?", info4Desc: "Wir sind stark auf die Großzügigkeit unserer Community und Werbeeinnahmen angewiesen, um den Betrieb aufrechtzuerhalten. Unsere Seite in deinem AdBlocker auf die Whitelist zu setzen, ist ein komplett kostenloser und unglaublich einfacher Weg, uns zu unterstützen. Sich in unserer Community zu engagieren, für den Server zu voten und deine Freunde einzuladen, sind ebenfalls fantastische Möglichkeiten!",
                 cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
             }
         };
@@ -272,7 +423,7 @@
         document.getElementById('cookie-decline').addEventListener('click', () => { localStorage.setItem('craftifyCookieConsent', 'denied'); cookieBanner.classList.add('translate-y-full'); });
 
         // Dynamic Donation Links Fetcher
-        const donationPlatforms = ['paypal', 'patreon', 'kofi'];
+        const donationPlatforms = ['paypal', 'patreon'];
         const githubRawBase = 'https://raw.githubusercontent.com/der46er/craftify/main/support/';
 
         donationPlatforms.forEach(platform => {
@@ -285,8 +436,10 @@
                     const link = text.trim();
                     if (link && link.startsWith('http')) {
                         const btn = document.getElementById(`btn-${platform}`);
-                        btn.href = link;
-                        btn.style.display = 'inline-flex';
+                        if (btn) {
+                            btn.href = link;
+                            btn.style.display = 'inline-flex';
+                        }
                     }
                 })
                 .catch(e => {
