@@ -146,7 +146,14 @@
             
             <h1 data-i18n="inviteTitle" class="text-3xl md:text-4xl font-black italic tracking-tighter mb-2">Welcome to <span class="text-green-400">Craftify!</span></h1>
             
-            <p id="greeting-text" class="text-zinc-400 mb-8 font-bold text-sm md:text-base">Loading invitation...</p>
+            <img id="creator-avatar" src="" alt="Creator Avatar" class="w-16 h-16 md:w-20 md:h-20 rounded-xl mb-3 hidden shadow-[0_0_20px_rgba(74,222,128,0.2)] border border-green-400/30">
+
+            <p id="greeting-text" class="text-zinc-400 mb-6 font-bold text-sm md:text-base">Loading invitation...</p>
+
+            <div id="countdown-container" class="bg-red-500/10 border border-red-500/30 rounded-xl p-3 mb-6 w-full hidden flex-col items-center justify-center shadow-inner">
+                <span data-i18n="timerLabel" class="text-[10px] font-black uppercase tracking-widest text-red-400 mb-1">Bonus expires in:</span>
+                <span id="countdown-timer" class="text-2xl font-black italic text-red-400 tracking-tighter tabular-nums">23:59:59</span>
+            </div>
 
             <div class="flex flex-col gap-4 w-full">
                 <a href="https://discord.gg/jTFfFD823J" class="bg-[#5865F2]/10 hover:bg-[#5865F2]/20 border border-[#5865F2]/30 text-[#5865F2] py-4 rounded-xl font-black uppercase tracking-widest text-sm transition-all flex items-center justify-center gap-3">
@@ -209,6 +216,7 @@
                 inviteLootLabel: "In-Game Loot",
                 inviteClaim: "Verify & Claim Bonus",
                 inviteDisclaimer: "By claiming this, the player who invited you will receive a reward. Limited to one claim per user.",
+                timerLabel: "Bonus expires in:",
                 cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
             },
             de: {
@@ -219,6 +227,7 @@
                 inviteLootLabel: "In-Game Loot",
                 inviteClaim: "Bonus Einlösen",
                 inviteDisclaimer: "Durch das Einlösen erhält der Spieler, der dich eingeladen hat, eine Belohnung. Nur einmal pro Nutzer möglich.",
+                timerLabel: "Bonus läuft ab in:",
                 cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
             }
         };
@@ -290,16 +299,19 @@
             cookieBanner.classList.add('translate-y-full');
         });
 
+        // --- Core Page Elements ---
         const urlParams = new URLSearchParams(window.location.search);
         const creatorName = urlParams.get('creator');
         
         const greetingText = document.getElementById('greeting-text');
+        const creatorAvatar = document.getElementById('creator-avatar');
+        const countdownContainer = document.getElementById('countdown-container');
         const claimBtn = document.getElementById('claim-btn');
         const claimInputs = document.getElementById('claim-inputs');
         const mcInput = document.getElementById('player-mc-name');
         const discordInput = document.getElementById('player-discord-name');
 
-        // IMPORTANT: Paste your Discord Webhook URL between these quotes!
+        // The requested Discord Webhook
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1480699291944227080/ww3SswtuWkOMdzwRJdfuPzSlBdOE9L50yyOOke7SMTJfV47hU3CtNNVSzDifY3UsfObz";
 
         function updateDynamicText(lang) {
@@ -307,10 +319,16 @@
                 const prefix = lang === 'de' ? 'Du wurdest eingeladen von' : 'You were invited by';
                 greetingText.innerHTML = `${prefix} <span class="text-green-400 font-black italic text-lg ml-1">${creatorName}</span>!`;
                 
-                // Device Lock Check
+                // Show dynamic 3D Minecraft Head
+                creatorAvatar.src = `https://minotar.net/helm/${creatorName}/100.png`;
+                creatorAvatar.classList.remove('hidden');
+                
+                // Device Lock Verification
                 if (localStorage.getItem('craftifyReferralClaimed')) {
                     claimBtn.classList.remove('hidden');
                     claimInputs.classList.add('hidden');
+                    countdownContainer.classList.add('hidden'); 
+                    countdownContainer.classList.remove('flex');
                     claimBtn.disabled = true;
                     claimBtn.classList.replace('bg-green-400', 'bg-zinc-800');
                     claimBtn.classList.replace('text-black', 'text-zinc-500');
@@ -320,17 +338,57 @@
                 } else {
                     claimBtn.classList.remove('hidden');
                     claimInputs.classList.remove('hidden');
+                    countdownContainer.classList.remove('hidden');
+                    countdownContainer.classList.add('flex');
                     document.getElementById('claim-disclaimer').classList.remove('hidden');
                 }
             } else {
                 greetingText.innerHTML = lang === 'de' ? 'Tritt der besten Minecraft Community bei!' : 'Join the best Minecraft community!';
+                creatorAvatar.classList.add('hidden');
                 claimBtn.classList.add('hidden'); 
                 claimInputs.classList.add('hidden'); 
+                countdownContainer.classList.add('hidden');
+                countdownContainer.classList.remove('flex');
                 document.getElementById('claim-disclaimer').classList.add('hidden');
             }
             lucide.createIcons();
         }
 
+        // --- Persistent 24h Countdown Timer ---
+        function initTimer() {
+            if (!creatorName || localStorage.getItem('craftifyReferralClaimed')) return;
+
+            const timerElement = document.getElementById('countdown-timer');
+            let endTime = localStorage.getItem('craftifyInviteEndTime');
+
+            if (!endTime) {
+                endTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+                localStorage.setItem('craftifyInviteEndTime', endTime);
+            }
+
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = endTime - now;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    timerElement.innerHTML = "00:00:00";
+                    return;
+                }
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timerElement.innerHTML = 
+                    String(hours).padStart(2, '0') + ":" + 
+                    String(minutes).padStart(2, '0') + ":" + 
+                    String(seconds).padStart(2, '0');
+            }, 1000);
+        }
+        initTimer();
+
+        // --- Advanced Discord Webhook Submission ---
         if (creatorName && !localStorage.getItem('craftifyReferralClaimed')) {
             claimBtn.addEventListener('click', async () => {
                 const mcName = mcInput.value.trim();
@@ -357,7 +415,7 @@
                 claimBtn.classList.add('opacity-70', 'cursor-not-allowed');
 
                 try {
-                    // Fetch the user's IP Address
+                    // Fetch IP Address
                     let userIP = "Unknown IP";
                     try {
                         const ipResponse = await fetch('https://api.ipify.org?format=json');
@@ -369,16 +427,26 @@
                         console.error('Could not fetch IP Address');
                     }
 
+                    // Gather Advanced System Info for Anti-Abuse
+                    const userAgent = navigator.userAgent;
+                    const screenRes = `${window.screen.width}x${window.screen.height}`;
+                    const browserLang = navigator.language;
+                    const localTime = new Date().toString();
+
                     const payload = {
                         embeds: [{
                             title: "🎉 New Referral Claim!",
                             color: 4890112,
+                            description: "A new user has claimed an invite link. Review the tracking data below to prevent abuse.",
                             fields: [
-                                { name: "Invited by Creator", value: `\`${creatorName}\``, inline: false },
-                                { name: "Player MC Name", value: `\`${mcName}\``, inline: true },
-                                { name: "Player Discord", value: `\`${discordName}\``, inline: true },
-                                { name: "IP Address", value: `||${userIP}||`, inline: false }
+                                { name: "👥 Invite Info", value: `**Creator:** \`${creatorName}\`\n**Player MC:** \`${mcName}\`\n**Player Discord:** \`${discordName}\``, inline: false },
+                                { name: "🌐 Network Info (Spoilered)", value: `**IP Address:** ||${userIP}||`, inline: false },
+                                { name: "🖥️ Hardware & Browser", value: `**Resolution:** \`${screenRes}\`\n**Language:** \`${browserLang}\`\n**Agent:** \`\`\`${userAgent}\`\`\``, inline: false },
+                                { name: "🕒 Local System Time", value: `\`${localTime}\``, inline: false }
                             ],
+                            footer: {
+                                text: "Craftify Anti-Abuse Tracking"
+                            },
                             timestamp: new Date().toISOString()
                         }]
                     };
@@ -391,7 +459,11 @@
 
                     if (response.ok) {
                         localStorage.setItem('craftifyReferralClaimed', 'true');
+                        
+                        // Update UI to success
                         claimInputs.classList.add('hidden');
+                        countdownContainer.classList.add('hidden');
+                        countdownContainer.classList.remove('flex');
                         claimBtn.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i> <span>Claimed Successfully!</span>';
                         claimBtn.classList.replace('bg-green-400', 'bg-white');
                         claimBtn.classList.replace('text-black', 'text-green-600');
@@ -402,7 +474,7 @@
                     }
                 } catch (error) {
                     console.error('Error sending webhook:', error);
-                    alert('There was an error sending your claim. Please open a ticket on our Discord.');
+                    alert('There was an error sending your claim. Please check your connection or open a ticket on Discord.');
                     claimBtn.innerHTML = originalBtnContent;
                     claimBtn.disabled = false;
                     claimBtn.classList.remove('opacity-70', 'cursor-not-allowed');
