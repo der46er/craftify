@@ -9,17 +9,19 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
-        /* Schriften über GitHub */
         @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
         @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
         @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2'); font-weight: 900; font-display: swap; }
 
         :root {
+            /* Feature 10: Customizable Accent Color Variable */
             --mc-green: #4ade80;
+            --mc-green-rgb: 74, 222, 128;
             --acrylic: rgba(20, 20, 25, 0.8);
-            --border-glow: rgba(74, 222, 128, 0.3);
+            --border-glow: rgba(var(--mc-green-rgb), 0.3);
         }
 
         body {
@@ -35,6 +37,10 @@
             background-attachment: fixed;
         }
 
+        .text-accent { color: var(--mc-green); }
+        .bg-accent { background-color: var(--mc-green); }
+        .border-accent { border-color: var(--mc-green); }
+
         .game-card {
             background: var(--acrylic);
             backdrop-filter: blur(20px);
@@ -45,12 +51,11 @@
         }
 
         .game-card:hover {
-            transform: scale(1.02);
+            transform: scale(1.01);
             border-color: var(--mc-green);
             box-shadow: 0 0 40px var(--border-glow);
         }
 
-        /* Side Menu */
         #side-menu {
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(100%);
@@ -65,21 +70,41 @@
 
         .lang-btn.active {
             color: var(--mc-green);
-            background: rgba(74, 222, 128, 0.1);
+            background: rgba(var(--mc-green-rgb), 0.1);
         }
+
+        /* Color Picker Input Styling */
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+            background: transparent;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: 2px solid rgba(255,255,255,0.2); border-radius: 50%; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
     <header class="fixed w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5">
-        <div class="flex items-center gap-3">
+        <a href="https://craftify-mc.eu/" class="flex items-center gap-3 shrink-0 hover:opacity-80 transition-opacity">
             <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
-            <span class="font-black italic text-xl md:text-2xl tracking-tighter">Craftify <span class="text-green-400">Mc</span></span>
-        </div>
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter hidden sm:inline">Craftify <span class="text-accent">Mc</span></span>
+        </a>
         
-        <button id="menu-btn" class="p-2 md:p-3 hover:bg-white/5 rounded-2xl transition-all border border-white/10 bg-zinc-900/50">
-            <i data-lucide="menu-square" class="w-6 h-6 md:w-7 md:h-7"></i>
-        </button>
+        <div class="flex items-center gap-2 md:gap-4">
+            <a href="https://craftify-mc.eu/support" title="Support Us" class="flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-4 md:py-2.5 bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 hover:bg-yellow-400/20 hover:border-yellow-400 hover:shadow-[0_0_15px_rgba(250,204,21,0.3)] rounded-xl transition-all font-black uppercase text-[10px] md:text-xs tracking-widest">
+                <i data-lucide="heart" class="w-4 h-4"></i>
+                <span data-i18n="navSupport">Support Us</span>
+            </a>
+            <button id="menu-btn" class="p-2 md:p-2.5 hover:bg-white/5 rounded-xl transition-all border border-white/10 bg-zinc-900/50 ml-1">
+                <i data-lucide="menu-square" class="w-6 h-6 md:w-5 md:h-5"></i>
+            </button>
+        </div>
     </header>
 
     <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-8 md:p-12 flex flex-col">
@@ -101,7 +126,7 @@
         <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-6">
             <div class="flex flex-col gap-4 text-xs font-bold uppercase tracking-widest text-zinc-500">
                 <a href="https://craftify-mc.eu/imprint" class="hover:text-white transition-colors" data-i18n="navLegal">Legal & Privacy</a>
-                <a href="https://socials.thataustrianone.eu/" target="_blank" class="hover:text-green-400 transition-colors flex items-center gap-2">
+                <a href="https://socials.thataustrianone.eu/" target="_blank" class="hover:text-accent transition-colors flex items-center gap-2">
                     <i data-lucide="share-2" class="w-4 h-4"></i> Socials
                 </a>
             </div>
@@ -119,7 +144,7 @@
         
         <section class="mb-12 md:mb-16">
             <h1 data-i18n="heroTitle" class="text-4xl sm:text-6xl md:text-8xl font-black italic tracking-tighter leading-[1.1] md:leading-[0.85] mb-6">
-                Content <br> <span class="text-green-400">Rewards.</span>
+                Content <br> <span class="text-accent">Rewards.</span>
             </h1>
             <p data-i18n="heroDesc" class="text-sm md:text-lg text-zinc-400 max-w-2xl font-bold">
                 Make videos about Craftify, invite new players, reach milestones and receive epic in-game items!
@@ -130,27 +155,27 @@
             
             <div class="game-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col justify-center">
                 <div class="flex items-center gap-3 mb-8">
-                    <i data-lucide="list-checks" class="w-8 h-8 text-green-400"></i>
+                    <i data-lucide="list-checks" class="w-8 h-8 text-accent"></i>
                     <h3 data-i18n="stepsTitle" class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter">Your path to loot</h3>
                 </div>
                 
                 <div class="flex flex-col gap-6">
                     <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-green-400 flex-shrink-0">1</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-accent flex-shrink-0">1</div>
                         <div>
                             <h4 data-i18n="step1Title" class="font-bold text-white text-lg mb-1">Generate Link</h4>
                             <p data-i18n="step1Desc" class="text-zinc-400 text-sm">Use the tool on the right to generate your personal GitHub Invite Link and put it in your video description.</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-green-400 flex-shrink-0">2</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-accent flex-shrink-0">2</div>
                         <div>
                             <h4 data-i18n="step2Title" class="font-bold text-white text-lg mb-1">Players verify</h4>
                             <p data-i18n="step2Desc" class="text-zinc-400 text-sm">When viewers click your link, it automatically opens a GitHub issue stating they were invited by you.</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-green-400 flex-shrink-0">3</div>
+                        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-accent flex-shrink-0">3</div>
                         <div>
                             <h4 data-i18n="step3Title" class="font-bold text-white text-lg mb-1">Claim Reward</h4>
                             <p data-i18n="step3Desc" class="text-zinc-400 text-sm">Once you reach a milestone of submitted issues on GitHub, open a Reward Claim issue to get your loot!</p>
@@ -159,41 +184,102 @@
                 </div>
             </div>
 
-            <div class="game-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col items-center justify-center text-center relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-green-400/5 blur-[80px] rounded-full pointer-events-none group-hover:bg-green-400/10 transition-colors"></div>
+            <div class="game-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-accent opacity-5 blur-[80px] rounded-full pointer-events-none group-hover:opacity-10 transition-opacity"></div>
                 
+                <div class="absolute top-4 right-4 z-20 flex items-center gap-2 bg-black/40 px-3 py-1.5 rounded-full border border-white/10">
+                    <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest" data-i18n="themeLabel">Theme</span>
+                    <input type="color" id="theme-color-picker" value="#4ade80" title="Change Theme Color">
+                </div>
+
                 <div class="relative z-10 w-full flex flex-col items-center">
-                    <i data-lucide="link" class="w-16 h-16 md:w-20 md:h-20 mx-auto text-green-400 mb-6 drop-shadow-[0_0_15px_rgba(74,222,128,0.5)]"></i>
+                    <i data-lucide="link" class="w-16 h-16 md:w-20 md:h-20 mx-auto text-accent mb-6 drop-shadow-[0_0_15px_var(--border-glow)]"></i>
                     
                     <p data-i18n="generatorLabel" class="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-zinc-400 mb-2">Setup Tracking</p>
-                    <h3 data-i18n="generatorTitle" class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-4 text-white">Create Referral Link</h3>
-
-                    <p data-i18n="generatorDesc" class="text-zinc-300 text-sm md:text-base mb-6 max-w-sm">
-                        Enter your Minecraft name to generate your personal GitHub Invite URL. Share this link with your viewers!
-                    </p>
+                    <h3 data-i18n="generatorTitle" class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-6 text-white text-center">Create Referral Link</h3>
 
                     <div class="flex flex-col gap-4 w-full max-w-sm mx-auto">
-                        <input type="text" id="creator-username" placeholder="Your Minecraft Name" class="bg-black/60 border border-white/10 rounded-xl px-4 py-4 text-white text-center font-bold focus:outline-none focus:border-green-400 transition-colors w-full shadow-inner placeholder:text-zinc-600">
+                        <div class="flex flex-col gap-3">
+                            <input type="text" id="creator-display-name" placeholder="Display Name (e.g. YouTube Name)" class="bg-black/60 border border-white/10 rounded-xl px-4 py-4 text-white text-center font-bold focus:outline-none focus:border-accent transition-colors w-full shadow-inner placeholder:text-zinc-600">
+                            
+                            <div class="relative w-full">
+                                <input type="text" id="creator-mc-name" placeholder="Premium Minecraft Name (for 3D Head)" class="bg-black/60 border border-white/10 rounded-xl px-4 py-4 text-white text-center font-bold focus:outline-none focus:border-accent transition-colors w-full shadow-inner placeholder:text-zinc-600">
+                                <img id="live-avatar" src="" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded border border-white/20 hidden" style="image-rendering: pixelated;" alt="Preview">
+                            </div>
+                            
+                            <p data-i18n="avatarDisclaimer" class="text-[10px] md:text-xs text-accent/80 font-bold leading-tight text-center mt-1">
+                                ⚠️ Enter your Premium Minecraft name above if you want your 3D head to appear on the invite page!
+                            </p>
+
+                            <select id="creator-platform" class="bg-black/60 border border-white/10 rounded-xl px-4 py-4 text-white text-center font-bold focus:outline-none focus:border-accent transition-colors w-full shadow-inner appearance-none cursor-pointer">
+                                <option value="none" data-i18n="platNone">-- Select Primary Source (Optional) --</option>
+                                <option value="youtube">YouTube</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="twitch">Twitch</option>
+                                <option value="discord">Discord</option>
+                                <option value="website">Website / Blog</option>
+                            </select>
+                        </div>
                         
                         <button onclick="generateReferralUrl()" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all w-full active:scale-95">
                             <span data-i18n="generateBtn">Generate Link</span>
                         </button>
                     </div>
 
-                    <div id="link-result" class="hidden mt-6 bg-black/40 border border-green-400/30 rounded-2xl p-5 flex-col items-center w-full max-w-sm mx-auto">
-                        <span class="text-green-400 font-black uppercase tracking-[0.2em] text-[10px] mb-2 block" data-i18n="yourLink">Your Invite Link</span>
-                        <input type="text" id="generated-url" readonly class="bg-transparent text-sm md:text-base font-bold text-white text-center w-full mb-4 outline-none selection:bg-green-400/30" value="">
+                    <div id="link-result" class="hidden mt-6 bg-black/40 border border-accent/30 rounded-2xl p-5 flex-col items-center w-full max-w-sm mx-auto">
+                        <span class="text-accent font-black uppercase tracking-[0.2em] text-[10px] mb-2 block" data-i18n="yourLink">Your Invite Link</span>
+                        <input type="text" id="generated-url" readonly class="bg-transparent text-sm md:text-base font-bold text-white text-center w-full mb-4 outline-none selection:bg-accent/30" value="">
                         
-                        <div class="flex gap-3 w-full">
-                            <button onclick="copyGeneratedUrl()" id="btn-copy-url" class="bg-green-400 hover:bg-green-300 text-black px-4 py-3 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex-1 flex items-center justify-center gap-2 active:scale-95">
+                        <div class="flex gap-2 w-full mb-4">
+                            <button onclick="copyGeneratedUrl()" id="btn-copy-url" class="bg-accent hover:opacity-80 text-black px-4 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] sm:text-xs transition-all flex-1 flex items-center justify-center gap-2 active:scale-95">
                                 <i data-lucide="copy" class="w-4 h-4 icon-slot-url"></i>
                                 <span class="text-slot-url" data-i18n="copyBtn">Copy</span>
                             </button>
-                            <a href="https://github.com/der46er/craftify/issues" target="_blank" class="bg-white/10 hover:bg-white/20 text-white px-4 py-3 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2 active:scale-95" title="Claim Rewards">
-                                <i data-lucide="gift" class="w-4 h-4"></i>
-                            </a>
+                            <button onclick="testLink()" class="bg-white/10 hover:bg-white/20 text-white px-4 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] sm:text-xs transition-all flex items-center justify-center gap-2 active:scale-95" title="Test Link">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <div class="w-full border-t border-white/10 pt-4 mb-4 flex flex-col items-center">
+                            <span class="text-zinc-500 font-bold uppercase tracking-widest text-[10px] mb-3" data-i18n="qrLabel">Your QR Code</span>
+                            <div class="bg-white p-2 rounded-xl mb-3 shadow-[0_0_15px_var(--border-glow)]">
+                                <img id="qr-code-img" src="" alt="QR Code" class="w-32 h-32">
+                            </div>
+                            <button onclick="downloadQR()" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all flex items-center gap-2 active:scale-95">
+                                <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="qrDownload">Download PNG</span>
+                            </button>
+                        </div>
+
+                        <div class="w-full border-t border-white/10 pt-4 mb-4">
+                            <span class="text-zinc-500 font-bold uppercase tracking-widest text-[10px] mb-3 block text-center" data-i18n="shareLabel">Quick Share</span>
+                            <div class="flex justify-center gap-3">
+                                <a id="share-tw" href="#" target="_blank" class="p-2 bg-black rounded-lg hover:bg-white/10 transition-colors"><i data-lucide="twitter" class="w-5 h-5 text-white"></i></a>
+                                <a id="share-wa" href="#" target="_blank" class="p-2 bg-[#25D366]/20 rounded-lg hover:bg-[#25D366]/30 transition-colors"><i data-lucide="message-circle" class="w-5 h-5 text-[#25D366]"></i></a>
+                                <a id="share-tg" href="#" target="_blank" class="p-2 bg-[#0088cc]/20 rounded-lg hover:bg-[#0088cc]/30 transition-colors"><i data-lucide="send" class="w-5 h-5 text-[#0088cc]"></i></a>
+                                <a id="share-rd" href="#" target="_blank" class="p-2 bg-[#FF4500]/20 rounded-lg hover:bg-[#FF4500]/30 transition-colors"><svg class="w-5 h-5 text-[#FF4500]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .883.175 1.188.47 1.207-.872 2.905-1.451 4.764-1.503l.895-4.18c.039-.181.204-.306.39-.306.027 0 .054.003.081.008l3.117.656a1.246 1.246 0 0 1 1.203-.647zm-8.86 8.524c-.662 0-1.2.538-1.2 1.2 0 .662.538 1.2 1.2 1.2.662 0 1.2-.538 1.2-1.2 0-.662-.538-1.2-1.2-1.2zm7.72 0c-.662 0-1.2.538-1.2 1.2 0 .662.538 1.2 1.2 1.2.662 0 1.2-.538 1.2-1.2 0-.662-.538-1.2-1.2-1.2zm-3.86 3.69c-1.353 0-2.438-.567-2.502-.605a.25.25 0 1 0-.256.43c.105.063 1.295.775 2.758.775 1.464 0 2.654-.712 2.758-.775a.25.25 0 1 0-.256-.43c-.064.038-1.149.605-2.502.605z"/></svg></a>
+                            </div>
+                        </div>
+
+                        <div class="w-full border-t border-white/10 pt-4 flex flex-col gap-3">
+                            <div>
+                                <span class="text-zinc-500 font-bold uppercase tracking-widest text-[10px] mb-1 block" data-i18n="promoCopyLabel">Pre-Written Promo</span>
+                                <textarea id="promo-text-box" readonly class="w-full bg-black/50 border border-white/10 rounded-lg p-2 text-xs text-zinc-300 resize-none h-16 outline-none focus:border-accent" onclick="this.select()"></textarea>
+                            </div>
+                            <div>
+                                <span class="text-zinc-500 font-bold uppercase tracking-widest text-[10px] mb-1 block" data-i18n="mdCopyLabel">Markdown (Discord/Forum)</span>
+                                <input type="text" id="md-text-box" readonly class="w-full bg-black/50 border border-white/10 rounded-lg p-2 text-xs text-zinc-300 outline-none focus:border-accent" onclick="this.select()">
+                            </div>
                         </div>
                     </div>
+
+                    <div id="history-box" class="hidden mt-6 w-full max-w-sm mx-auto">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i data-lucide="history" class="w-4 h-4 text-zinc-500"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest text-zinc-500" data-i18n="historyLabel">Recent Links</span>
+                        </div>
+                        <div id="history-list" class="flex flex-col gap-2"></div>
+                    </div>
+
                 </div>
             </div>
 
@@ -205,7 +291,7 @@
                 <h2 data-i18n="milestoneTitle" class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-center">Milestones</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-blue-400">
                     <span class="text-blue-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier1Label">Tier 1</span>
                     <h3 class="text-3xl font-black italic text-white mb-6">1 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Player</span></h3>
@@ -296,23 +382,41 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="game-card p-6 md:p-10 rounded-[1.5rem] max-w-2xl mx-auto flex flex-col items-center text-center">
+                <i data-lucide="target" class="w-8 h-8 text-accent mb-4"></i>
+                <h3 data-i18n="calcTitle" class="text-xl md:text-2xl font-black italic uppercase tracking-tighter mb-2">Milestone Calculator</h3>
+                <p data-i18n="calcDesc" class="text-sm text-zinc-400 mb-6">Enter how many players you have invited to see your progress!</p>
+                
+                <div class="flex gap-4 w-full justify-center mb-6">
+                    <input type="number" id="calc-input" min="0" placeholder="0" class="w-24 bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white text-center font-bold focus:outline-none focus:border-accent transition-colors shadow-inner text-xl">
+                    <button onclick="calculateProgress()" class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-6 py-3 rounded-xl font-black uppercase tracking-widest text-xs transition-all active:scale-95">
+                        <span data-i18n="calcBtn">Check</span>
+                    </button>
+                </div>
+                
+                <div id="calc-result" class="hidden w-full bg-black/40 border border-accent/20 rounded-xl p-4 flex-col items-center">
+                    <span id="calc-tier" class="text-accent font-black uppercase tracking-widest text-sm mb-1"></span>
+                    <span id="calc-progress" class="text-zinc-300 font-bold text-sm"></span>
+                </div>
+            </div>
         </section>
 
         <section class="mt-16 md:mt-24">
-            <div class="game-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col lg:flex-row items-center justify-between gap-8 border-green-400/20">
+            <div class="game-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col lg:flex-row items-center justify-between gap-8 border-accent/20">
                 <div class="flex-grow">
                     <h3 data-i18n="promoTitle" class="text-2xl md:text-3xl font-black italic uppercase tracking-tighter mb-6">Tips for your success</h3>
                     <ul class="flex flex-col gap-4 text-sm md:text-base text-zinc-400 font-bold">
                         <li class="flex items-center gap-3">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
-                            <span data-i18n="promoTip1">Tell viewers to click your GitHub link to get a starter bonus.</span>
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-accent flex-shrink-0"></i>
+                            <span data-i18n="promoTip1">Tell viewers to click your link to get a starter bonus.</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-accent flex-shrink-0"></i>
                             <span data-i18n="promoTip2">Mention <strong class="text-white">play.craftify-mc.eu</strong> in the first 3 seconds of your video.</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 flex-shrink-0"></i>
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-accent flex-shrink-0"></i>
                             <span data-i18n="promoTip3">Use the hashtags #CraftifyMC and #MinecraftServer.</span>
                         </li>
                     </ul>
@@ -321,7 +425,7 @@
                     <div class="p-6 rounded-3xl bg-black/40 border border-white/5 text-center shadow-inner">
                         <i data-lucide="gem" class="w-10 h-10 text-cyan-400 mx-auto mb-3"></i>
                         <p data-i18n="promoReward" class="text-sm text-zinc-300 max-w-[200px] mx-auto">
-                            The best creators receive <span class="text-green-400 font-black">legendary loot</span> & custom items!
+                            The best creators receive <span class="text-accent font-black">legendary loot</span> & custom items!
                         </p>
                     </div>
                 </div>
@@ -373,25 +477,202 @@
     <script>
         lucide.createIcons();
         
-        // --- GitHub Link Generator Logik ---
+        // Feature 10: Accent Color Customizer
+        const colorPicker = document.getElementById('theme-color-picker');
+        colorPicker.addEventListener('input', (e) => {
+            const hex = e.target.value;
+            document.documentElement.style.setProperty('--mc-green', hex);
+            
+            // Convert Hex to RGB for glow effects
+            let r = 0, g = 0, b = 0;
+            if (hex.length === 7) {
+                r = parseInt(hex.substring(1, 3), 16);
+                g = parseInt(hex.substring(3, 5), 16);
+                b = parseInt(hex.substring(5, 7), 16);
+            }
+            document.documentElement.style.setProperty('--mc-green-rgb', `${r}, ${g}, ${b}`);
+        });
+
+        // Feature 4: Live Avatar Preview 
+        const mcInput = document.getElementById('creator-mc-name');
+        const liveAvatar = document.getElementById('live-avatar');
+        let avatarTimeout;
+        
+        mcInput.addEventListener('input', () => {
+            clearTimeout(avatarTimeout);
+            const name = mcInput.value.trim();
+            if (name === "") {
+                liveAvatar.classList.add('hidden');
+                return;
+            }
+            avatarTimeout = setTimeout(() => {
+                liveAvatar.src = `https://mc-heads.net/avatar/${name}/50`;
+                liveAvatar.classList.remove('hidden');
+            }, 500); // Debounce to avoid API spam
+        });
+
+        // --- Core Generator Logic with Platform & QR (Features 1,3,6,7) ---
         async function generateReferralUrl() {
-            const inputField = document.getElementById('creator-username');
-            const name = inputField.value.trim();
+            const displayInput = document.getElementById('creator-display-name');
+            const platformInput = document.getElementById('creator-platform');
+            
+            const displayName = displayInput.value.trim();
+            const mcName = mcInput.value.trim();
+            const platform = platformInput.value;
+            
             const resultBox = document.getElementById('link-result');
             const urlDisplay = document.getElementById('generated-url');
             
-            if (name === "") {
-                inputField.classList.add('border-red-500');
-                setTimeout(() => inputField.classList.remove('border-red-500'), 500);
+            if (displayName === "") {
+                displayInput.classList.add('border-red-500');
+                setTimeout(() => displayInput.classList.remove('border-red-500'), 500);
                 return;
             }
 
-            const referralLink = `https://craftify-mc.eu/invite?creator=${encodeURIComponent(name)}`;
+            // Build Link
+            let referralLink = `https://craftify-mc.eu/invite?creator=${encodeURIComponent(displayName)}`;
+            if (mcName !== "") referralLink += `&mc=${encodeURIComponent(mcName)}`;
+            if (platform !== "none") referralLink += `&source=${encodeURIComponent(platform)}`;
             
             urlDisplay.value = referralLink;
             resultBox.classList.remove('hidden');
             resultBox.classList.add('flex');
             lucide.createIcons();
+
+            // Feature 11: Confetti Animation
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: [colorPicker.value, '#ffffff']
+            });
+
+            // Feature 1: Generate QR Code
+            const qrImg = document.getElementById('qr-code-img');
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(referralLink)}`;
+
+            // Feature 5: Update Social Shares
+            const shareText = encodeURIComponent("Join me on Craftify! Claim your free starter loot here:");
+            const linkEncoded = encodeURIComponent(referralLink);
+            document.getElementById('share-tw').href = `https://twitter.com/intent/tweet?text=${shareText}&url=${linkEncoded}`;
+            document.getElementById('share-wa').href = `https://wa.me/?text=${shareText}%20${linkEncoded}`;
+            document.getElementById('share-tg').href = `https://t.me/share/url?url=${linkEncoded}&text=${shareText}`;
+            document.getElementById('share-rd').href = `https://reddit.com/submit?url=${linkEncoded}&title=${shareText}`;
+
+            // Features 6 & 7: Update Promo Text
+            const currentLang = document.documentElement.lang || 'en';
+            const promoMsg = currentLang === 'de' 
+                ? `Komm auf Craftify! 🎮\nKlick auf meinen Link, um kostenlosen Starter-Loot zu erhalten:\n${referralLink}`
+                : `Join me on Craftify! 🎮\nClick my link to claim free starter loot:\n${referralLink}`;
+            
+            const mdMsg = `[**Join Craftify - Free Loot!**](${referralLink})`;
+
+            document.getElementById('promo-text-box').value = promoMsg;
+            document.getElementById('md-text-box').value = mdMsg;
+
+            // Feature 8: Save to Local History
+            saveToHistory(displayName, platform, referralLink);
+        }
+
+        function testLink() {
+            const url = document.getElementById('generated-url').value;
+            if(url) window.open(url, '_blank');
+        }
+
+        // Feature 2: Download QR Code Function
+        async function downloadQR() {
+            const imgUrl = document.getElementById('qr-code-img').src;
+            if (!imgUrl) return;
+            try {
+                const response = await fetch(imgUrl);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'Craftify_QR_Code.png';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            } catch (err) {
+                console.error('Download failed, opening in new tab', err);
+                window.open(imgUrl, '_blank');
+            }
+        }
+
+        // Feature 8: History Logic
+        function saveToHistory(name, platform, url) {
+            let history = JSON.parse(localStorage.getItem('craftifyLinks') || '[]');
+            // Avoid exact duplicates
+            if (!history.find(h => h.url === url)) {
+                history.unshift({ name, platform, url, date: new Date().toLocaleDateString() });
+                if (history.length > 3) history.pop(); // Keep only last 3
+                localStorage.setItem('craftifyLinks', JSON.stringify(history));
+                renderHistory();
+            }
+        }
+
+        function renderHistory() {
+            const historyBox = document.getElementById('history-box');
+            const historyList = document.getElementById('history-list');
+            const history = JSON.parse(localStorage.getItem('craftifyLinks') || '[]');
+            
+            if (history.length === 0) return;
+            
+            historyBox.classList.remove('hidden');
+            historyList.innerHTML = '';
+            
+            history.forEach(item => {
+                const el = document.createElement('div');
+                el.className = "bg-black/50 border border-white/5 rounded-lg p-3 flex justify-between items-center text-xs";
+                const platText = item.platform !== 'none' ? ` (${item.platform})` : '';
+                el.innerHTML = `
+                    <div class="flex flex-col overflow-hidden mr-2">
+                        <span class="font-bold text-white truncate">${item.name}${platText}</span>
+                        <span class="text-zinc-500 truncate">${item.url}</span>
+                    </div>
+                    <button onclick="navigator.clipboard.writeText('${item.url}'); alert('Copied!');" class="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors shrink-0">
+                        <i data-lucide="copy" class="w-3 h-3 text-white"></i>
+                    </button>
+                `;
+                historyList.appendChild(el);
+            });
+            lucide.createIcons();
+        }
+        // Load history on start
+        renderHistory();
+
+        // Feature 9: Milestone Calculator
+        function calculateProgress() {
+            const input = parseInt(document.getElementById('calc-input').value) || 0;
+            const resBox = document.getElementById('calc-result');
+            const tierEl = document.getElementById('calc-tier');
+            const progEl = document.getElementById('calc-progress');
+            const lang = document.documentElement.lang || 'en';
+
+            const tiers = [1, 3, 5, 10, 25, 50, 100, 250, 500];
+            let currentTier = 0;
+            let nextGoal = tiers[0];
+
+            for(let i=0; i<tiers.length; i++) {
+                if(input >= tiers[i]) {
+                    currentTier = i + 1;
+                    nextGoal = tiers[i+1] || null;
+                }
+            }
+
+            resBox.classList.remove('hidden');
+            resBox.classList.add('flex');
+
+            const tPrefix = lang === 'de' ? 'Stufe' : 'Tier';
+            tierEl.innerText = currentTier === 0 ? (lang === 'de' ? "Noch keine Stufe" : "No Tier Yet") : `${tPrefix} ${currentTier}`;
+
+            if (nextGoal) {
+                const remaining = nextGoal - input;
+                progEl.innerText = lang === 'de' ? `${remaining} weitere Spieler bis ${tPrefix} ${currentTier+1}!` : `${remaining} more players for ${tPrefix} ${currentTier+1}!`;
+            } else {
+                progEl.innerText = lang === 'de' ? "Maximales Level erreicht!" : "Max Tier Reached!";
+            }
         }
 
         // --- Robuste Kopier-Logik ---
@@ -430,7 +711,7 @@
 
         function showCopiedSuccess(btn, iconSlot, textSlot, currentLang) {
             const originalClasses = btn.className;
-            btn.className = "bg-white text-green-600 px-4 py-3 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex-1 flex items-center justify-center gap-2 active:scale-95";
+            btn.className = "bg-white text-green-600 px-4 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] sm:text-xs transition-all flex-1 flex items-center justify-center gap-2 active:scale-95";
             iconSlot.setAttribute('data-lucide', 'check');
             lucide.createIcons();
             textSlot.innerText = translations[currentLang]['copiedText'];
@@ -459,20 +740,26 @@
         // --- Übersetzungen ---
         const translations = {
             en: {
-                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy",
-                heroTitle: "Content <br> <span class='text-green-400'>Rewards.</span>",
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSupport: "Support Us",
+                heroTitle: "Content <br> <span class='text-accent'>Rewards.</span>",
                 heroDesc: "Make videos about Craftify, invite new players, reach milestones and receive epic in-game items!",
                 stepsTitle: "Your path to loot",
                 step1Title: "Generate Link", step1Desc: "Use the tool on the right to generate your personal GitHub Invite Link and put it in your video description.",
                 step2Title: "Players verify", step2Desc: "When viewers click your link, it automatically opens a GitHub issue stating they were invited by you.",
                 step3Title: "Claim Reward", step3Desc: "Once you reach a milestone of submitted issues on GitHub, open a Reward Claim issue to get your loot!",
+                themeLabel: "Theme",
                 generatorLabel: "Setup Tracking",
                 generatorTitle: "Create Referral Link",
-                generatorDesc: "Enter your Minecraft name to generate your personal GitHub Invite URL. Share this link with your viewers!",
                 generateBtn: "Generate Link",
+                avatarDisclaimer: "⚠️ Enter your Premium Minecraft name above if you want your 3D head to appear on the invite page!",
+                platNone: "-- Select Primary Source (Optional) --",
                 yourLink: "Your Invite Link",
                 copyBtn: "Copy",
                 copiedText: "Copied!",
+                qrLabel: "Your QR Code", qrDownload: "Download PNG",
+                shareLabel: "Quick Share", promoCopyLabel: "Pre-Written Promo", mdCopyLabel: "Markdown (Discord/Forum)",
+                historyLabel: "Recent Links",
+                calcTitle: "Milestone Calculator", calcDesc: "Enter how many players you have invited to see your progress!", calcBtn: "Check",
                 milestoneTitle: "Milestones",
                 playersLabel: "Players",
                 tier1Label: "Tier 1", tier2Label: "Tier 2", tier3Label: "Tier 3",
@@ -488,10 +775,10 @@
                 reward8_1: "Permanent Partner Rank", reward8_2: "Personal NPC at Spawn", reward8_3: "64x Netherite Blocks",
                 reward9_1: "Custom Named In-Game Item", reward9_2: "Personal Server Hologram", reward9_3: "1x Shulker Box full of Netherite",
                 promoTitle: "Tips for your success",
-                promoTip1: "Tell viewers to click your GitHub link to get a starter bonus.",
+                promoTip1: "Tell viewers to click your link to get a starter bonus.",
                 promoTip2: "Mention <strong class='text-white'>play.craftify-mc.eu</strong> in the first 3 seconds of your video.",
                 promoTip3: "Use the hashtags #CraftifyMC and #MinecraftServer.",
-                promoReward: "The best creators receive <span class='text-green-400 font-black'>legendary loot</span> & custom items!",
+                promoReward: "The best creators receive <span class='text-accent font-black'>legendary loot</span> & custom items!",
                 assetsTitle: "Official Creator Templates",
                 assetsDesc: "Use our official OBS overlay directly in your stream or recording software. Click a color to open the URL, then follow the tutorial below!",
                 obsTutorialTitle: "How to use in OBS",
@@ -501,20 +788,26 @@
                 obsStep4: "Set Width to 800 and Height to 200, then click OK. You're done!"
             },
             de: {
-                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Impressum & Datenschutz",
-                heroTitle: "Content <br> <span class='text-green-400'>Belohnungen.</span>",
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Impressum & Datenschutz", navSupport: "Unterstütze uns",
+                heroTitle: "Content <br> <span class='text-accent'>Belohnungen.</span>",
                 heroDesc: "Mache Videos über Craftify, lade neue Spieler ein, erreiche Meilensteine und erhalte epische In-Game Items!",
                 stepsTitle: "Dein Weg zum Loot",
                 step1Title: "Link generieren", step1Desc: "Nutze das Tool rechts, um deinen GitHub-Einladungslink zu erstellen und packe ihn in deine Videobeschreibung.",
                 step2Title: "Spieler verifizieren", step2Desc: "Klicken Zuschauer auf den Link, öffnet sich direkt ein GitHub-Issue, in dem steht, dass sie von dir eingeladen wurden.",
                 step3Title: "Belohnung anfordern", step3Desc: "Sobald du durch die GitHub-Issues einen Meilenstein erreichst, öffne ein 'Reward Claim'-Issue für deinen Loot!",
+                themeLabel: "Thema",
                 generatorLabel: "Tracking Einrichten",
                 generatorTitle: "Referral Link Erstellen",
-                generatorDesc: "Gib deinen Minecraft-Namen ein, um deine persönliche GitHub Invite URL zu generieren. Teile diesen Link mit deinen Zuschauern!",
                 generateBtn: "Link generieren",
+                avatarDisclaimer: "⚠️ Gib oben deinen Premium Minecraft-Namen ein, wenn dein 3D-Kopf auf der Seite erscheinen soll!",
+                platNone: "-- Wähle Hauptquelle (Optional) --",
                 yourLink: "Dein Einladungslink",
                 copyBtn: "Kopieren",
                 copiedText: "Kopiert!",
+                qrLabel: "Dein QR Code", qrDownload: "Als PNG Downloaden",
+                shareLabel: "Schnell Teilen", promoCopyLabel: "Fertiger Werbetext", mdCopyLabel: "Markdown (Discord/Forum)",
+                historyLabel: "Letzte Links",
+                calcTitle: "Meilenstein-Rechner", calcDesc: "Gib ein, wie viele Spieler du eingeladen hast, um deinen Fortschritt zu sehen!", calcBtn: "Prüfen",
                 milestoneTitle: "Meilensteine",
                 playersLabel: "Spieler",
                 tier1Label: "Stufe 1", tier2Label: "Stufe 2", tier3Label: "Stufe 3",
@@ -533,7 +826,7 @@
                 promoTip1: "Sag deinen Zuschauern, dass sie auf den Link klicken sollen, um einen Bonus zu bekommen.",
                 promoTip2: "Erwähne <strong class='text-white'>play.craftify-mc.eu</strong> in den ersten 3 Sekunden deines Videos.",
                 promoTip3: "Verwende die Hashtags #CraftifyMC und #MinecraftServer.",
-                promoReward: "Die besten Creator erhalten <span class='text-green-400 font-black'>legendären Loot</span> & eigene Items!",
+                promoReward: "Die besten Creator erhalten <span class='text-accent font-black'>legendären Loot</span> & eigene Items!",
                 assetsTitle: "Offizielle Creator Vorlagen",
                 assetsDesc: "Nutze unser offizielles OBS-Overlay direkt in deinem Stream oder deiner Aufnahmesoftware. Klicke auf eine Farbe, um die URL zu öffnen, und folge dem Tutorial unten!",
                 obsTutorialTitle: "So funktioniert's in OBS",
@@ -554,17 +847,16 @@
                 if (translations[lang][key]) el.innerHTML = translations[lang][key];
             });
             
-            // Input-Platzhalter anpassen
-            const creatorInput = document.getElementById('creator-username');
-            if(creatorInput) {
-                creatorInput.placeholder = lang === 'en' ? "Your Minecraft Name" : "Dein Minecraft Name";
-            }
+            const displayInput = document.getElementById('creator-display-name');
+            const mcInput = document.getElementById('creator-mc-name');
+            const platSelect = document.getElementById('creator-platform');
             
-            // Kopier-Button aktualisieren
+            if(displayInput) displayInput.placeholder = lang === 'en' ? "Display Name (e.g. YouTube Name)" : "Anzeigename (z.B. YouTube Name)";
+            if(mcInput) mcInput.placeholder = lang === 'en' ? "Premium Minecraft Name (for 3D Head)" : "Premium Minecraft-Name (für 3D-Kopf)";
+            if(platSelect && platSelect.options[0]) platSelect.options[0].text = translations[lang]['platNone'];
+
             const copyTextSlot = document.querySelector('.text-slot-url');
-            if (copyTextSlot) {
-                copyTextSlot.innerText = translations[lang]['copyBtn'];
-            }
+            if (copyTextSlot) copyTextSlot.innerText = translations[lang]['copyBtn'];
 
             if (lang === 'en') {
                 btnEn.classList.add('active'); btnEn.classList.remove('text-zinc-600');
@@ -578,7 +870,6 @@
         btnDe.addEventListener('click', () => setLanguage('de'));
         btnEn.addEventListener('click', () => setLanguage('en'));
 
-        // Set default language to English
         setLanguage('en');
     </script>
 </body>
