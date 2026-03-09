@@ -13,7 +13,6 @@
     <script async data-cookieconsent="ignore" data-cmp-ignore="true" data-cfasync="false" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321842148888741" crossorigin="anonymous"></script>
 
     <style>
-        /* Schriften EXKLUSIV über dein GitHub in 3 Stärken */
         @font-face {
             font-family: 'Inter';
             src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-regular.woff2') format('woff2');
@@ -67,7 +66,6 @@
             box-shadow: 0 0 40px var(--border-glow);
         }
 
-        /* Side Menu - Absolut blickdicht und scrollbar */
         #side-menu {
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(100%);
@@ -89,17 +87,12 @@
 <body class="min-h-screen flex flex-col">
 
     <header class="fixed w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5">
-        <div class="flex items-center gap-3 shrink-0">
+        <a href="https://craftify-mc.eu/" class="flex items-center gap-3 shrink-0 hover:opacity-80 transition-opacity">
             <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
             <span class="font-black italic text-xl md:text-2xl tracking-tighter hidden sm:inline">Craftify <span class="text-green-400">Mc</span></span>
-        </div>
+        </a>
         
         <div class="flex items-center gap-2 md:gap-4">
-            <a href="https://discord.gg/jTFfFD823J" target="_blank" title="Discord" class="flex items-center gap-2 p-2 md:px-4 md:py-2.5 bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/30 hover:bg-[#5865F2]/20 hover:border-[#5865F2] rounded-xl transition-all font-black uppercase text-xs tracking-widest">
-                <i data-lucide="message-circle" class="w-5 h-5 md:w-4 md:h-4"></i>
-                <span class="hidden md:inline">Discord</span>
-            </a>
-
             <a href="https://craftify-mc.eu/support" title="Support Us" class="flex items-center gap-2 p-2 md:px-4 md:py-2.5 bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 hover:bg-yellow-400/20 hover:border-yellow-400 hover:shadow-[0_0_15px_rgba(250,204,21,0.3)] rounded-xl transition-all font-black uppercase text-xs tracking-widest">
                 <i data-lucide="heart" class="w-5 h-5 md:w-4 md:h-4"></i>
                 <span class="hidden md:inline" data-i18n="navSupport">Support Us</span>
@@ -176,6 +169,10 @@
                 <button id="claim-btn" class="bg-green-400 hover:bg-green-300 text-black py-4 rounded-xl font-black uppercase tracking-widest text-sm transition-all flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(74,222,128,0.3)] active:scale-95 hidden">
                     <i data-lucide="gift" class="w-5 h-5"></i> <span data-i18n="inviteClaim" id="claim-btn-text">Verify & Claim Bonus</span>
                 </button>
+                
+                <p id="claim-disclaimer" class="text-xs text-zinc-500 font-bold mt-2 hidden" data-i18n="inviteDisclaimer">
+                    By claiming this, the player who invited you will receive a reward. Limited to one claim per user.
+                </p>
             </div>
         </div>
     </main>
@@ -211,6 +208,7 @@
                 inviteWebsite: "Visit Website",
                 inviteLootLabel: "In-Game Loot",
                 inviteClaim: "Verify & Claim Bonus",
+                inviteDisclaimer: "By claiming this, the player who invited you will receive a reward. Limited to one claim per user.",
                 cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
             },
             de: {
@@ -220,6 +218,7 @@
                 inviteWebsite: "Zur Webseite",
                 inviteLootLabel: "In-Game Loot",
                 inviteClaim: "Bonus Einlösen",
+                inviteDisclaimer: "Durch das Einlösen erhält der Spieler, der dich eingeladen hat, eine Belohnung. Nur einmal pro Nutzer möglich.",
                 cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
             }
         };
@@ -234,7 +233,6 @@
                 if (translations[lang][key]) el.innerHTML = translations[lang][key];
             });
             
-            // Update placeholders for the input fields
             const mcInput = document.getElementById('player-mc-name');
             const discordInput = document.getElementById('player-discord-name');
             if (mcInput) mcInput.placeholder = lang === 'en' ? "Your Minecraft Name" : "Dein Minecraft Name";
@@ -254,7 +252,6 @@
         btnDe.addEventListener('click', () => setLanguage('de'));
         btnEn.addEventListener('click', () => setLanguage('en'));
 
-        // --- Cookie & Google Analytics Logic ---
         const cookieBanner = document.getElementById('cookie-banner');
         const cookieAccept = document.getElementById('cookie-accept');
         const cookieDecline = document.getElementById('cookie-decline');
@@ -293,13 +290,11 @@
             cookieBanner.classList.add('translate-y-full');
         });
 
-        // --- Invite Page Dynamic Text & Discord Webhook Logic ---
         const urlParams = new URLSearchParams(window.location.search);
         const creatorName = urlParams.get('creator');
         
         const greetingText = document.getElementById('greeting-text');
         const claimBtn = document.getElementById('claim-btn');
-        const claimBtnText = document.getElementById('claim-btn-text');
         const claimInputs = document.getElementById('claim-inputs');
         const mcInput = document.getElementById('player-mc-name');
         const discordInput = document.getElementById('player-discord-name');
@@ -311,21 +306,36 @@
             if (creatorName) {
                 const prefix = lang === 'de' ? 'Du wurdest eingeladen von' : 'You were invited by';
                 greetingText.innerHTML = `${prefix} <span class="text-green-400 font-black italic text-lg ml-1">${creatorName}</span>!`;
-                claimBtn.classList.remove('hidden');
-                claimInputs.classList.remove('hidden');
+                
+                // Device Lock Check
+                if (localStorage.getItem('craftifyReferralClaimed')) {
+                    claimBtn.classList.remove('hidden');
+                    claimInputs.classList.add('hidden');
+                    claimBtn.disabled = true;
+                    claimBtn.classList.replace('bg-green-400', 'bg-zinc-800');
+                    claimBtn.classList.replace('text-black', 'text-zinc-500');
+                    claimBtn.classList.remove('hover:bg-green-300', 'active:scale-95', 'shadow-[0_0_20px_rgba(74,222,128,0.3)]');
+                    claimBtn.innerHTML = '<i data-lucide="shield-check" class="w-5 h-5"></i> <span>' + (lang === 'de' ? 'Bereits eingelöst' : 'Already Claimed') + '</span>';
+                    document.getElementById('claim-disclaimer').classList.remove('hidden');
+                } else {
+                    claimBtn.classList.remove('hidden');
+                    claimInputs.classList.remove('hidden');
+                    document.getElementById('claim-disclaimer').classList.remove('hidden');
+                }
             } else {
                 greetingText.innerHTML = lang === 'de' ? 'Tritt der besten Minecraft Community bei!' : 'Join the best Minecraft community!';
                 claimBtn.classList.add('hidden'); 
                 claimInputs.classList.add('hidden'); 
+                document.getElementById('claim-disclaimer').classList.add('hidden');
             }
+            lucide.createIcons();
         }
 
-        if (creatorName) {
+        if (creatorName && !localStorage.getItem('craftifyReferralClaimed')) {
             claimBtn.addEventListener('click', async () => {
                 const mcName = mcInput.value.trim();
                 const discordName = discordInput.value.trim();
                 
-                // Visual Validation
                 let hasError = false;
                 if (!mcName) {
                     mcInput.classList.add('border-red-500');
@@ -340,27 +350,39 @@
                 
                 if (hasError) return;
 
-                // Set loading state
                 const originalBtnContent = claimBtn.innerHTML;
-                claimBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> <span>Sending...</span>';
+                claimBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> <span>Processing...</span>';
                 lucide.createIcons();
                 claimBtn.disabled = true;
                 claimBtn.classList.add('opacity-70', 'cursor-not-allowed');
 
-                const payload = {
-                    embeds: [{
-                        title: "🎉 New Referral Claim!",
-                        color: 4890112, // Hex #4ade80 (your green)
-                        fields: [
-                            { name: "Invited by Creator", value: `\`${creatorName}\``, inline: false },
-                            { name: "Player MC Name", value: `\`${mcName}\``, inline: true },
-                            { name: "Player Discord", value: `\`${discordName}\``, inline: true }
-                        ],
-                        timestamp: new Date().toISOString()
-                    }]
-                };
-
                 try {
+                    // Fetch the user's IP Address
+                    let userIP = "Unknown IP";
+                    try {
+                        const ipResponse = await fetch('https://api.ipify.org?format=json');
+                        if (ipResponse.ok) {
+                            const ipData = await ipResponse.json();
+                            userIP = ipData.ip;
+                        }
+                    } catch (e) {
+                        console.error('Could not fetch IP Address');
+                    }
+
+                    const payload = {
+                        embeds: [{
+                            title: "🎉 New Referral Claim!",
+                            color: 4890112,
+                            fields: [
+                                { name: "Invited by Creator", value: `\`${creatorName}\``, inline: false },
+                                { name: "Player MC Name", value: `\`${mcName}\``, inline: true },
+                                { name: "Player Discord", value: `\`${discordName}\``, inline: true },
+                                { name: "IP Address", value: `||${userIP}||`, inline: false }
+                            ],
+                            timestamp: new Date().toISOString()
+                        }]
+                    };
+
                     const response = await fetch(DISCORD_WEBHOOK_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -368,10 +390,12 @@
                     });
 
                     if (response.ok) {
-                        // Success state
+                        localStorage.setItem('craftifyReferralClaimed', 'true');
+                        claimInputs.classList.add('hidden');
                         claimBtn.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i> <span>Claimed Successfully!</span>';
                         claimBtn.classList.replace('bg-green-400', 'bg-white');
                         claimBtn.classList.replace('text-black', 'text-green-600');
+                        claimBtn.classList.remove('opacity-70', 'cursor-not-allowed', 'shadow-[0_0_20px_rgba(74,222,128,0.3)]', 'hover:bg-green-300');
                         lucide.createIcons();
                     } else {
                         throw new Error('Webhook failed');
@@ -379,7 +403,6 @@
                 } catch (error) {
                     console.error('Error sending webhook:', error);
                     alert('There was an error sending your claim. Please open a ticket on our Discord.');
-                    // Reset button
                     claimBtn.innerHTML = originalBtnContent;
                     claimBtn.disabled = false;
                     claimBtn.classList.remove('opacity-70', 'cursor-not-allowed');
