@@ -373,7 +373,7 @@
     <script>
         lucide.createIcons();
         
-        // --- GitHub Link Generator Logik (mit URL Shortener) ---
+        // --- GitHub Link Generator Logik ---
         async function generateReferralUrl() {
             const inputField = document.getElementById('creator-username');
             const name = inputField.value.trim();
@@ -386,31 +386,12 @@
                 return;
             }
 
-            const repoBase = "https://github.com/der46er/craftify/issues/new";
-            const issueTitle = encodeURIComponent(`Player Invite: ${name}`);
-            const issueBody = encodeURIComponent(`**My Minecraft Name:** [Enter your Name here]\n**Invited by:** ${name}\n\n*(Leave the "Invited by" field unchanged so the creator gets their reward!)*`);
-            const longLink = `${repoBase}?title=${issueTitle}&body=${issueBody}`;
+            const referralLink = `https://craftify-mc.eu/invite?creator=${encodeURIComponent(name)}`;
             
-            // Lade Status
-            const isDe = document.documentElement.lang === 'de';
-            urlDisplay.value = isDe ? "Generiere Link..." : "Generating Link...";
+            urlDisplay.value = referralLink;
             resultBox.classList.remove('hidden');
             resultBox.classList.add('flex');
             lucide.createIcons();
-
-            try {
-                // Kostenloser TinyURL API Call
-                const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longLink)}`);
-                if (response.ok) {
-                    const shortLink = await response.text();
-                    urlDisplay.value = shortLink;
-                } else {
-                    urlDisplay.value = longLink; 
-                }
-            } catch (error) {
-                console.error("URL Shortener Error:", error);
-                urlDisplay.value = longLink; // Fallback bei Adblockern
-            }
         }
 
         // --- Robuste Kopier-Logik ---
