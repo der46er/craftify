@@ -8,6 +8,17 @@
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: 'var(--mc-green)'
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -17,7 +28,6 @@
         @font-face { font-family: 'Inter'; src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2'); font-weight: 900; font-display: swap; }
 
         :root {
-            /* Feature 10: Customizable Accent Color Variable */
             --mc-green: #4ade80;
             --mc-green-rgb: 74, 222, 128;
             --acrylic: rgba(20, 20, 25, 0.8);
@@ -36,10 +46,6 @@
             background-position: center;
             background-attachment: fixed;
         }
-
-        .text-accent { color: var(--mc-green); }
-        .bg-accent { background-color: var(--mc-green); }
-        .border-accent { border-color: var(--mc-green); }
 
         .game-card {
             background: var(--acrylic);
@@ -73,7 +79,6 @@
             background: rgba(var(--mc-green-rgb), 0.1);
         }
 
-        /* Color Picker Input Styling */
         input[type="color"] {
             -webkit-appearance: none;
             border: none;
@@ -336,7 +341,7 @@
                     <span class="text-red-500 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier5Label">Tier 5</span>
                     <h3 class="text-4xl font-black italic text-white mb-6">25 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
                     <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
-                        <li class="flex items-center gap-2"><i data-lucide="crown" class="w-4 h-4 text-green-400"></i> <span data-i18n="reward5_1">Creator Rank (30 Days)</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="crown" class="w-4 h-4 text-accent"></i> <span data-i18n="reward5_1">Creator Rank (30 Days)</span></li>
                         <li class="flex items-center gap-2"><i data-lucide="skull" class="w-4 h-4 text-red-400"></i> <span data-i18n="reward5_2">1x Monster Spawner</span></li>
                         <li class="flex items-center gap-2"><i data-lucide="box" class="w-4 h-4 text-zinc-400"></i> <span data-i18n="reward5_3">4x Netherite Blocks</span></li>
                     </ul>
@@ -362,8 +367,8 @@
                     </ul>
                 </div>
 
-                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-green-400 shadow-[0_15px_40px_rgba(74,222,128,0.15)]">
-                    <span class="text-green-400 font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier8Label">Tier 8</span>
+                <div class="game-card p-6 md:p-8 rounded-[1.5rem] flex flex-col items-center text-center border-t-4 border-t-accent shadow-[0_15px_40px_var(--border-glow)]">
+                    <span class="text-accent font-black uppercase tracking-widest text-xs mb-2" data-i18n="tier8Label">Tier 8</span>
                     <h3 class="text-4xl font-black italic text-white mb-6">250 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
                     <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
                         <li class="flex items-center gap-2"><i data-lucide="star" class="w-4 h-4 text-yellow-500"></i> <span data-i18n="reward8_1">Permanent Partner Rank</span></li>
@@ -377,7 +382,7 @@
                     <h3 class="text-5xl font-black italic text-white mb-6">500 <span class="text-zinc-500 text-xl" data-i18n="playersLabel">Players</span></h3>
                     <ul class="flex flex-col gap-3 text-sm font-bold text-zinc-300 w-full text-left bg-black/40 p-5 rounded-2xl border border-white/5">
                         <li class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i> <span data-i18n="reward9_1">Custom Named In-Game Item</span></li>
-                        <li class="flex items-center gap-2"><i data-lucide="scan-line" class="w-4 h-4 text-green-400"></i> <span data-i18n="reward9_2">Personal Server Hologram</span></li>
+                        <li class="flex items-center gap-2"><i data-lucide="scan-line" class="w-4 h-4 text-accent"></i> <span data-i18n="reward9_2">Personal Server Hologram</span></li>
                         <li class="flex items-center gap-2"><i data-lucide="package" class="w-4 h-4 text-zinc-400"></i> <span data-i18n="reward9_3">1x Shulker Box full of Netherite</span></li>
                     </ul>
                 </div>
@@ -441,8 +446,8 @@
             <p data-i18n="assetsDesc" class="text-zinc-500 text-sm mb-6 max-w-2xl">Use our official OBS overlay directly in your stream or recording software. Click a color to open the URL, then follow the tutorial below!</p>
 
             <div class="flex flex-wrap gap-3 mb-10">
-                <a href="https://craftify-mc.eu/assets/overlays/craftify-overlay-green.html" target="_blank" class="bg-green-500/10 hover:bg-green-500/20 border border-green-500/30 text-green-400 px-5 py-3 rounded-xl text-sm font-bold transition-colors flex items-center gap-2 group">
-                    <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Craftify Green
+                <a href="https://craftify-mc.eu/assets/overlays/craftify-overlay-green.html" target="_blank" class="bg-accent/10 hover:bg-accent/20 border border-accent/30 text-accent px-5 py-3 rounded-xl text-sm font-bold transition-colors flex items-center gap-2 group">
+                    <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Craftify Theme
                 </a>
                 <a href="https://craftify-mc.eu/assets/overlays/craftify-overlay-blue.html" target="_blank" class="bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-400 px-5 py-3 rounded-xl text-sm font-bold transition-colors flex items-center gap-2 group">
                     <i data-lucide="external-link" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Diamond Blue
@@ -477,13 +482,11 @@
     <script>
         lucide.createIcons();
         
-        // Feature 10: Accent Color Customizer
         const colorPicker = document.getElementById('theme-color-picker');
         colorPicker.addEventListener('input', (e) => {
             const hex = e.target.value;
             document.documentElement.style.setProperty('--mc-green', hex);
             
-            // Convert Hex to RGB for glow effects
             let r = 0, g = 0, b = 0;
             if (hex.length === 7) {
                 r = parseInt(hex.substring(1, 3), 16);
@@ -493,7 +496,6 @@
             document.documentElement.style.setProperty('--mc-green-rgb', `${r}, ${g}, ${b}`);
         });
 
-        // Feature 4: Live Avatar Preview 
         const mcInput = document.getElementById('creator-mc-name');
         const liveAvatar = document.getElementById('live-avatar');
         let avatarTimeout;
@@ -508,10 +510,9 @@
             avatarTimeout = setTimeout(() => {
                 liveAvatar.src = `https://mc-heads.net/avatar/${name}/50`;
                 liveAvatar.classList.remove('hidden');
-            }, 500); // Debounce to avoid API spam
+            }, 500); 
         });
 
-        // --- Core Generator Logic with Platform & QR (Features 1,3,6,7) ---
         async function generateReferralUrl() {
             const displayInput = document.getElementById('creator-display-name');
             const platformInput = document.getElementById('creator-platform');
@@ -529,17 +530,18 @@
                 return;
             }
 
-            // Build Link
+            // --- BUILD THE LINK WITH ALL PARAMETERS ---
+            const themeHex = colorPicker.value.replace('#', '');
             let referralLink = `https://craftify-mc.eu/invite?creator=${encodeURIComponent(displayName)}`;
             if (mcName !== "") referralLink += `&mc=${encodeURIComponent(mcName)}`;
             if (platform !== "none") referralLink += `&source=${encodeURIComponent(platform)}`;
+            referralLink += `&theme=${themeHex}`;
             
             urlDisplay.value = referralLink;
             resultBox.classList.remove('hidden');
             resultBox.classList.add('flex');
             lucide.createIcons();
 
-            // Feature 11: Confetti Animation
             confetti({
                 particleCount: 100,
                 spread: 70,
@@ -547,11 +549,9 @@
                 colors: [colorPicker.value, '#ffffff']
             });
 
-            // Feature 1: Generate QR Code
             const qrImg = document.getElementById('qr-code-img');
             qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(referralLink)}`;
 
-            // Feature 5: Update Social Shares
             const shareText = encodeURIComponent("Join me on Craftify! Claim your free starter loot here:");
             const linkEncoded = encodeURIComponent(referralLink);
             document.getElementById('share-tw').href = `https://twitter.com/intent/tweet?text=${shareText}&url=${linkEncoded}`;
@@ -559,7 +559,6 @@
             document.getElementById('share-tg').href = `https://t.me/share/url?url=${linkEncoded}&text=${shareText}`;
             document.getElementById('share-rd').href = `https://reddit.com/submit?url=${linkEncoded}&title=${shareText}`;
 
-            // Features 6 & 7: Update Promo Text
             const currentLang = document.documentElement.lang || 'en';
             const promoMsg = currentLang === 'de' 
                 ? `Komm auf Craftify! 🎮\nKlick auf meinen Link, um kostenlosen Starter-Loot zu erhalten:\n${referralLink}`
@@ -570,7 +569,6 @@
             document.getElementById('promo-text-box').value = promoMsg;
             document.getElementById('md-text-box').value = mdMsg;
 
-            // Feature 8: Save to Local History
             saveToHistory(displayName, platform, referralLink);
         }
 
@@ -579,7 +577,6 @@
             if(url) window.open(url, '_blank');
         }
 
-        // Feature 2: Download QR Code Function
         async function downloadQR() {
             const imgUrl = document.getElementById('qr-code-img').src;
             if (!imgUrl) return;
@@ -595,18 +592,16 @@
                 a.click();
                 window.URL.revokeObjectURL(url);
             } catch (err) {
-                console.error('Download failed, opening in new tab', err);
+                console.error('Download failed', err);
                 window.open(imgUrl, '_blank');
             }
         }
 
-        // Feature 8: History Logic
         function saveToHistory(name, platform, url) {
             let history = JSON.parse(localStorage.getItem('craftifyLinks') || '[]');
-            // Avoid exact duplicates
             if (!history.find(h => h.url === url)) {
                 history.unshift({ name, platform, url, date: new Date().toLocaleDateString() });
-                if (history.length > 3) history.pop(); // Keep only last 3
+                if (history.length > 3) history.pop(); 
                 localStorage.setItem('craftifyLinks', JSON.stringify(history));
                 renderHistory();
             }
@@ -639,10 +634,8 @@
             });
             lucide.createIcons();
         }
-        // Load history on start
         renderHistory();
 
-        // Feature 9: Milestone Calculator
         function calculateProgress() {
             const input = parseInt(document.getElementById('calc-input').value) || 0;
             const resBox = document.getElementById('calc-result');
@@ -675,7 +668,6 @@
             }
         }
 
-        // --- Robuste Kopier-Logik ---
         function copyGeneratedUrl() {
             const inputField = document.getElementById('generated-url');
             const textToCopy = inputField.value;
@@ -724,7 +716,6 @@
             }, 2000);
         }
 
-        // --- Menü Logik ---
         const menuBtn = document.getElementById('menu-btn');
         const closeBtn = document.getElementById('close-btn');
         const sideMenu = document.getElementById('side-menu');
@@ -737,7 +728,6 @@
             }
         });
 
-        // --- Übersetzungen ---
         const translations = {
             en: {
                 menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSupport: "Support Us",
