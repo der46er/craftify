@@ -111,12 +111,6 @@
                         </div>
                     </div>
 
-                        <div class="flex flex-col items-center">
-                            <p data-i18n="statPing" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-2">Ping</p>
-                            <p id="server-ping" class="font-black italic text-2xl text-zinc-300 tracking-tighter">-</p>
-                        </div>
-                    </div>
-
                     <div id="player-list-container" class="w-full pt-8 mt-8 border-t border-white/5 hidden">
                         <p data-i18n="statOnlinePlayers" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-4">Online Players</p>
                         <div id="player-list" class="flex flex-wrap justify-center gap-3">
@@ -160,14 +154,14 @@
             en: { 
                 menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
                 pageTitle: "Server <span class='text-green-400'>Status.</span>",
-                statStatus: "Status", statPlayers: "Players", statVersion: "Version", statPing: "Ping", statOnlinePlayers: "Online Players", noPlayers: "No players online",
+                statStatus: "Status", statPlayers: "Players", statVersion: "Version", statOnlinePlayers: "Online Players", noPlayers: "No players online",
                 refreshBtn: "Refresh Data", online: "Online", offline: "Offline", pinging: "Pinging...",
                 cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
             },
             de: { 
                 menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
                 pageTitle: "Server <span class='text-green-400'>Status.</span>",
-                statStatus: "Status", statPlayers: "Spieler", statVersion: "Version", statPing: "Ping", statOnlinePlayers: "Spieler Online", noPlayers: "Keine Spieler online",
+                statStatus: "Status", statPlayers: "Spieler", statVersion: "Version", statOnlinePlayers: "Spieler Online", noPlayers: "Keine Spieler online",
                 refreshBtn: "Daten aktualisieren", online: "Online", offline: "Offline", pinging: "Pinge...",
                 cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
             }
@@ -206,7 +200,6 @@
             // New Feature Selectors
             const serverIcon = document.getElementById('server-icon');
             const serverMotd = document.getElementById('server-motd');
-            const serverPing = document.getElementById('server-ping');
 
             statusText.innerText = translations[currentLang].pinging;
             
@@ -238,16 +231,12 @@
                         serverMotd.classList.remove('hidden');
                     }
 
-                    // Handle Ping (Using API's latency metric)
-                    serverPing.innerText = data.round_trip_latency ? `${data.round_trip_latency} ms` : "---";
-
-                    // Update Player List & Handle Staff Highlighting
+                    // Update Player List & Handle Staff Highlighting with mc-heads.net
                     playerListContainer.classList.remove('hidden');
                     playerList.innerHTML = '';
                     
                     if (data.players.list && data.players.list.length > 0) {
                         data.players.list.forEach(player => {
-                            const uuid = player.uuid;
                             const name = player.name_clean;
                             const playerEl = document.createElement('div');
                             
@@ -257,7 +246,7 @@
 
                             playerEl.className = `flex items-center gap-2 px-3 py-1.5 rounded-full transition-all ${staffStyling}`;
                             playerEl.innerHTML = `
-                                <img src="https://crafatar.com/avatars/${uuid}?size=24&overlay" alt="${name}" class="w-6 h-6 rounded-md">
+                                <img src="https://mc-heads.net/avatar/${name}/24" alt="${name}" class="w-6 h-6 rounded-md">
                                 <span class="text-sm font-bold ${isStaff ? 'text-yellow-400' : 'text-zinc-300'}">${name}</span>
                                 ${staffBadge}
                             `;
@@ -286,7 +275,6 @@
                 // Hide new features when offline
                 serverIcon.classList.add('hidden');
                 serverMotd.classList.add('hidden');
-                serverPing.innerText = "-";
 
                 // Hide Player List
                 playerListContainer.classList.add('hidden');
