@@ -81,12 +81,17 @@
 
                 <div class="relative z-10 flex flex-col items-center text-center">
                     
-                    <div class="mb-8">
+                    <div class="mb-8 flex flex-col items-center">
                         <p class="text-[11px] font-black uppercase tracking-[0.4em] text-zinc-500 mb-2">Network Address</p>
-                        <h2 class="text-3xl md:text-5xl font-black text-white italic tracking-tight">play.craftify-mc.eu</h2>
+                        <div class="flex items-center gap-4 justify-center">
+                            <img id="server-icon" src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Server Icon" class="w-10 h-10 md:w-14 md:h-14 rounded-xl shadow-lg hidden">
+                            <h2 class="text-3xl md:text-5xl font-black text-white italic tracking-tight">play.craftify-mc.eu</h2>
+                        </div>
+                        <div id="server-motd" class="mt-4 text-sm md:text-base font-bold bg-black/40 px-4 py-2 rounded-lg border border-white/5 hidden">
+                            </div>
                     </div>
 
-                    <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-8 pt-6 border-t border-white/5">
+                    <div class="w-full grid grid-cols-1 sm:grid-cols-4 gap-8 pt-6 border-t border-white/5">
                         <div class="flex flex-col items-center">
                             <p data-i18n="statStatus" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-2">Status</p>
                             <div class="flex items-center gap-3">
@@ -104,6 +109,17 @@
                             <p data-i18n="statVersion" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-2">Version</p>
                             <p id="server-version" class="font-black italic text-2xl text-zinc-300 tracking-tighter">-</p>
                         </div>
+
+                        <div class="flex flex-col items-center">
+                            <p data-i18n="statPing" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-2">Ping</p>
+                            <p id="server-ping" class="font-black italic text-2xl text-zinc-300 tracking-tighter">-</p>
+                        </div>
+                    </div>
+
+                    <div id="player-list-container" class="w-full pt-8 mt-8 border-t border-white/5 hidden">
+                        <p data-i18n="statOnlinePlayers" class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-4">Online Players</p>
+                        <div id="player-list" class="flex flex-wrap justify-center gap-3">
+                            </div>
                     </div>
 
                 </div>
@@ -136,18 +152,21 @@
         menuBtn.addEventListener('click', () => sideMenu.classList.add('open'));
         closeBtn.addEventListener('click', () => sideMenu.classList.remove('open'));
 
+        // Define your staff members here exactly as their Minecraft usernames are spelled
+        const staffMembers = ['Der46er', 'AnotherAdminName']; 
+
         const translations = {
             en: { 
                 menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
                 pageTitle: "Server <span class='text-green-400'>Status.</span>",
-                statStatus: "Status", statPlayers: "Players", statVersion: "Version",
+                statStatus: "Status", statPlayers: "Players", statVersion: "Version", statPing: "Ping", statOnlinePlayers: "Online Players", noPlayers: "No players online",
                 refreshBtn: "Refresh Data", online: "Online", offline: "Offline", pinging: "Pinging...",
                 cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
             },
             de: { 
                 menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navLegal: "Legal & Privacy", navSocials: "Socials",
                 pageTitle: "Server <span class='text-green-400'>Status.</span>",
-                statStatus: "Status", statPlayers: "Spieler", statVersion: "Version",
+                statStatus: "Status", statPlayers: "Spieler", statVersion: "Version", statPing: "Ping", statOnlinePlayers: "Spieler Online", noPlayers: "Keine Spieler online",
                 refreshBtn: "Daten aktualisieren", online: "Online", offline: "Offline", pinging: "Pinge...",
                 cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
             }
@@ -180,6 +199,13 @@
             const statusDot = document.getElementById('status-dot');
             const playerCount = document.getElementById('player-count');
             const serverVersion = document.getElementById('server-version');
+            const playerListContainer = document.getElementById('player-list-container');
+            const playerList = document.getElementById('player-list');
+            
+            // New Feature Selectors
+            const serverIcon = document.getElementById('server-icon');
+            const serverMotd = document.getElementById('server-motd');
+            const serverPing = document.getElementById('server-ping');
 
             statusText.innerText = translations[currentLang].pinging;
             
@@ -198,6 +224,49 @@
                     
                     playerCount.innerText = `${data.players.online} / ${data.players.max}`;
                     serverVersion.innerText = data.version.name_clean || "1.20.1";
+
+                    // Handle Favicon
+                    if (data.icon) {
+                        serverIcon.src = data.icon;
+                        serverIcon.classList.remove('hidden');
+                    }
+
+                    // Handle MOTD
+                    if (data.motd && data.motd.html) {
+                        serverMotd.innerHTML = data.motd.html;
+                        serverMotd.classList.remove('hidden');
+                    }
+
+                    // Handle Ping (Using API's latency metric)
+                    serverPing.innerText = data.round_trip_latency ? `${data.round_trip_latency} ms` : "---";
+
+                    // Update Player List & Handle Staff Highlighting
+                    playerListContainer.classList.remove('hidden');
+                    playerList.innerHTML = '';
+                    
+                    if (data.players.list && data.players.list.length > 0) {
+                        data.players.list.forEach(player => {
+                            const uuid = player.uuid;
+                            const name = player.name_clean;
+                            const playerEl = document.createElement('div');
+                            
+                            const isStaff = staffMembers.includes(name);
+                            const staffStyling = isStaff ? 'border-yellow-400/50 bg-yellow-400/10 shadow-[0_0_15px_rgba(250,204,21,0.15)]' : 'border-white/10 bg-white/5 hover:bg-white/10';
+                            const staffBadge = isStaff ? '<i data-lucide="crown" class="w-4 h-4 text-yellow-400 ml-1"></i>' : '';
+
+                            playerEl.className = `flex items-center gap-2 px-3 py-1.5 rounded-full transition-all ${staffStyling}`;
+                            playerEl.innerHTML = `
+                                <img src="https://crafatar.com/avatars/${uuid}?size=24&overlay" alt="${name}" class="w-6 h-6 rounded-md">
+                                <span class="text-sm font-bold ${isStaff ? 'text-yellow-400' : 'text-zinc-300'}">${name}</span>
+                                ${staffBadge}
+                            `;
+                            playerList.appendChild(playerEl);
+                        });
+                        lucide.createIcons(); // Render the crown icons
+                    } else {
+                        playerList.innerHTML = `<span class="text-sm text-zinc-500 italic">${translations[currentLang].noPlayers}</span>`;
+                    }
+
                 } else {
                     throw new Error();
                 }
@@ -212,6 +281,15 @@
                 
                 playerCount.innerText = "0 / 0";
                 serverVersion.innerText = "-";
+
+                // Hide new features when offline
+                serverIcon.classList.add('hidden');
+                serverMotd.classList.add('hidden');
+                serverPing.innerText = "-";
+
+                // Hide Player List
+                playerListContainer.classList.add('hidden');
+                playerList.innerHTML = '';
             }
         }
 
@@ -244,7 +322,6 @@
         if (consentStatus === 'granted') {
             loadGoogleAnalytics();
         } else if (!consentStatus) {
-            // Zeige Banner mit kurzer Verzögerung für eine geschmeidige Animation
             setTimeout(() => {
                 cookieBanner.classList.remove('translate-y-full');
             }, 500);
