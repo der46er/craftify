@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=800, height=200, initial-scale=1.0">
+    <style>
+        @font-face { 
+            font-family: 'Inter'; 
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2'); 
+            font-weight: 900; 
+            font-display: swap; 
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: transparent; 
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            height: 200px;
+            padding-left: 20px;
+        }
+
+        .bubble {
+            display: flex;
+            align-items: center;
+            background: rgba(12, 12, 14, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 100px;
+            padding: 15px 40px 15px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: slideIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transform: translateX(-150%);
+        }
+        
+        .bubble::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(90deg, #eab308, #f97316, #eab308); 
+            background-size: 200% 200%;
+            border-radius: 102px;
+            z-index: -1;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+        }
+
+        .text-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2px;
+            background: linear-gradient(90deg, #eab308, #f97316, #eab308); 
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        .title {
+            color: white;
+            font-size: 26px;
+            font-weight: 900;
+            font-style: italic;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        @keyframes slideIn {
+            to { transform: translateX(0); }
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bubble">
+        <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" class="logo" alt="Craftify Logo">
+        <div class="text-container">
+            <span class="subtitle">Join the Community</span>
+            <h1 class="title">Play on play.craftify-mc.eu</h1>
+        </div>
+    </div>
+</body>
+</html>
