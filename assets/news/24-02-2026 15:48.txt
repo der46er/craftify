@@ -1,0 +1,3 @@
+@everyone The Bedrock IP and Port work now
+
+You can now join on both editions
