@@ -1,0 +1,3 @@
+Thank you <@1402199553293422662> for noticing the problem with /tell and /msg on the server.
+It has been fixed now and works perfectly.
+@everyone
