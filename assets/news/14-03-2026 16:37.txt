@@ -1,0 +1,2 @@
+@everyone
+/tpa is now availible on the server
