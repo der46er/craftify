@@ -1,0 +1,8 @@
+New Feature: Smart Welcome Message! 👋✨ 
+@everyone 
+
+I just updated the server with a brand new Welcome System! 
+
+Now, when new players join Craftify, they will see a custom welcome message with a clickable link to our Discord.
+
+Making it easier than ever for new friends to find our community. ;]
