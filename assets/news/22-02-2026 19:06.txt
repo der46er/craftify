@@ -1,0 +1,7 @@
+@everyone
+If you are still trying to connect to our server via the old IP adress i have bad news for you
+
+We changed IP due to a server location change from america to Finnland
+
+play.craftify-mc.eu 
+still works perfectly fine tho
