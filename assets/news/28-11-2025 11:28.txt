@@ -1,0 +1,5 @@
+@everyone I got sick and tired of the server adress being a long ass ip adress so i registered craftify under
+
+play.craftify-mc.eu
+
+The port for bedrock players will stay 27114 like before
