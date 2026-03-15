@@ -201,7 +201,6 @@ async function loadNews() {
         
         const dParts = datePart.split('-');
         if(dParts.length === 3) {
-            // Umwandlung in YYYY-MM-DD für JS-Engine
             return new Date(`${dParts[2]}-${dParts[1]}-${dParts[0]}T${timePart}:00`);
         }
         return new Date(0);
@@ -225,27 +224,39 @@ async function loadNews() {
 
         container.innerHTML = ''; 
 
-        for (const file of files) {
+        // Erstelle eine große Hauptblase für den Feed
+        const mainBubble = document.createElement('div');
+        mainBubble.className = 'game-card p-6 md:p-10 rounded-[2rem] flex flex-col';
+
+        let previousDate = null;
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
             const textRes = await fetch(file.download_url);
             const text = await textRes.text();
             
-            const lines = text.split('\n');
-            const title = lines[0] || 'Update';
-            let rawContent = lines.slice(1).join('\n').trim();
+            // Kompletter Text wird jetzt als Inhalt genommen, kein extra Titel
+            let rawContent = text.trim();
 
             // --- BILDER-LOGIK ---
-            // Findet ![Alt](URL) und korrigiert GitHub-Links automatisch
             const imgRegex = /!\[(.*?)\]\((.*?)\)/g;
             rawContent = rawContent.replace(imgRegex, (match, alt, url) => {
                 let finalUrl = url.trim();
-                // Korrektur: Falls ein GitHub Web-Link (blob) kopiert wurde, wandle ihn in Raw um
                 if (finalUrl.includes('github.com') && finalUrl.includes('/blob/')) {
                     finalUrl = finalUrl.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
                 }
                 return `<img src="${finalUrl}" alt="${alt}" class="w-full rounded-2xl mt-4 mb-2 object-cover border border-white/10 shadow-2xl">`;
             });
 
-            // Zeilenumbrüche NACH der Bildersuche umwandeln
+            // Fängt kaputtes Markdown oder reine Discord-Links ab
+            const fallbackDiscordRegex = /(?:!\[\]\s*\(?\s*)?(https:\/\/cdn\.discordapp\.com\/attachments\/[^\s)]+)\)?/g;
+            rawContent = rawContent.replace(fallbackDiscordRegex, (match, url) => {
+                return `<img src="${url}" alt="Discord Image" class="w-full rounded-2xl mt-4 mb-2 object-cover border border-white/10 shadow-2xl">`;
+            });
+
+            // Clean up Discord User IDs (versteckt die ID und zeigt @Member)
+            rawContent = rawContent.replace(/<@!?\d+>/g, '<span class="text-green-400 font-bold">@Member</span>');
+
             const content = rawContent.replace(/\n/g, '<br>');
 
             // Datum & Uhrzeit für die Anzeige
@@ -255,23 +266,45 @@ async function loadNews() {
             const isDe = document.documentElement.lang === 'de';
             
             let displayDate = dateObj.toLocaleDateString(isDe ? 'de-DE' : 'en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
-            let displayTime = rawTime ? ` • ${rawTime.replace('-', ':')} ${isDe ? 'Uhr' : ''}` : '';
+            let displayTime = rawTime ? `${rawTime.replace('-', ':')} ${isDe ? 'Uhr' : ''}` : '';
 
-            // Erstellen der News-Karte
-            const card = document.createElement('div');
-            card.className = 'game-card p-6 md:p-10 rounded-[2rem] flex flex-col gap-4';
-            card.innerHTML = `
-                <div class="flex items-center gap-3 mb-1">
-                    <i data-lucide="clock" class="w-4 h-4 text-green-400"></i>
-                    <span class="text-xs font-black uppercase tracking-widest text-green-400">${displayDate}${displayTime}</span>
+            const itemDiv = document.createElement('div');
+
+            // Abstands-Logik basierend auf dem Datum
+            if (previousDate !== displayDate) {
+                // Neues Datum: Großer Abstand mit Linie (außer beim ersten Element)
+                if (i !== 0) {
+                    itemDiv.className = 'mt-12 pt-8 border-t border-white/10 flex flex-col gap-3';
+                } else {
+                    itemDiv.className = 'flex flex-col gap-3';
+                }
+
+                // Fügt den Header für das Datum ein
+                itemDiv.innerHTML = `
+                    <div class="flex items-center gap-3 mb-2">
+                        <i data-lucide="calendar" class="w-5 h-5 text-green-400"></i>
+                        <span class="text-sm md:text-base font-black uppercase tracking-widest text-green-400">${displayDate}</span>
+                    </div>
+                `;
+            } else {
+                // Selbes Datum: Nur ein kleiner Abstand
+                itemDiv.className = 'mt-6 flex flex-col gap-3'; 
+            }
+
+            // Fügt die Uhrzeit und den eigentlichen Post an
+            itemDiv.innerHTML += `
+                <div class="flex items-center gap-2 mb-1 opacity-50">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                    <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest">${displayTime}</span>
                 </div>
-                <h3 class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter">${title}</h3>
-                <div class="text-zinc-300 text-sm md:text-base leading-relaxed">${content}</div>
+                <div class="text-zinc-300 text-sm md:text-base leading-relaxed break-words">${content}</div>
             `;
-            container.appendChild(card);
+
+            mainBubble.appendChild(itemDiv);
+            previousDate = displayDate;
         }
         
-        // Icons für die neuen Karten laden
+        container.appendChild(mainBubble);
         lucide.createIcons();
 
     } catch (error) {
