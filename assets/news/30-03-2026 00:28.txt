@@ -1,0 +1,14 @@
+@everyone
+A few updates have been made to the server:
+
+The PvP system is now fixed. All players are vulnerable by default as soon as they join. 
+
+Lobby: The main hub is now officially lobby.
+
+Teleporting: You can now teleport between the lobby and your last location.
+
+**How to use:**
+
+Use **/lobby** to get to the lobby from anywhere.
+
+Once you are done in the lobby, use **/back** to return exactly to where you were in your previous dimension!
