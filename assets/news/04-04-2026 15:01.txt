@@ -1,0 +1,6 @@
+@everyone 
+Now you are able to use our new claim plugin!
+
+With /claim you can claim a chunk for your own.
+
+If you noticed a new text on your screen called „Wilderness“ you know that you are in an unclaimed chunk and you are able to claim it. Otherwise there will be the name of the owner displayed.
