@@ -1,0 +1,7 @@
+@everyone  /home has been added
+
+**How to use:**
+
+/home [name] - Teleport to your home
+/sethome [name] - Create a home
+/delhome [name] - Delete a home
