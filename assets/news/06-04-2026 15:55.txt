@@ -1,0 +1,6 @@
+@everyone  
+To avoid confusion in <#1480306136229089300> I've thought of a simple system to group suggestions:
+
+✅ - Already done/added
+❌ - Won't be done/added
+🕐 - Currently working on it / adding it in the future
