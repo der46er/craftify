@@ -1,0 +1,17 @@
+@everyone
+I've been working on your suggestions <:adorable_mf_that_I_forgot_the_na:1485260779488936036> 
+Here is the full change log of what has been added:
+
+**Graves**: When you die, your items won't despawn anymore! A grave will be created at your death location to keep your loot safe (via GravesX).
+
+**End Void Protection**: Falling into the void in the End is no longer a death sentence. You and your inventory will be safely teleported back.
+
+**Portable Shulkers**: You can now open Shulker Boxes directly from your inventory with a simple click—no need to place them down!
+
+**Auto-Replant**: Farming just got easier! Fully grown crops will now automatically replant themselves when you harvest them.
+
+**Peaceful Keep-Inventory**: We've added a system allowing "peaceful" players to keep their inventory upon death.
+
+**Security**: Improved IP logging to easily track and handle griefers.
+
+Hope you enjoy the new stuff  <:power_of_yaoi_nakamura:1492465016065228820>
