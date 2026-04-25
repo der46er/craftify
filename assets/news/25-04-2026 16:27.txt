@@ -1,0 +1,27 @@
+@everyone 
+The TrainCarts Update is here XD
+Here is what you can do now:
+
+**Speed Control**
+You can now adjust the max speed of your minecarts
+/train speedlimit <number>
+
+**Claim Trains**
+Protect your minecarts from being messed with
+/train claim
+
+**Destroy Trains**
+Remove stuck carts
+/train destroy
+
+**Rename Trains**
+Give your trains custom names
+/train name <name>
+
+**Sign Building**
+Place a sign directly under the track and write:
+Line 1: [train]
+Line 2: Action (e.g., property)
+Line 3: Setting (e.g., speedlimit)
+Line 4: Value (e.g., 2.0)
+As soon as a minecart passes over it, the effect is automatically applied to the train.
