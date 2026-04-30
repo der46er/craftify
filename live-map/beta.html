@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Craftify Mc - Live Map</title>
     
-    <link rel="icon" type="image/png" href="./Craftify Mc_files/favicon.png">
-    <!-- Load Lucide Icons -->
+    <!-- Richtiges Favicon von GitHub -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
+    
+    <!-- Load Lucide Icons (Wiederhergestellt) -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Load Tailwind CSS -->
+    
+    <!-- Load Tailwind CSS (Wiederhergestellt) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -88,7 +91,7 @@
     <header class="fixed w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5">
         <div class="flex items-center gap-3 shrink-0">
             <a href="https://craftify-mc.eu/" class="flex items-center gap-3 shrink-0">
-                <img src="./Craftify Mc_files/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
+                <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10">
                 <span class="font-black italic text-xl md:text-2xl tracking-tighter hidden sm:inline">Craftify <span class="text-green-400">Mc</span></span>
             </a>
         </div>
@@ -153,7 +156,7 @@
             <p data-i18n="mapDesc" class="text-zinc-400 text-sm md:text-base max-w-2xl">Explore our world in real-time. Discover player claims, towns, and live locations directly from your browser.</p>
         </section>
 
-        <!-- Map Iframe inside styled card -->
+        <!-- HIER IST DER NEUE CLOUDFLARE HTTPS LINK -->
         <div class="game-card rounded-[1.5rem] md:rounded-[2rem] w-full flex-grow relative overflow-hidden border border-white/10 p-0 z-10 mb-10">
             <iframe src="https://map.craftify-mc.eu" class="w-full h-full absolute inset-0 border-0 rounded-[1.5rem] md:rounded-[2rem]" title="Craftify Live Map" allowfullscreen loading="lazy"></iframe>
         </div>
