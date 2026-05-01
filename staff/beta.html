@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craftify Mc - Staff</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script async data-cookieconsent="ignore" data-cmp-ignore="true" data-cfasync="false" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321842148888741" crossorigin="anonymous"></script>
+
+    <style>
+        /* Schriften EXKLUSIV über dein GitHub in 3 Stärken */
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-regular.woff2') format('woff2');
+            font-weight: 400;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-700.woff2') format('woff2');
+            font-weight: 700;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://raw.githubusercontent.com/der46er/craftify/main/assets/fonts/inter-v20-latin_latin-ext-900.woff2') format('woff2');
+            font-weight: 900;
+            font-display: swap;
+        }
+
+        :root {
+            --mc-green: #4ade80;
+            --acrylic: rgba(20, 20, 25, 0.8);
+            --border-glow: rgba(74, 222, 128, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #e4e4e7;
+            margin: 0;
+            background-color: #0c0c0e;
+            background-image: 
+                linear-gradient(rgba(12, 12, 14, 0.6), rgba(12, 12, 14, 0.8)),
+                url('https://raw.githubusercontent.com/der46er/craftify/main/assets/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .game-card {
+            background: var(--acrylic);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .game-card:hover {
+            transform: scale(1.02);
+            border-color: var(--mc-green);
+            box-shadow: 0 0 40px var(--border-glow);
+        }
+
+        /* Side Menu - Absolut blickdicht und scrollbar */
+        #side-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+            background-color: #0c0c0e; 
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: -10px 0 50px rgba(0,0,0,0.9);
+            overflow-y: auto;
+        }
+        #side-menu.open {
+            transform: translateX(0);
+        }
+
+        .lang-btn.active {
+            color: var(--mc-green);
+            background: rgba(74, 222, 128, 0.1);
+        }
+        
+        .staff-img-container {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="fixed w-full z-50 p-4 md:p-6 flex justify-between items-center bg-zinc-950/50 backdrop-blur-xl border-b border-white/5">
+        <a href="https://craftify-mc.eu/" class="flex items-center gap-3 shrink-0 group">
+            <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/favicon.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10 transition-transform group-hover:scale-110">
+            <span class="font-black italic text-xl md:text-2xl tracking-tighter hidden sm:inline transition-colors group-hover:text-white">Craftify <span class="text-green-400">Mc</span></span>
+        </a>
+        
+        <div class="flex items-center gap-2 md:gap-4">
+            
+            <a href="https://discord.gg/jTFfFD823J" target="_blank" title="Discord" class="flex items-center gap-2 p-2 md:px-4 md:py-2.5 bg-[#5865F2]/10 text-[#5865F2] border border-[#5865F2]/30 hover:bg-[#5865F2]/20 hover:border-[#5865F2] rounded-xl transition-all font-black uppercase text-xs tracking-widest">
+                <svg class="w-5 h-5 md:w-4 md:h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                </svg>
+                <span class="hidden md:inline">Discord</span>
+            </a>
+
+            <a href="https://craftify-mc.eu/support" title="Support Us" class="flex items-center gap-2 p-2 md:px-4 md:py-2.5 bg-yellow-400/10 text-yellow-400 border border-yellow-400/30 hover:bg-yellow-400/20 hover:border-yellow-400 hover:shadow-[0_0_15px_rgba(250,204,21,0.3)] rounded-xl transition-all font-black uppercase text-xs tracking-widest">
+                <i data-lucide="heart" class="w-5 h-5 md:w-4 md:h-4"></i>
+                <span class="hidden md:inline" data-i18n="navSupport">Support Us</span>
+            </a>
+
+            <button id="menu-btn" class="p-2 md:p-2.5 hover:bg-white/5 rounded-xl transition-all border border-white/10 bg-zinc-900/50 ml-1">
+                <i data-lucide="menu-square" class="w-6 h-6 md:w-5 md:h-5"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="side-menu" class="fixed top-0 right-0 h-full w-full sm:w-[400px] z-[100] p-8 md:p-12 flex flex-col">
+        <div class="flex justify-between items-center mb-12 md:mb-16">
+            <span data-i18n="menuTitle" class="text-xs font-black uppercase tracking-[0.4em] text-zinc-500">Main Menu</span>
+            <button id="close-btn" class="p-2 hover:bg-white/5 rounded-full"><i data-lucide="x-circle" class="w-8 h-8"></i></button>
+        </div>
+        
+        <nav class="flex flex-col gap-4 md:gap-6 text-3xl md:text-4xl font-black italic uppercase tracking-tighter">
+            <a href="https://craftify-mc.eu/" class="hover:translate-x-2 transition-transform" data-i18n="navHome">Home</a>
+            <a href="https://craftify-mc.eu/news" class="hover:translate-x-2 transition-transform" data-i18n="navNews">News</a>
+            <a href="https://craftify-mc.eu/ip" class="hover:translate-x-2 transition-transform" data-i18n="navIp">IP-Address</a>
+            <a href="https://craftify-mc.eu/modpack" class="hover:translate-x-2 transition-transform" data-i18n="navMods">Modpack</a>
+            <a href="https://craftify-mc.eu/status" class="hover:translate-x-2 transition-transform" data-i18n="navStatus">Status</a>
+            <a href="https://craftify-mc.eu/videos" class="hover:translate-x-2 transition-transform" data-i18n="navVideos">Videos</a>
+            <a href="https://craftify-mc.eu/chat" class="hover:translate-x-2 transition-transform" data-i18n="navChat">Quick Chat</a>
+            <a href="https://craftify-mc.eu/staff" class="text-green-400" data-i18n="navStaff">Staff</a>
+            <a href="https://craftify-mc.eu/support" class="hover:translate-x-2 transition-transform" data-i18n="navSupport">Support Us</a>
+        </nav>
+
+        <div class="mt-auto pt-10 border-t border-white/10 flex flex-col gap-6">
+            <div class="flex flex-col gap-4 text-xs font-bold uppercase tracking-widest text-zinc-500">
+                <a href="https://craftify-mc.eu/imprint" class="hover:text-white transition-colors" data-i18n="navLegal">Legal & Privacy</a>
+                <a href="https://socials.thataustrianone.eu/" target="_blank" class="hover:text-green-400 transition-colors flex items-center gap-2">
+                    <i data-lucide="share-2" class="w-4 h-4"></i> Socials
+                </a>
+            </div>
+            
+            <div class="flex items-center justify-between mt-4 pb-4">
+                <div class="flex gap-2">
+                    <button id="btn-de" class="lang-btn px-4 py-2 rounded-lg font-black text-xs text-zinc-600 transition-colors">DE</button>
+                    <button id="btn-en" class="lang-btn active px-4 py-2 rounded-lg font-black text-xs transition-colors">EN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="pt-32 md:pt-40 pb-20 px-4 md:px-6 max-w-7xl mx-auto w-full flex-grow">
+        
+        <section class="mb-12 md:mb-16 text-center">
+            <h1 data-i18n="staffTitle" class="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black italic tracking-tighter leading-[1.1] md:leading-[0.85] mb-4 md:mb-6">
+                Meet the <br> <span class="text-green-400">Team.</span>
+            </h1>
+            <p data-i18n="staffDesc" class="text-zinc-400 text-sm md:text-lg max-w-2xl mx-auto font-medium">
+                The people working behind the scenes to bring you the best Craftify experience.
+            </p>
+        </section>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+            
+            <div class="game-card p-8 md:p-10 rounded-[2rem] flex flex-col items-center text-center group">
+                <div class="w-32 h-32 md:w-40 md:h-40 mb-6 rounded-[1.5rem] staff-img-container overflow-hidden border-2 border-white/10 group-hover:border-green-400 transition-all duration-300 flex items-center justify-center group-hover:shadow-[0_0_30px_rgba(74,222,128,0.2)]">
+                    <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/staff/der_46er.png" alt="der_46er" class="h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <h3 class="text-2xl md:text-3xl font-black italic tracking-tighter text-white group-hover:text-green-400 transition-colors">der_46er</h3>
+                <p data-i18n="roleOwner" class="text-zinc-500 font-bold uppercase tracking-widest text-xs mt-2 group-hover:text-zinc-300 transition-colors">Owner / Admin</p>
+            </div>
+
+            <div class="game-card p-8 md:p-10 rounded-[2rem] flex flex-col items-center text-center group">
+                <div class="w-32 h-32 md:w-40 md:h-40 mb-6 rounded-[1.5rem] staff-img-container overflow-hidden border-2 border-white/10 group-hover:border-green-400 transition-all duration-300 flex items-center justify-center group-hover:shadow-[0_0_30px_rgba(74,222,128,0.2)]">
+                    <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/staff/YourCaya.png" alt="YourCaya" class="h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <h3 class="text-2xl md:text-3xl font-black italic tracking-tighter text-white group-hover:text-green-400 transition-colors">YourCaya</h3>
+                <p data-i18n="roleAdmin" class="text-zinc-500 font-bold uppercase tracking-widest text-xs mt-2 group-hover:text-zinc-300 transition-colors">Admin</p>
+            </div>
+
+            <div class="game-card p-8 md:p-10 rounded-[2rem] flex flex-col items-center text-center group">
+                <div class="w-32 h-32 md:w-40 md:h-40 mb-6 rounded-[1.5rem] staff-img-container overflow-hidden border-2 border-white/10 group-hover:border-green-400 transition-all duration-300 flex items-center justify-center group-hover:shadow-[0_0_30px_rgba(74,222,128,0.2)]">
+                    <img src="https://raw.githubusercontent.com/der46er/craftify/main/assets/staff/KaterLuchsTV.png" alt="KaterLuchsTV" class="h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <h3 class="text-2xl md:text-3xl font-black italic tracking-tighter text-white group-hover:text-green-400 transition-colors">KaterLuchsTV</h3>
+                <p data-i18n="roleMod" class="text-zinc-500 font-bold uppercase tracking-widest text-xs mt-2 group-hover:text-zinc-300 transition-colors">Moderator</p>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-white/10 p-4 md:p-6 z-[200] flex flex-col sm:flex-row justify-between items-center gap-4 transform translate-y-full transition-transform duration-500">
+        <div class="text-sm text-zinc-300 max-w-3xl">
+            <p data-i18n="cookieText">We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?</p>
+        </div>
+        <div class="flex gap-3 flex-shrink-0 w-full sm:w-auto">
+            <button id="cookie-decline" class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs text-zinc-400 hover:text-white hover:bg-white/5 border border-white/10 transition-colors" data-i18n="cookieDecline">Decline</button>
+            <button id="cookie-accept" class="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs bg-green-500/20 text-green-400 hover:bg-green-500/30 border border-green-500/30 transition-colors" data-i18n="cookieAccept">Accept</button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sideMenu = document.getElementById('side-menu');
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('open'));
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('open'));
+        document.addEventListener('click', (e) => {
+            if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                sideMenu.classList.remove('open');
+            }
+        });
+
+        const translations = {
+            en: {
+                menuTitle: "Main Menu", navHome: "Home", navNews: "News", navIp: "IP-Address", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navStaff: "Staff", navSupport: "Support Us", navLegal: "Legal & Privacy",
+                staffTitle: "Meet the <br> <span class='text-green-400'>Team.</span>",
+                staffDesc: "The people working behind the scenes to bring you the best Craftify experience.",
+                roleOwner: "Owner / Admin", roleAdmin: "Admin", roleMod: "Moderator",
+                cookieText: "We use cookies and Google Analytics to improve our website and analyze traffic. Do you accept the use of cookies?", cookieDecline: "Decline", cookieAccept: "Accept"
+            },
+            de: {
+                menuTitle: "Hauptmenü", navHome: "Home", navNews: "News", navIp: "IP-Adresse", navMods: "Modpack", navStatus: "Status", navVideos: "Videos", navChat: "Quick Chat", navStaff: "Team", navSupport: "Unterstütze uns", navLegal: "Impressum & Datenschutz",
+                staffTitle: "Lerne das <br> <span class='text-green-400'>Team</span> kennen.",
+                staffDesc: "Die Leute, die hinter den Kulissen arbeiten, um dir das beste Craftify-Erlebnis zu bieten.",
+                roleOwner: "Inhaber / Admin", roleAdmin: "Admin", roleMod: "Moderator",
+                cookieText: "Wir verwenden Cookies und Google Analytics, um unsere Website zu verbessern und den Traffic zu analysieren. Stimmst du der Nutzung zu?", cookieDecline: "Ablehnen", cookieAccept: "Akzeptieren"
+            }
+        };
+
+        const btnDe = document.getElementById('btn-de');
+        const btnEn = document.getElementById('btn-en');
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            lucide.createIcons();
+            if (lang === 'en') {
+                btnEn.classList.add('active'); btnEn.classList.remove('text-zinc-600');
+                btnDe.classList.remove('active'); btnDe.classList.add('text-zinc-600');
+            } else {
+                btnDe.classList.add('active'); btnDe.classList.remove('text-zinc-600');
+                btnEn.classList.remove('active'); btnEn.classList.add('text-zinc-600');
+            }
+        }
+        btnDe.addEventListener('click', () => setLanguage('de'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // --- Cookie & Google Analytics Logic ---
+        const cookieBanner = document.getElementById('cookie-banner');
+        const cookieAccept = document.getElementById('cookie-accept');
+        const cookieDecline = document.getElementById('cookie-decline');
+
+        function loadGoogleAnalytics() {
+            const script1 = document.createElement('script');
+            script1.async = true;
+            script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-LG4C4Y1NW8';
+            document.head.appendChild(script1);
+
+            const script2 = document.createElement('script');
+            script2.innerHTML = `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-LG4C4Y1NW8');
+            `;
+            document.head.appendChild(script2);
+        }
+
+        const consentStatus = localStorage.getItem('craftifyCookieConsent');
+
+        if (consentStatus === 'granted') {
+            loadGoogleAnalytics();
+        } else if (!consentStatus) {
+            setTimeout(() => {
+                cookieBanner.classList.remove('translate-y-full');
+            }, 500);
+        }
+
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('craftifyCookieConsent', 'granted');
+            cookieBanner.classList.add('translate-y-full');
+            loadGoogleAnalytics();
+        });
+
+        cookieDecline.addEventListener('click', () => {
+            localStorage.setItem('craftifyCookieConsent', 'denied');
+            cookieBanner.classList.add('translate-y-full');
+        });
+
+        setLanguage('en');
+    </script>
+</body>
+</html>
