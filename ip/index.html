@@ -37,6 +37,7 @@
         #side-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); background-color: #0c0c0e; border-left: 1px solid rgba(255, 255, 255, 0.05); }
         #side-menu.open { transform: translateX(0); }
     </style>
+    <script src="../assets/js/analytics.js"></script>
 </head>
 <body>
 
@@ -263,21 +264,7 @@
         const cookieAccept = document.getElementById('cookie-accept');
         const cookieDecline = document.getElementById('cookie-decline');
 
-        function loadGoogleAnalytics() {
-            const script1 = document.createElement('script');
-            script1.async = true;
-            script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-LG4C4Y1NW8';
-            document.head.appendChild(script1);
 
-            const script2 = document.createElement('script');
-            script2.innerHTML = `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-LG4C4Y1NW8');
-            `;
-            document.head.appendChild(script2);
-        }
 
         const consentStatus = localStorage.getItem('craftifyCookieConsent');
 

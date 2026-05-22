@@ -33,6 +33,7 @@
         .fade-out { opacity: 0; transform: scale(0.95); transition: all 0.3s ease-out; }
         .mention-highlight { border-color: rgba(74, 222, 128, 0.5) !important; background-color: rgba(74, 222, 128, 0.1) !important; }
     </style>
+    <script src="../assets/js/analytics.js"></script>
 </head>
 <body>
 
@@ -398,21 +399,7 @@
         const cookieAccept = document.getElementById('cookie-accept');
         const cookieDecline = document.getElementById('cookie-decline');
 
-        function loadGoogleAnalytics() {
-            const script1 = document.createElement('script');
-            script1.async = true;
-            script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-LG4C4Y1NW8';
-            document.head.appendChild(script1);
 
-            const script2 = document.createElement('script');
-            script2.innerHTML = `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-LG4C4Y1NW8');
-            `;
-            document.head.appendChild(script2);
-        }
 
         const consentStatus = localStorage.getItem('craftifyCookieConsent');
 
