@@ -1,0 +1,21 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test chat/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/der46er/craftify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/der46er/craftify/issues"
+  },
+  "homepage": "https://github.com/der46er/craftify#readme"
+}
