@@ -354,14 +354,17 @@
 
             div.innerHTML = `
                 <div class="flex items-center mb-1.5 px-2 group cursor-pointer max-w-[85%] ${isMe ? 'justify-end' : 'justify-start'}">
-                    <span class="text-[11px] font-black uppercase text-zinc-400 tracking-widest">${msg.username}</span>
+                    <span class="msg-username text-[11px] font-black uppercase text-zinc-400 tracking-widest"></span>
                     <span class="text-[9px] text-zinc-600 ml-2 font-bold">${timeStr}</span>
                     ${deleteBtnHtml}
                 </div>
-                <div class="px-5 py-3 rounded-3xl text-[15px] max-w-[85%] break-words ${isMe ? 'bg-green-400 text-black font-medium shadow-lg shadow-green-400/20' : 'bg-white/5 text-zinc-200 border border-white/10'} ${isMention && !isMe ? 'mention-highlight' : ''}">
-                    ${msg.content}
+                <div class="msg-content px-5 py-3 rounded-3xl text-[15px] max-w-[85%] break-words ${isMe ? 'bg-green-400 text-black font-medium shadow-lg shadow-green-400/20' : 'bg-white/5 text-zinc-200 border border-white/10'} ${isMention && !isMe ? 'mention-highlight' : ''}">
                 </div>
             `;
+
+            div.querySelector('.msg-username').textContent = msg.username;
+            div.querySelector('.msg-content').textContent = msg.content;
+
             chatBox.appendChild(div);
         }
 
