@@ -705,16 +705,39 @@
             history.forEach(item => {
                 const el = document.createElement('div');
                 el.className = "bg-black/50 border border-white/5 rounded-lg p-3 flex justify-between items-center text-xs";
+
                 const platText = item.platform !== 'none' ? ` (${item.platform})` : '';
-                el.innerHTML = `
-                    <div class="flex flex-col overflow-hidden mr-2">
-                        <span class="font-bold text-white truncate">${item.name}${platText}</span>
-                        <span class="text-zinc-500 truncate">${item.url}</span>
-                    </div>
-                    <button onclick="navigator.clipboard.writeText('${item.url}'); alert('Copied!');" class="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors shrink-0">
-                        <i data-lucide="copy" class="w-3 h-3 text-white"></i>
-                    </button>
-                `;
+
+                const textContainer = document.createElement('div');
+                textContainer.className = "flex flex-col overflow-hidden mr-2";
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = "font-bold text-white truncate";
+                nameSpan.textContent = `${item.name}${platText}`;
+
+                const urlSpan = document.createElement('span');
+                urlSpan.className = "text-zinc-500 truncate";
+                urlSpan.textContent = item.url;
+
+                textContainer.appendChild(nameSpan);
+                textContainer.appendChild(urlSpan);
+
+                const copyBtn = document.createElement('button');
+                copyBtn.className = "p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors shrink-0";
+                copyBtn.onclick = function() {
+                    navigator.clipboard.writeText(item.url);
+                    alert('Copied!');
+                };
+
+                const icon = document.createElement('i');
+                icon.setAttribute('data-lucide', 'copy');
+                icon.className = "w-3 h-3 text-white";
+
+                copyBtn.appendChild(icon);
+
+                el.appendChild(textContainer);
+                el.appendChild(copyBtn);
+
                 historyList.appendChild(el);
             });
             lucide.createIcons();
