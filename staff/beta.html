@@ -89,6 +89,7 @@
             background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
         }
     </style>
+    <script src="../assets/js/analytics.js"></script>
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -259,21 +260,7 @@
         const cookieAccept = document.getElementById('cookie-accept');
         const cookieDecline = document.getElementById('cookie-decline');
 
-        function loadGoogleAnalytics() {
-            const script1 = document.createElement('script');
-            script1.async = true;
-            script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-LG4C4Y1NW8';
-            document.head.appendChild(script1);
 
-            const script2 = document.createElement('script');
-            script2.innerHTML = `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-LG4C4Y1NW8');
-            `;
-            document.head.appendChild(script2);
-        }
 
         const consentStatus = localStorage.getItem('craftifyCookieConsent');
 
