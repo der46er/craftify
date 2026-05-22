@@ -346,7 +346,10 @@
         function updateDynamicText(lang) {
             if (creatorName) {
                 const prefix = lang === 'de' ? 'Du wurdest eingeladen von' : 'You were invited by';
-                greetingText.innerHTML = `${prefix} <span class="text-accent font-black italic text-lg ml-1">${creatorName}</span>!`;
+
+                // Safe DOM manipulation to prevent Reflected XSS
+                greetingText.innerHTML = `${prefix} <span id="creator-name-span" class="text-accent font-black italic text-lg ml-1"></span>!`;
+                document.getElementById('creator-name-span').textContent = creatorName;
                 
                 // Show dynamic avatar ONLY if the secondary MC name box was used
                 if (mcHeadName) {
