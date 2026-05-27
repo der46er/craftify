@@ -1,0 +1,17 @@
+@everyone
+The Creative Update finally out <:boykisser_headphones:1492896488555020529> 
+Here is what you can do now:
+
+**Creative Dimensions**
+I've added a custom Creative Overworld, Creative Nether and Creative End so you can build anywhere.
+
+**Hub Portals**
+Check out the giant new Creative portal in the main Hub to travel there directly.
+
+**Separated Inventories**
+Your survival stuff is completely safe. 
+The creative worlds share their own separate inventory, and your game mode will switch to Creative automatically when you enter 
+
+**Back to Survival**
+If you want to go back to survival execute the /lobby command and enter the Survival portal.
+You will be put into survival again with your normal inventory.
